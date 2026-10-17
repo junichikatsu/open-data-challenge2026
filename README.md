@@ -18,9 +18,35 @@
 
 ## まず読むもの
 
-1. `20_案3plus/01_企画書_案3plus.md`
-2. `20_案3plus/02_開発計画とタスク.md`
-3. `20_案3plus/04_未決事項と確認事項.md`
+1. `HANDOVER.md`（他PC引き継ぎ書・最新の実装状況・重要ノウハウまとめ）
+2. `20_案3plus/01_企画書_案3plus.md`
+3. `20_案3plus/02_開発計画とタスク.md`
+4. `20_案3plus/04_未決事項と確認事項.md`
+
+## 💻 別PCでの開発再開手順（クイックスタート）
+
+別のPCで開発を引き継ぐ場合は、以下のコマンドを実行してください。
+
+```bash
+# 1. リポジトリのクローン
+git clone https://github.com/junichikatsu/open-data-challenge2026.git
+cd open-data-challenge2026
+
+# 2. develop ブランチに切り替え（※デフォルトブランチは develop です）
+git checkout develop
+git pull origin develop
+
+# 3. 依存パッケージのインストール
+npm install
+
+# 4. ローカル開発サーバー起動
+npm run dev
+# -> ブラウザで http://localhost:5173/ を開く
+```
+
+> [!NOTE]
+> - `node_modules/` および `dist/` は `.gitignore` に設定されています。絶対に Git コミットに含めないでください。
+> - 各機能の実装履歴や技術的な落とし穴・解決策（3D DEM タイル選定や MapLibre 制約など）の詳細は [`HANDOVER.md`](./HANDOVER.md) を参照してください。
 
 ## オンライン資料
 
