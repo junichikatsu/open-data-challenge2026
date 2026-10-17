@@ -1,0 +1,96 @@
+# アメミチ 3D (Amemichi 3D) - 引き継ぎ書 (Handover Document)
+
+**作成日時**: 2026-10-17  
+**対象コンテスト**: 公共交通オープンデータチャレンジ2026（最優秀賞・優勝を目標）  
+**企画コンセプト**: 電車が止まった雨の日、くぐらずに帰る。
+
+---
+
+## 1. プロジェクトの背景とコアバリュー
+- **テーマ**: 豪雨等による鉄道運転見合わせ時における「アンダーパス・地下道冠水」と「駅出入口の選択ミスによる被災・滞留」を未然に防ぐフェーズフリーな3D公共交通ナビゲーションシステム。
+- **データ融合**:
+  - **ODPT 公共交通オープンデータ**: 駅出入口（GTFS-Pathways）・運行情報（GTFS-RT）・都営バス路線形状（GTFS shapes）
+  - **国交省道路防災情報**: アンダーパス注意箇所（2026-10-06改定 4区分判定基準）都内159箇所
+  - **国土交通省 Project PLATEAU**: 港区LOD1/LOD2 3D都市モデル（ペデストリアンデッキ・高架避難路）
+  - **地理院・標高データ**: AWS Open Data Terrain-RGB（Terrarium DEM）による高低差・すり鉢状窪地可視化
+  - **市民協働**: 平常時の現地設備3値チェック（見てきた報告）によるデータ即時更新
+
+---
+
+## 2. Git ブランチ運用ルール（最重要）
+- **デフォルトブランチ**: `develop`（GitHubリポジトリ設定済み）
+- **フィーチャーブランチ運用**:
+  - 必ず `develop` からブランチを作成（例: `feature/issue-XX-description`）
+  - 実装・検証後、`gh pr create --base develop` で PR を作成
+  - PR マージ（`gh pr merge XX --merge --delete-branch`）後に `develop` を pull
+- **コミット厳禁ルール**:
+  - **`node_modules/` および `dist/` は絶対にコミットしないこと**（`.gitignore` 設定済み）
+
+---
+
+## 3. 実装完了機能一覧（PR履歴）
+
+| PR | ブランチ / 機能 | 内容 |
+|---|---|---|
+| **#2** | `feature/issue-1-gate1-prototype` | ゲート1プロトタイプ（MapLibre GL + 3D DEM地形 + 港区アンダーパス5箇所 + 雨量スライダー0〜100mm/h + 国交省4区分判定ダッシュボードCSV出力） |
+| **#4** | `feature/issue-3-plateau-3d-buildings` | PLATEAU 3D建築物レイヤー（世界貿易センタービル、ポートシティ竹芝、クレアタワー等）＋ヘッダー操作ボタン統合 |
+| **#6** | `feature/issue-5-toei-bus-gtfs` | 都営バス GTFS shapes 重畳（都06系統＝安全代替幹線、浜95系統＝冠水注意路線）＋豪雨時迂回アラート連動 |
+| **#8** | `feature/issue-7-amemichi-maker` | 平時モード「アメミチづくり」（地図クリックによるルート自作描画＋幾何最短距離計算による100点満点安全度採点＋S/A/B/Cランク診断モーダル＋豪雨耐水テスト） |
+| **#10** | `feature/issue-9-mitekita-reporting` | 平時モード「見てきた」（現地設備3値アンケート報告機能）＋豪雨時危険防止フェイルセーフ＋管理者ダッシュボード即時同期 |
+| **#12** | `feature/issue-11-scenario-player` | 豪雨時モード「17:15 シナリオ再生エンジン」（16:50降雨開始 → 17:10急変 → 17:15地下鉄全線見合わせ発令 → 17:20アメミチ安全推奨ライン自動描画＆都06バス・高台誘導）＋倍速切替・シネマティックカメラワーク |
+| **#14** | `feature/issue-13-tokyo-159-underpasses` | 東京都全域159箇所アンダーパス網羅データ（`public/data/tokyo_underpass_159.geojson`）＋エリアセレクタ＋管理者ダッシュボード検索・絞り込みフィルター |
+
+---
+
+## 4. 蓄積された重要技術ノウハウ（落とし穴と解決策）
+
+1. **3D Terrain DEM タイルの選定**:
+   - 産総研・国土地理院の GSJ タイル（`https://tiles.gsj.jp/...`）は 404 を返し、MapLibre が NaN 行列を計算して黒画面クラッシュ（`failed to invert matrix`）を起こす。
+   - **必ず AWS Open Data の Terrarium タイル（`https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png`, encoding: 'terrarium'）を使用すること**。
+2. **ベースマップ スタイル**:
+   - CartoDB Dark Matter ベクタースタイル（`https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json`）を使用。洗練されたダークテーマで3D地形・建物の発光表現が最も美しく映える。
+3. **MapLibre GL JS のプロパティ制約**:
+   - `line-dasharray` はデータ駆動式（`['case', ...]`）をサポートしないため、線色（`line-color`）や線幅（`line-width`）でスタイル切替を行うこと。
+4. **DOM要素のイベントリスナー登録**:
+   - ヘッダーツール等のUI変更時、要素が削除・置換された場合は必ず `document.getElementById(...)` に null チェックを行うこと（未チェックだと以降の全イベントリスナー登録が中断する）。
+5. **アンダーパスピンのヒットボックス強化**:
+   - マップ上のアンダーパスは `underpass-points`（中心・半径11px）と `underpass-pulse`（外側波紋・半径18px）の両方にクリックリスナーをバインドすることで、3D視点でもクリックが確実に反応する。
+6. **安全設計原則（フェイルセーフ）**:
+   - 雨量スライダー >= 50mm/h の豪雨シミュレーション中は、市民が危険箇所を見に行かないよう「見てきた報告」ボタンを自動で disabled（`⚠️ 豪雨時: 安全のため現地調査は停止中`）にする設計を維持すること。
+
+---
+
+## 5. 他のPCでの環境構築・起動手順
+
+```bash
+# 1. リポジトリのクローン
+git clone https://github.com/junichikatsu/open-data-challenge2026.git
+cd open-data-challenge2026
+
+# 2. develop ブランチに切り替え
+git checkout develop
+git pull origin develop
+
+# 3. 依存パッケージのインストール
+npm install
+
+# 4. ローカル開発サーバー起動
+npm run dev
+# -> http://localhost:5173/ で動作
+```
+
+---
+
+## 6. 次の推奨ステップ（審査員を魅了する最終仕上げ）
+
+1. **GitHub Pages 自動デプロイワークフロー設定**:
+   - GitHub Actions を用いて `gh-pages` ブランチまたは GitHub Pages への自動デプロイを設定し、審査員がURL（`https://junichikatsu.github.io/open-data-challenge2026/`）をクリックするだけで即座に体験できるようにする。
+2. **`README.md` の受賞仕様へのブラッシュアップ**:
+   - コンテスト審査項目（独自性、実用性、技術的完成度、オープンデータ活用度）に沿った構成にアップデート。
+   - 3D画面キャプチャ、アーキテクチャ図、審査員向けおすすめ操作ツアー（17:15シナリオ再生、平時アメミチづくり、都内159箇所ダッシュボード）を記載。
+3. **ODPT リアルタイムAPIライブ連携（またはシミュレータ）**:
+   - 実際のODPT APIキー入力またはモックデータ切り替えによる都営地下鉄運行情報ステータス盤の追加。
+
+---
+
+以上を次の作業PC・環境へ引き継ぎます。
