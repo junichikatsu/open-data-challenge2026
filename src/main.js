@@ -14,6 +14,7 @@ let busRoutesData = null;
 let currentMode = 'peace'; // 'peace' | 'storm' | 'admin'
 let buildingsVisible = true;
 let busVisible = true;
+let facilitiesVisible = true;
 let isDrawing = false;
 let drawnPoints = [];
 
@@ -477,6 +478,32 @@ function setupLayers() {
     data: stationFacilitiesData
   });
 
+  // 3.1 Facility Pulse / Glow
+  map.addLayer({
+    id: 'facility-pulse',
+    type: 'circle',
+    source: 'station-facilities',
+    paint: {
+      'circle-radius': [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], 22,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 18,
+        ['==', ['get', 'flood_risk_level'], 'danger'], 16,
+        13
+      ],
+      'circle-color': [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], '#0284c7',
+        ['==', ['get', 'flood_risk_level'], 'safe'], '#10b981',
+        ['==', ['get', 'flood_risk_level'], 'danger'], '#ef4444',
+        '#f59e0b'
+      ],
+      'circle-opacity': 0.28,
+      'circle-blur': 0.7
+    }
+  });
+
+  // 3.2 Facility Main Point
   map.addLayer({
     id: 'facility-points',
     type: 'circle',
@@ -484,17 +511,55 @@ function setupLayers() {
     paint: {
       'circle-radius': [
         'case',
-        ['==', ['get', 'type'], 'shelter'], 12,
+        ['==', ['get', 'type'], 'shelter'], 13,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 11,
         9
       ],
       'circle-color': [
         'case',
-        ['==', ['get', 'deck_connected'], true], '#10b981',
+        ['==', ['get', 'type'], 'shelter'], '#0ea5e9',
+        ['==', ['get', 'flood_risk_level'], 'safe'], '#10b981',
+        ['==', ['get', 'flood_risk_level'], 'danger'], '#ef4444',
         '#f59e0b'
       ],
-      'circle-stroke-width': 2.5,
+      'circle-stroke-width': 2.8,
       'circle-stroke-color': '#ffffff',
       'circle-opacity': 0.95
+    }
+  });
+
+  // 3.3 Facility Text Labels (Zoom >= 14.2)
+  map.addLayer({
+    id: 'facility-labels',
+    type: 'symbol',
+    source: 'station-facilities',
+    minzoom: 14.2,
+    layout: {
+      'text-field': [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], ['concat', '🏛️ ', ['get', 'name']],
+        ['concat', '🚪 ', ['get', 'exit_code']]
+      ],
+      'text-font': ['Noto Sans Regular', 'Open Sans Regular'],
+      'text-size': [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], 11.5,
+        10
+      ],
+      'text-offset': [0, 1.4],
+      'text-anchor': 'top',
+      'text-allow-overlap': false
+    },
+    paint: {
+      'text-color': [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], '#7dd3fc',
+        ['==', ['get', 'flood_risk_level'], 'safe'], '#6ee7b7',
+        ['==', ['get', 'flood_risk_level'], 'danger'], '#fca5a5',
+        '#fed7aa'
+      ],
+      'text-halo-color': 'rgba(15, 23, 42, 0.95)',
+      'text-halo-width': 2.2
     }
   });
 
@@ -933,6 +998,21 @@ function setupEvents() {
     });
   }
 
+  // Station Facilities (Exits & Shelters) Toggle
+  const toggleFacilitiesBtn = document.getElementById('btn-toggle-facilities');
+  if (toggleFacilitiesBtn) {
+    toggleFacilitiesBtn.addEventListener('click', () => {
+      facilitiesVisible = !facilitiesVisible;
+      toggleFacilitiesBtn.classList.toggle('active', facilitiesVisible);
+      const visibility = facilitiesVisible ? 'visible' : 'none';
+      ['facility-pulse', 'facility-points', 'facility-labels'].forEach(layer => {
+        if (map.getLayer(layer)) {
+          map.setLayoutProperty(layer, 'visibility', visibility);
+        }
+      });
+    });
+  }
+
   // Toei Bus Toggle
   const toggleBusBtn = document.getElementById('btn-toggle-bus');
   if (toggleBusBtn) {
@@ -957,11 +1037,14 @@ function setupEvents() {
   map.on('click', 'underpass-points', handleUnderpassClick);
   map.on('click', 'underpass-pulse', handleUnderpassClick);
 
-  map.on('click', 'facility-points', (e) => {
+  const handleFacilityClick = (e) => {
     if (!e.features.length) return;
     const f = e.features[0];
     showFacilityDetails(f.properties);
-  });
+  };
+  map.on('click', 'facility-points', handleFacilityClick);
+  map.on('click', 'facility-pulse', handleFacilityClick);
+  map.on('click', 'facility-labels', handleFacilityClick);
 
   map.on('click', '3d-landmarks-layer', (e) => {
     if (!e.features.length) return;
@@ -982,7 +1065,7 @@ function setupEvents() {
   });
 
   // Cursor change on hover
-  ['underpass-points', 'underpass-pulse', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
+  ['underpass-points', 'underpass-pulse', 'facility-points', 'facility-pulse', 'facility-labels', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
     map.on('mouseenter', layer, () => {
       if (!isDrawing) map.getCanvas().style.cursor = 'pointer';
     });
@@ -1169,6 +1252,47 @@ function updateRainSimulation(rainMm) {
     map.setPaintProperty('flood-water-layer', 'circle-opacity', opacity);
     map.setPaintProperty('flood-water-layer', 'circle-stroke-opacity', opacity > 0.1 ? 0.7 : 0);
   }
+
+  // Update Station Facilities (Exits & Shelters) dynamic flood highlight
+  if (map.getLayer('facility-points') && map.getLayer('facility-pulse')) {
+    if (rainMm >= 50) {
+      map.setPaintProperty('facility-points', 'circle-radius', [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], 15,
+        ['==', ['get', 'flood_risk_level'], 'danger'], 13,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 13,
+        8
+      ]);
+      map.setPaintProperty('facility-pulse', 'circle-radius', [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], 28,
+        ['==', ['get', 'flood_risk_level'], 'danger'], 26,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 24,
+        14
+      ]);
+      map.setPaintProperty('facility-pulse', 'circle-opacity', [
+        'case',
+        ['==', ['get', 'flood_risk_level'], 'danger'], 0.5,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 0.45,
+        0.2
+      ]);
+    } else {
+      map.setPaintProperty('facility-points', 'circle-radius', [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], 13,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 11,
+        9
+      ]);
+      map.setPaintProperty('facility-pulse', 'circle-radius', [
+        'case',
+        ['==', ['get', 'type'], 'shelter'], 22,
+        ['==', ['get', 'flood_risk_level'], 'safe'], 18,
+        ['==', ['get', 'flood_risk_level'], 'danger'], 16,
+        13
+      ]);
+      map.setPaintProperty('facility-pulse', 'circle-opacity', 0.28);
+    }
+  }
 }
 
 // Switch Mode
@@ -1291,51 +1415,137 @@ function showFacilityDetails(props) {
 
   if (props.type === 'shelter') {
     poiBadge.className = 'badge success';
-    poiBadge.textContent = '都立一時滞在施設（帰宅困難者用）';
+    poiBadge.textContent = `🏛️ ${props.category || '帰宅困難者一時滞在施設'}`;
     poiTitle.textContent = props.name;
 
     drawerContent.innerHTML = `
       <div class="poi-property-list">
         <div class="poi-item">
           <div class="poi-item-label">収容可能人数</div>
-          <div class="poi-item-value">${props.capacity.toLocaleString()} 名</div>
+          <div class="poi-item-value"><strong>${props.capacity ? props.capacity.toLocaleString() : '1,000+'} 名</strong></div>
         </div>
         <div class="poi-item">
           <div class="poi-item-label">歩行者デッキ接続</div>
-          <div class="poi-item-value">✅ <strong>ペデストリアンデッキ直結</strong>（地上冠水路面を一切通らずに安全到達可能）</div>
+          <div class="poi-item-value">${props.deck_connected ? '✅ <strong>ペデストリアンデッキ直結</strong>（地上冠水路面を一切通らずに安全到達可能）' : '高台一般道路アクセス'}</div>
         </div>
         <div class="poi-item">
           <div class="poi-item-label">豪雨時ステータス</div>
-          <div class="poi-item-value"><span class="badge-tag cat-3">${props.status}</span></div>
+          <div class="poi-item-value"><span class="badge-tag cat-3">${props.status || '警戒レベル4時 開設推奨施設'}</span></div>
         </div>
       </div>
       <div class="poi-route-guidance">
-        <div class="guidance-title">🛡️ 避難推奨</div>
+        <div class="guidance-title">🛡️ 一時滞在施設 避難ガイド</div>
         <div>${props.note}</div>
       </div>
+      <div style="margin-top: 14px;">
+        <button id="btn-focus-shelter-action" class="btn-primary" style="width: 100%;">
+          📍 この避難施設をフォーカス表示
+        </button>
+      </div>
     `;
+
+    const focusBtn = document.getElementById('btn-focus-shelter-action');
+    if (focusBtn) {
+      focusBtn.addEventListener('click', () => {
+        const coords = props.geometry && props.geometry.coordinates ? props.geometry.coordinates : [139.7595, 35.6558];
+        map.flyTo({
+          center: coords,
+          zoom: 16.8,
+          pitch: 62,
+          bearing: -20,
+          duration: 1200
+        });
+      });
+    }
   } else {
-    // Station Exit
-    poiBadge.className = props.deck_connected ? 'badge success' : 'badge danger';
-    poiBadge.textContent = `GTFS-Pathways ${props.exit_code}`;
+    // Station Exit (GTFS-Pathways)
+    let badgeClass = 'badge';
+    let badgeText = `🚪 GTFS-Pathways ${props.exit_code}`;
+    if (props.flood_risk_level === 'safe') {
+      badgeClass = 'badge success';
+      badgeText = `✅ 【推奨出口】GTFS-Pathways ${props.exit_code}`;
+    } else if (props.flood_risk_level === 'danger') {
+      badgeClass = 'badge danger';
+      badgeText = `🚨 【進入危険】GTFS-Pathways ${props.exit_code}`;
+    } else {
+      badgeClass = 'badge warning';
+      badgeText = `⚠️ 【冠水注意】GTFS-Pathways ${props.exit_code}`;
+    }
+
+    poiBadge.className = badgeClass;
+    poiBadge.textContent = badgeText;
     poiTitle.textContent = `${props.station_name} ${props.exit_code}`;
 
     drawerContent.innerHTML = `
       <div class="poi-property-list">
         <div class="poi-item">
           <div class="poi-item-label">出口属性（GTFS-Pathways）</div>
-          <div class="poi-item-value">${props.recommendation_in_flood}</div>
+          <div class="poi-item-value"><strong>${props.recommendation_in_flood}</strong></div>
         </div>
         <div class="poi-item">
-          <div class="poi-item-label">高架・アンダーパス関係</div>
-          <div class="poi-item-value">${props.deck_connected ? '✅ 陸橋・ペデストリアンデッキ接続（ガード下を潜らない）' : '⚠️ 地上路面直結（近くのアンダーパス冠水に注意）'}</div>
+          <div class="poi-item-label">立体歩道・デッキ接続</div>
+          <div class="poi-item-value">${props.deck_connected ? '✅ <strong>ペデストリアンデッキ直結</strong>（ガード下・すり鉢状窪地を潜らない）' : '⚠️ 地上道路直結（路面湛水・側溝逆流に注意）'}</div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-item-label">直面するアンダーパス</div>
+          <div class="poi-item-value">${props.facing_underpass || 'なし（安全高架ルート）'}</div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-item-label">最寄り一時滞在施設</div>
+          <div class="poi-item-value">${props.nearest_shelter || '東京都立産業貿易センター 浜松町館'}</div>
         </div>
       </div>
       <div class="poi-route-guidance">
-        <div class="guidance-title">💡 出口アメミチ案内</div>
+        <div class="guidance-title">💡 出口アメミチ・ナビゲーション</div>
         <div>${props.note}</div>
       </div>
+      <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+        ${props.flood_risk_level === 'danger' ? `
+          <button id="btn-switch-to-safe-b3" class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); width: 100%;">
+            🛡️ 安全な「大門駅 B3出口（デッキ直結）」へ切り替える
+          </button>
+        ` : `
+          <button id="btn-draw-from-exit" class="btn-primary" style="width: 100%;">
+            ✏️ この出口からアメミチを描く（安全診断）
+          </button>
+        `}
+      </div>
     `;
+
+    const switchBtn = document.getElementById('btn-switch-to-safe-b3');
+    if (switchBtn) {
+      switchBtn.addEventListener('click', () => {
+        // Focus Daimon B3
+        map.flyTo({
+          center: [139.7554, 35.6558],
+          zoom: 17,
+          pitch: 60,
+          bearing: -25,
+          duration: 1200
+        });
+        showFacilityDetails({
+          station_name: '都営大江戸線・浅草線 大門駅',
+          exit_code: 'B3出口 (デッキ直結)',
+          type: 'exit',
+          deck_connected: true,
+          flood_risk_level: 'safe',
+          facing_underpass: 'なし（高架歩道デッキ経由）',
+          recommendation_in_flood: '【最推奨出口】地上冠水回避・ペデストリアンデッキ直結',
+          nearest_shelter: '東京都立産業貿易センター 浜松町館 (徒歩2分)',
+          note: '浜松町駅・竹芝方面への歩行者デッキに直結。浜松町ガード下・川口架道橋を潜らずに安全に一時滞在施設や都06バス停へ退避可能。'
+        });
+      });
+    }
+
+    const drawBtn = document.getElementById('btn-draw-from-exit');
+    if (drawBtn) {
+      drawBtn.addEventListener('click', () => {
+        detailDrawer.classList.remove('open');
+        detailDrawer.style.display = 'none';
+        switchMode('peace');
+        toggleDrawingMode(true);
+      });
+    }
   }
 }
 

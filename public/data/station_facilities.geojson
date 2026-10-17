@@ -5,16 +5,38 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [139.7548, 35.6565]
+        "coordinates": [139.7554, 35.6558]
       },
       "properties": {
         "id": "daimon-b3",
-        "station_name": "大門駅 / 浜松町駅",
-        "exit_code": "B3出口",
+        "station_name": "都営大江戸線・浅草線 大門駅",
+        "exit_code": "B3出口 (デッキ直結)",
         "type": "exit",
         "deck_connected": true,
-        "recommendation_in_flood": "推奨（ペデストリアンデッキ直結・高架回避ルート）",
-        "note": "浜松町駅・竹芝方面への歩行者デッキに直結。浜松町ガード下を潜らずに安全に通行可能。"
+        "flood_risk_level": "safe",
+        "facing_underpass": "なし（高架歩道デッキ経由）",
+        "recommendation_in_flood": "【最推奨出口】地上冠水回避・ペデストリアンデッキ直結",
+        "nearest_shelter": "東京都立産業貿易センター 浜松町館 (徒歩2分)",
+        "note": "浜松町駅・竹芝方面への歩行者デッキに直結。浜松町ガード下・川口架道橋を潜らずに安全に一時滞在施設や都06バス停へ退避可能。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7562, 35.6554]
+      },
+      "properties": {
+        "id": "daimon-b4",
+        "station_name": "JR浜松町駅 / 大門駅",
+        "exit_code": "B4出口 (JR北口連絡デッキ)",
+        "type": "exit",
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "facing_underpass": "なし（高架デッキ経由）",
+        "recommendation_in_flood": "【推奨出口】JR北口改札・世界貿易センタービル連絡デッキ",
+        "nearest_shelter": "世界貿易センタービル南館 (徒歩1分)",
+        "note": "JR浜松町駅北口および世界貿易センタービル南館2階デッキに直結。地上浸水の影響を受けずに移動可能。"
       }
     },
     {
@@ -25,12 +47,34 @@
       },
       "properties": {
         "id": "daimon-a1",
-        "station_name": "大門駅",
-        "exit_code": "A1出口",
+        "station_name": "都営浅草線・大江戸線 大門駅",
+        "exit_code": "A1出口 (芝大門・南方面)",
         "type": "exit",
         "deck_connected": false,
-        "recommendation_in_flood": "注意（地上道路経由）",
-        "note": "芝大門方面。南下するとJR川口架道橋の低位冠水区域に接近するため迂回推奨。"
+        "flood_risk_level": "danger",
+        "facing_underpass": "JR川口架道橋（南120m・すり鉢状窪地）",
+        "recommendation_in_flood": "【進入危険】地下通路浸水注意・川口架道橋冠水エリア接近",
+        "nearest_shelter": "B3出口デッキ経由で産業貿易センターへ",
+        "note": "第一京浜西側。南下するとJR川口架道橋（線路下アンダーパス）の冠水窪地へ直面するため、豪雨時は利用を避けてB3出口をご利用ください。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7528, 35.6565]
+      },
+      "properties": {
+        "id": "daimon-a2",
+        "station_name": "都営浅草線・大江戸線 大門駅",
+        "exit_code": "A2出口 (増上寺・芝公園方面)",
+        "type": "exit",
+        "deck_connected": false,
+        "flood_risk_level": "warning",
+        "facing_underpass": "JR川口架道橋（南西方面）",
+        "recommendation_in_flood": "【注意】地上路面湛水・大門交差点混雑",
+        "nearest_shelter": "芝公園方面高台へ退避推奨",
+        "note": "地上一般道路直結。増上寺方面の高台へ向かう場合は有効ですが、ガード下方面へは行かないでください。"
       }
     },
     {
@@ -41,12 +85,148 @@
       },
       "properties": {
         "id": "daimon-b1",
-        "station_name": "大門駅",
-        "exit_code": "B1出口",
+        "station_name": "都営浅草線・大江戸線 大門駅",
+        "exit_code": "B1出口 (第一京浜北方面)",
         "type": "exit",
         "deck_connected": false,
-        "recommendation_in_flood": "通常出口",
-        "note": "大門交差点北西。第一京浜沿い。"
+        "flood_risk_level": "warning",
+        "facing_underpass": "浜松町ガード下（東180m）",
+        "recommendation_in_flood": "【注意】地上道路経由・ガード方面進入注意",
+        "nearest_shelter": "汐留方面高台ビル群",
+        "note": "第一京浜沿い。ガード下方面へ向かわず新橋・汐留方面の高台道路を推奨。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7551, 35.6548]
+      },
+      "properties": {
+        "id": "daimon-b2",
+        "station_name": "都営浅草線・大江戸線 大門駅",
+        "exit_code": "B2出口 (世界貿易センター前・地上)",
+        "type": "exit",
+        "deck_connected": false,
+        "flood_risk_level": "danger",
+        "facing_underpass": "浜松町ガード下（東100m・急勾配窪地）",
+        "recommendation_in_flood": "【進入危険】浜松町ガード下冠水エリア至近",
+        "nearest_shelter": "B3/B4出口より2階デッキへ昇降推奨",
+        "note": "世界貿易センタービル南側の地上道路。浜松町ガード下の冠水エリアへ下る傾斜があるため、2階デッキへ上がることを推奨。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7538, 35.6582]
+      },
+      "properties": {
+        "id": "daimon-a3",
+        "station_name": "都営浅草線 大門駅",
+        "exit_code": "A3出口 (浜松町一丁目交差点)",
+        "type": "exit",
+        "deck_connected": false,
+        "flood_risk_level": "warning",
+        "facing_underpass": "なし（平坦市街地）",
+        "recommendation_in_flood": "【注意】路面冠水注意・平坦地帯",
+        "nearest_shelter": "汐留ビルディング方面",
+        "note": "第一京浜と新橋方面への連絡口。アンダーパスは直接交差しないが内水氾濫に注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7523, 35.6555]
+      },
+      "properties": {
+        "id": "daimon-a6",
+        "station_name": "都営大江戸線 大門駅",
+        "exit_code": "A6出口 (芝大門一丁目方面)",
+        "type": "exit",
+        "deck_connected": false,
+        "flood_risk_level": "warning",
+        "facing_underpass": "なし（西側高台方面）",
+        "recommendation_in_flood": "【通行可】増上寺・芝公園方面（高台）",
+        "nearest_shelter": "芝公園高台エリア",
+        "note": "西側の標高が高い台地方面へ抜ける出口。内水氾濫リスクが低い方向へ進めます。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7475, 35.6472]
+      },
+      "properties": {
+        "id": "mita-a3",
+        "station_name": "都営三田線・浅草線 三田駅",
+        "exit_code": "A3出口 (札の辻方面)",
+        "type": "exit",
+        "deck_connected": false,
+        "flood_risk_level": "danger",
+        "facing_underpass": "札の辻アンダーパス（南150m・重大冠水箇所）",
+        "recommendation_in_flood": "【重大危険】札の辻ガード冠水エリア至近・進入禁止",
+        "nearest_shelter": "三田国際ビルまたは田町駅東口デッキ",
+        "note": "第一京浜を南下すると札の辻アンダーパス（深さ3m超のすり鉢状窪地）に突入します。豪雨時は絶対に出口から南進しないでください。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7490, 35.6480]
+      },
+      "properties": {
+        "id": "mita-a4",
+        "station_name": "都営三田線・浅草線 三田駅",
+        "exit_code": "A4出口 (田町駅西口・慶應仲通り)",
+        "type": "exit",
+        "deck_connected": false,
+        "flood_risk_level": "warning",
+        "facing_underpass": "芝五丁目アンダーパス（東200m）",
+        "recommendation_in_flood": "【注意】JR田町駅連絡デッキ利用推奨",
+        "nearest_shelter": "JR田町駅経由 msb Tamachi",
+        "note": "地上一般歩道。JR田町駅の自由通路へ上がり、東口デッキ方面へ退避することを推奨。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7505, 35.6465]
+      },
+      "properties": {
+        "id": "tamachi-east-deck",
+        "station_name": "JR田町駅",
+        "exit_code": "東口 (芝浦口ペデストリアンデッキ)",
+        "type": "exit",
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "facing_underpass": "なし（高架ペデストリアンデッキ）",
+        "recommendation_in_flood": "【最推奨出口】msb Tamachi直結デッキ",
+        "nearest_shelter": "msb Tamachi ステーションタワー (直結)",
+        "note": "田町駅東口の広大なペデストリアンデッキ。芝浦方面へ冠水路面を通らずに大規模受入施設へ直結。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7610, 35.6635]
+      },
+      "properties": {
+        "id": "shiodome-deck",
+        "station_name": "都営大江戸線・ゆりかもめ 汐留駅",
+        "exit_code": "汐留地下連絡高架デッキ (新橋駅方面)",
+        "type": "exit",
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "facing_underpass": "なし（汐留シオサイト高架デッキ網）",
+        "recommendation_in_flood": "【最推奨出口】シオサイト歩行者デッキ網直結",
+        "nearest_shelter": "汐留ビルディング / カレッタ汐留",
+        "note": "汐留シオサイトの立体歩行者デッキ網に直結。新橋・浜松町方面へ高架2階レベルで安全移動可能。"
       }
     },
     {
@@ -59,11 +239,102 @@
         "id": "shelter-sanbou",
         "name": "東京都立産業貿易センター 浜松町館",
         "type": "shelter",
-        "category": "都立一時滞在施設",
+        "category": "都立一時滞在施設（帰宅困難者用）",
         "capacity": 2500,
         "deck_connected": true,
+        "flood_risk_level": "safe",
         "status": "警戒レベル4時 開設推奨施設",
-        "note": "帰宅困難者一時滞在施設。大門駅・浜松町駅からペデストリアンデッキ経由で浸水区間を通らずに到達可能。"
+        "note": "大門駅・浜松町駅からペデストリアンデッキ経由で地上冠水区間を一切通らずに安全到達可能。備蓄品・非常用電源完備。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7608, 35.6550]
+      },
+      "properties": {
+        "id": "shelter-portcity",
+        "name": "東京ポートシティ竹芝 オフィスタワー",
+        "type": "shelter",
+        "category": "港区指定帰宅困難者受入施設",
+        "capacity": 1800,
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "status": "災害時一時滞在施設",
+        "note": "竹芝ポートデッキ直結のスマートビル。高台避難デッキから直接入館可能。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7565, 35.6545]
+      },
+      "properties": {
+        "id": "shelter-wtc-south",
+        "name": "世界貿易センタービル南館",
+        "type": "shelter",
+        "category": "港区指定帰宅困難者受入施設",
+        "capacity": 1200,
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "status": "駅直結受入施設",
+        "note": "JR浜松町駅・大門駅B4デッキから段差なしで直結。帰宅困難者の初期待機場所として機能。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7512, 35.6460]
+      },
+      "properties": {
+        "id": "shelter-msb-tamachi",
+        "name": "msb Tamachi（ムスブ田町）ステーションタワー",
+        "type": "shelter",
+        "category": "港区指定帰宅困難者受入施設",
+        "capacity": 1500,
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "status": "田町駅直結一時滞在施設",
+        "note": "田町駅東口デッキ直結。津波・高潮浸水想定区域外の高層複合施設。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7455, 35.6515]
+      },
+      "properties": {
+        "id": "shelter-mita-kokusai",
+        "name": "三田国際ビル",
+        "type": "shelter",
+        "category": "民間指定帰宅困難者受入施設",
+        "capacity": 1000,
+        "deck_connected": false,
+        "flood_risk_level": "safe",
+        "status": "三田高台避難施設",
+        "note": "赤羽橋・三田エリアの高台に立地。札の辻等の低位アンダーパスを避けて高台へ退避する際の拠点。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7602, 35.6610]
+      },
+      "properties": {
+        "id": "shelter-shiodome-bldg",
+        "name": "汐留ビルディング",
+        "type": "shelter",
+        "category": "港区指定帰宅困難者受入施設",
+        "capacity": 1500,
+        "deck_connected": true,
+        "flood_risk_level": "safe",
+        "status": "汐留ペデデッキ直結",
+        "note": "浜松町北側・汐留エリアのペデストリアンデッキ直結大規模オフィスビル。"
       }
     }
   ]
