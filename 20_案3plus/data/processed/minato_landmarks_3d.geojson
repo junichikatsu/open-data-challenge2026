@@ -1,0 +1,133 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [139.7560, 35.6558],
+            [139.7570, 35.6556],
+            [139.7568, 35.6550],
+            [139.7558, 35.6552],
+            [139.7560, 35.6558]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "世界貿易センタービル 南館",
+        "name_en": "World Trade Center Building South Tower",
+        "height": 197,
+        "min_height": 0,
+        "floors": 39,
+        "type": "landmark",
+        "deck_level": 6,
+        "plateau_lod": 2,
+        "note": "大門駅B3出口およびJR浜松町駅南口とペデストリアンデッキ直結"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [139.7550, 35.6565],
+            [139.7560, 35.6563],
+            [139.7558, 35.6555],
+            [139.7548, 35.6557],
+            [139.7550, 35.6565]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "日本生命浜松町クレアタワー",
+        "name_en": "Nippon Life Hamamatsucho Crea Tower",
+        "height": 156,
+        "min_height": 0,
+        "floors": 29,
+        "type": "landmark",
+        "deck_level": 6,
+        "plateau_lod": 2,
+        "note": "大門駅直結・浜松町駅直結ビル"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [139.7590, 35.6564],
+            [139.7602, 35.6562],
+            [139.7599, 35.6552],
+            [139.7587, 35.6554],
+            [139.7590, 35.6564]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "東京ポートシティ竹芝（都立産業貿易センター浜松町館）",
+        "name_en": "Tokyo Portcity Takeshiba / Tokyo Metropolitan Industry and Trade Center",
+        "height": 208,
+        "min_height": 0,
+        "floors": 40,
+        "type": "shelter_facility",
+        "deck_level": 8,
+        "plateau_lod": 2,
+        "note": "都立一時滞在施設（収容2,500名）。浜松町駅から約500mの歩行者デッキ「ポートデッキ」で直結。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [139.7570, 35.6548],
+            [139.7585, 35.6545],
+            [139.7583, 35.6538],
+            [139.7568, 35.6541],
+            [139.7570, 35.6548]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "JR浜松町駅 南口高架駅舎・線路群",
+        "name_en": "JR Hamamatsucho Station Overpass",
+        "height": 12,
+        "min_height": 4.5,
+        "floors": 2,
+        "type": "railway_structure",
+        "plateau_lod": 1,
+        "note": "浜松町ガード下（アンダーパス）の直上を通過する鉄道高架"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [139.7538, 35.6518],
+            [139.7552, 35.6515],
+            [139.7550, 35.6508],
+            [139.7536, 35.6511],
+            [139.7538, 35.6518]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "港区立身障者福祉センター",
+        "name_en": "Minato City Welfare Center for Persons with Disabilities",
+        "height": 22,
+        "min_height": 0,
+        "floors": 5,
+        "type": "welfare_facility",
+        "plateau_lod": 1,
+        "note": "JR川口架道橋下に隣接する最重要要配慮者施設"
+      }
+    }
+  ]
+}
