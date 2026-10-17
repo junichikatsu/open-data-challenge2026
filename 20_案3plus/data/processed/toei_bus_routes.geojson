@@ -1,0 +1,105 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7360, 35.6530],
+          [139.7440, 35.6550],
+          [139.7485, 35.6565],
+          [139.7517, 35.6578],
+          [139.7541, 35.6575],
+          [139.7580, 35.6660]
+        ]
+      },
+      "properties": {
+        "id": "bus-route-miyako06",
+        "route_id": "Toei_Miyako06",
+        "route_short_name": "都06",
+        "route_name": "都06系統（グリーンエコー）",
+        "terminal": "渋谷駅前 ⇄ 新橋駅前",
+        "color": "#10b981",
+        "risk_level": "safe",
+        "underpass_crossing": false,
+        "is_safe_alternative": true,
+        "frequency": "約8〜10分間隔",
+        "note": "【鉄道運休時の安全代替幹線】第一京浜・日比谷通り沿いを運行。アンダーパスを一切通らないため、豪雨時でも冠水迂回なしで新橋・渋谷方面へ抜ける最優先推奨路線。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7517, 35.6578],
+          [139.7545, 35.6565],
+          [139.7562, 35.6550],
+          [139.7550, 35.6520],
+          [139.7540, 35.6480],
+          [139.7450, 35.6320]
+        ]
+      },
+      "properties": {
+        "id": "bus-route-hama95",
+        "route_id": "Toei_Hama95",
+        "route_short_name": "浜95",
+        "route_name": "浜95系統",
+        "terminal": "品川駅東口 ⇄ 東京タワー",
+        "color": "#f59e0b",
+        "risk_level": "warning",
+        "underpass_crossing": true,
+        "affected_underpass": "196号線 JR川口架道橋下・金杉橋付近低地",
+        "is_safe_alternative": false,
+        "frequency": "約20〜30分間隔",
+        "note": "【豪雨時 迂回・運休注意路線】金杉橋から芝一丁目の低位道路を通過。雨量50mm/h以上で川口架道橋下周辺の水位上昇により迂回運行または見合わせが発生するリスクあり。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7541, 35.6576]
+      },
+      "properties": {
+        "id": "stop-daimon-miyako06",
+        "type": "bus_stop",
+        "stop_name": "大門駅前（都06 / 渋谷・新橋方面）",
+        "routes": ["都06"],
+        "safe_stop": true,
+        "note": "大門駅B1・B2出口直近。高台幹線道路沿い。安全に乗車可能。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7562, 35.6552]
+      },
+      "properties": {
+        "id": "stop-hamamatsucho-hama95",
+        "type": "bus_stop",
+        "stop_name": "浜松町駅前（浜95 / 品川方面）",
+        "routes": ["浜95"],
+        "safe_stop": false,
+        "note": "浜松町駅西口バスターミナル。大雨時は南側の冠水状況により運行遅延注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7551, 35.6521]
+      },
+      "properties": {
+        "id": "stop-kanasugi-hama95",
+        "type": "bus_stop",
+        "stop_name": "金杉橋（浜95）",
+        "routes": ["浜95"],
+        "safe_stop": false,
+        "note": "古川河口・川口架道橋至近。浸水想定区域内のため豪雨時の利用は非推奨。"
+      }
+    }
+  ]
+}
