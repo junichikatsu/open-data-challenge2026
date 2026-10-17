@@ -69,6 +69,7 @@ const stepBtns = document.querySelectorAll('.scenario-timeline .step-btn');
 let scenarioPlaying = false;
 let scenarioCurrentStep = 0;
 let scenarioTimer = null;
+let scenarioSpeed = 1; // 1 or 2
 // Area Viewports Configuration (東京都主要エリア・全域)
 const AREA_VIEWPORTS = {
   minato: { center: [139.7555, 35.6555], zoom: 15.6, pitch: 52, bearing: -25 },
@@ -1549,6 +1550,7 @@ const SCENARIO_STEPS = [
 ];
 
 function openScenarioPlayer() {
+  if (areaSelect) areaSelect.value = 'minato';
   scenarioPanel.classList.remove('hidden');
   scenarioToggleBtn.classList.add('playing');
   goToScenarioStep(0);
