@@ -10,8 +10,10 @@ let map;
 let underpassesData = null;
 let stationFacilitiesData = null;
 let landmarksData = null;
+let busRoutesData = null;
 let currentMode = 'peace'; // 'peace' | 'storm' | 'admin'
 let buildingsVisible = true;
+let busVisible = true;
 
 // DOM Elements
 const rainSlider = document.getElementById('rain-slider');
@@ -66,14 +68,16 @@ function initMap() {
 // Load GeoJSON data
 async function loadData() {
   try {
-    const [underpassRes, facilitiesRes, landmarksRes] = await Promise.all([
+    const [underpassRes, facilitiesRes, landmarksRes, busRes] = await Promise.all([
       fetch('./data/minato_underpass_5.geojson'),
       fetch('./data/station_facilities.geojson'),
-      fetch('./data/minato_landmarks_3d.geojson')
+      fetch('./data/minato_landmarks_3d.geojson'),
+      fetch('./data/toei_bus_routes.geojson')
     ]);
     underpassesData = await underpassRes.json();
     stationFacilitiesData = await facilitiesRes.json();
     landmarksData = await landmarksRes.json();
+    busRoutesData = await busRes.json();
   } catch (err) {
     console.error('Failed to load geojson:', err);
   }
@@ -171,6 +175,53 @@ function setupLayers() {
       'circle-stroke-opacity': 0
     }
   });
+
+  // 1.5 Toei Bus GTFS Routes & Stops
+  if (busRoutesData) {
+    map.addSource('toei-bus-data', {
+      type: 'geojson',
+      data: busRoutesData
+    });
+
+    map.addLayer({
+      id: 'toei-bus-routes-glow',
+      type: 'line',
+      source: 'toei-bus-data',
+      filter: ['==', '$type', 'LineString'],
+      layout: { 'line-join': 'round', 'line-cap': 'round' },
+      paint: {
+        'line-color': ['get', 'color'],
+        'line-width': 8,
+        'line-opacity': 0.35,
+        'line-blur': 4
+      }
+    });
+
+    map.addLayer({
+      id: 'toei-bus-routes-core',
+      type: 'line',
+      source: 'toei-bus-data',
+      filter: ['==', '$type', 'LineString'],
+      layout: { 'line-join': 'round', 'line-cap': 'round' },
+      paint: {
+        'line-color': ['get', 'color'],
+        'line-width': 4
+      }
+    });
+
+    map.addLayer({
+      id: 'toei-bus-stops-circle',
+      type: 'circle',
+      source: 'toei-bus-data',
+      filter: ['==', '$type', 'Point'],
+      paint: {
+        'circle-radius': 6.5,
+        'circle-color': '#ffffff',
+        'circle-stroke-width': 2.5,
+        'circle-stroke-color': '#0284c7'
+      }
+    });
+  }
 
   // 2. Pedestrian Deck Safe Route (Daimon B3 -> Hamamatsucho -> Sanbou Shelter)
   const safeRouteGeoJSON = {
@@ -345,6 +396,21 @@ function setupEvents() {
     });
   }
 
+  // Toei Bus Toggle
+  const toggleBusBtn = document.getElementById('btn-toggle-bus');
+  if (toggleBusBtn) {
+    toggleBusBtn.addEventListener('click', () => {
+      busVisible = !busVisible;
+      toggleBusBtn.classList.toggle('active', busVisible);
+      const visibility = busVisible ? 'visible' : 'none';
+      ['toei-bus-routes-glow', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
+        if (map.getLayer(layer)) {
+          map.setLayoutProperty(layer, 'visibility', visibility);
+        }
+      });
+    });
+  }
+
   // Map Feature Click Listeners
   map.on('click', 'underpass-points', (e) => {
     if (!e.features.length) return;
@@ -364,8 +430,20 @@ function setupEvents() {
     showLandmarkDetails(f.properties);
   });
 
+  map.on('click', 'toei-bus-routes-core', (e) => {
+    if (!e.features.length) return;
+    const f = e.features[0];
+    showBusRouteDetails(f.properties);
+  });
+
+  map.on('click', 'toei-bus-stops-circle', (e) => {
+    if (!e.features.length) return;
+    const f = e.features[0];
+    showBusStopDetails(f.properties);
+  });
+
   // Cursor change on hover
-  ['underpass-points', 'facility-points', '3d-landmarks-layer'].forEach(layer => {
+  ['underpass-points', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
     map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
   });
@@ -379,7 +457,7 @@ function updateRainSimulation(rainMm) {
 
   if (rainMm > 0 && rainMm <= 20) {
     label = `${rainMm} mm/h (やや強い雨)`;
-    statusText = '路面冠水なし（平常運行）';
+    statusText = '路面冠水なし（公共交通 平常運行）';
     dotClass = 'dot green';
   } else if (rainMm > 20 && rainMm <= 50) {
     label = `${rainMm} mm/h (激しい雨・大雨警報)`;
@@ -387,16 +465,36 @@ function updateRainSimulation(rainMm) {
     dotClass = 'dot amber';
   } else if (rainMm > 50 && rainMm <= 80) {
     label = `${rainMm} mm/h (非常に激しい雨・土砂降り)`;
-    statusText = '⚠️ 浜松町ガード下・川口架道橋下で冠水開始のおそれ';
+    statusText = '⚠️ 浜松町・川口架道橋下冠水開始 / 🚌 浜95系統 迂回運行';
     dotClass = 'dot amber';
   } else if (rainMm > 80) {
     label = `${rainMm} mm/h (猛烈な雨・警戒レベル4)`;
-    statusText = '🚨 アンダーパス完全冠水（車両・歩行者水没危険）';
+    statusText = '🚨 アンダーパス完全冠水 / 🚌 浜95系統 運行見合わせ・都06系統のみ運行';
     dotClass = 'dot red';
   }
 
   rainDisplay.textContent = label;
   floodIndicator.innerHTML = `<span class="${dotClass}"></span> ${statusText}`;
+
+  // Update Toei Bus flood risk styling
+  if (map.getLayer('toei-bus-routes-core')) {
+    if (rainMm > 50) {
+      // Warning styling: Hama95 turns into dashed red/orange, Miyako06 stays green
+      map.setPaintProperty('toei-bus-routes-core', 'line-color', [
+        'case',
+        ['==', ['get', 'route_id'], 'Toei_Hama95'], '#f43f5e',
+        '#10b981'
+      ]);
+      map.setPaintProperty('toei-bus-routes-core', 'line-dasharray', [
+        'case',
+        ['==', ['get', 'route_id'], 'Toei_Hama95'], ['literal', [2, 2]],
+        ['literal', [1, 0]]
+      ]);
+    } else {
+      map.setPaintProperty('toei-bus-routes-core', 'line-color', ['get', 'color']);
+      map.setPaintProperty('toei-bus-routes-core', 'line-dasharray', [1, 0]);
+    }
+  }
 
   // Update map flood puddle visualization
   if (map.getLayer('flood-water-layer')) {
@@ -430,6 +528,18 @@ function switchMode(mode) {
     updateRainSimulation(80);
     map.setLayoutProperty('safe-route-glow', 'visibility', 'visible');
     map.setLayoutProperty('safe-route-core', 'visibility', 'visible');
+
+    // Ensure bus routes are visible in storm mode to show alternative transit
+    ['toei-bus-routes-glow', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
+      if (map.getLayer(layer)) {
+        map.setLayoutProperty(layer, 'visibility', 'visible');
+      }
+    });
+    const toggleBusBtn = document.getElementById('btn-toggle-bus');
+    if (toggleBusBtn) {
+      busVisible = true;
+      toggleBusBtn.classList.add('active');
+    }
 
     // Fly to Daimon B3 Exit to showcase evacuation
     map.flyTo({
@@ -574,6 +684,73 @@ function showLandmarkDetails(props) {
     </div>
     <div class="poi-route-guidance">
       <div class="guidance-title">🏢 防災・空間特性</div>
+      <div>${props.note}</div>
+    </div>
+  `;
+}
+
+// Show Toei Bus Route Details in Drawer
+function showBusRouteDetails(props) {
+  detailDrawer.style.display = 'flex';
+  detailDrawer.classList.add('open');
+
+  const isSafe = props.is_safe_alternative === true || props.is_safe_alternative === 'true';
+  poiBadge.className = isSafe ? 'badge success' : 'badge danger';
+  poiBadge.textContent = isSafe ? '都営バス（安全代替幹線）' : '都営バス（冠水影響注意路線）';
+  poiTitle.textContent = `${props.route_name} (${props.terminal})`;
+
+  drawerContent.innerHTML = `
+    <div class="poi-property-list">
+      <div class="poi-item">
+        <div class="poi-item-label">系統番号 / 運行間隔</div>
+        <div class="poi-item-value"><strong>${props.route_short_name}</strong>（${props.frequency}）</div>
+      </div>
+      <div class="poi-item">
+        <div class="poi-item-label">アンダーパス立体交差 / 冠水影響</div>
+        <div class="poi-item-value">${props.underpass_crossing ? `⚠️ 冠水影響あり（${props.affected_underpass || '川口架道橋下付近'}）` : '✅ アンダーパス不通過（安全走行可能）'}</div>
+      </div>
+      <div class="poi-item">
+        <div class="poi-item-label">地下鉄運休時の代替性</div>
+        <div class="poi-item-value">${isSafe ? '<span class="badge-tag cat-3">最優先推奨（安全幹線）</span>' : '<span class="badge-tag cat-1">迂回・遅延注意</span>'}</div>
+      </div>
+    </div>
+    <div class="poi-route-guidance">
+      <div class="guidance-title">🚌 運行・避難ガイダンス</div>
+      <div>${props.note}</div>
+    </div>
+  `;
+}
+
+// Show Toei Bus Stop Details in Drawer
+function showBusStopDetails(props) {
+  detailDrawer.style.display = 'flex';
+  detailDrawer.classList.add('open');
+
+  const isSafe = props.safe_stop === true || props.safe_stop === 'true';
+  poiBadge.className = isSafe ? 'badge success' : 'badge danger';
+  poiBadge.textContent = '都営バス停留所（GTFS stops）';
+  poiTitle.textContent = props.stop_name;
+
+  let routesStr = props.routes;
+  try {
+    if (typeof routesStr === 'string' && routesStr.startsWith('[')) {
+      routesStr = JSON.parse(routesStr).join(', ');
+    }
+  } catch (e) {}
+
+  drawerContent.innerHTML = `
+    <div class="poi-property-list">
+      <div class="poi-item">
+        <div class="poi-item-label">停車系統（GTFS）</div>
+        <div class="poi-item-value"><strong>${routesStr}</strong></div>
+      </div>
+      <div class="poi-item">
+        <div class="poi-item-label">豪雨時安全性評価</div>
+        <div class="poi-item-value">${isSafe ? '✅ 安全（冠水浸水想定エリア外・高台）' : '⚠️ 低地近接（大雨時は冠水によるバス遅延に注意）'}</div>
+      </div>
+    </div>
+    <div class="poi-route-guidance">
+      <div class="guidance-title">🚏 利用ガイダンス</div>
       <div>${props.note}</div>
     </div>
   `;
