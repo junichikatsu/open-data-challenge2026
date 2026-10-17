@@ -27,42 +27,12 @@ const adminTbody = document.getElementById('admin-tbody');
 function initMap() {
   map = new maplibregl.Map({
     container: 'map',
-    style: {
-      version: 8,
-      sources: {
-        'osm': {
-          type: 'raster',
-          tiles: [
-            'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-            'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-            'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
-          ],
-          tileSize: 256,
-          attribution: '&copy; OpenStreetMap &copy; CARTO'
-        },
-        'terrain-dem': {
-          type: 'raster-dem',
-          tiles: [
-            'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'
-          ],
-          tileSize: 256,
-          maxzoom: 17
-        }
-      },
-      layers: [
-        {
-          id: 'osm-layer',
-          type: 'raster',
-          source: 'osm',
-          minzoom: 0,
-          maxzoom: 19
-        }
-      ]
-    },
+    style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: DAIMON_CENTER,
     zoom: INITIAL_ZOOM,
     pitch: INITIAL_PITCH,
-    bearing: INITIAL_BEARING
+    bearing: INITIAL_BEARING,
+    maxPitch: 85
   });
 
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-left');
@@ -70,7 +40,16 @@ function initMap() {
   map.on('load', async () => {
     // 3D Terrain
     try {
-      map.setTerrain({ source: 'terrain-dem', exaggeration: 1.8 });
+      map.addSource('terrain-dem', {
+        type: 'raster-dem',
+        tiles: [
+          'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'
+        ],
+        tileSize: 256,
+        encoding: 'terrarium',
+        maxzoom: 15
+      });
+      map.setTerrain({ source: 'terrain-dem', exaggeration: 1.5 });
     } catch (e) {
       console.warn('3D Terrain load warning:', e);
     }
