@@ -967,10 +967,12 @@ function setupEvents() {
   // Drawer Close
   const btnCloseDrawer = document.getElementById('btn-close-drawer');
   if (btnCloseDrawer) {
-    btnCloseDrawer.addEventListener('click', () => {
-      detailDrawer.classList.remove('open');
-      detailDrawer.style.display = 'none';
-    });
+    btnCloseDrawer.addEventListener('click', closeDetailDrawer);
+  }
+
+  const drawerToggle = document.getElementById('drawer-toggle');
+  if (drawerToggle) {
+    drawerToggle.addEventListener('click', closeDetailDrawer);
   }
 
   // Admin Panel Close
@@ -1348,10 +1350,28 @@ function switchMode(mode) {
   }
 }
 
+// Drawer Open / Close Animation Controls
+function openDetailDrawer() {
+  if (!detailDrawer) return;
+  detailDrawer.style.display = 'flex';
+  requestAnimationFrame(() => {
+    detailDrawer.classList.add('open');
+  });
+}
+
+function closeDetailDrawer() {
+  if (!detailDrawer) return;
+  detailDrawer.classList.remove('open');
+  setTimeout(() => {
+    if (!detailDrawer.classList.contains('open')) {
+      detailDrawer.style.display = 'none';
+    }
+  }, 320);
+}
+
 // Show Underpass Details in Drawer
 function showUnderpassDetails(props) {
-  detailDrawer.style.display = 'flex';
-  detailDrawer.classList.add('open');
+  openDetailDrawer();
 
   poiBadge.className = 'badge danger';
   poiBadge.textContent = '冠水注意箇所（国交省リスト）';
@@ -1410,8 +1430,7 @@ function showUnderpassDetails(props) {
 
 // Show Facility Details in Drawer
 function showFacilityDetails(props) {
-  detailDrawer.style.display = 'flex';
-  detailDrawer.classList.add('open');
+  openDetailDrawer();
 
   if (props.type === 'shelter') {
     poiBadge.className = 'badge success';
@@ -1551,8 +1570,7 @@ function showFacilityDetails(props) {
 
 // Show 3D Landmark Building Details in Drawer
 function showLandmarkDetails(props) {
-  detailDrawer.style.display = 'flex';
-  detailDrawer.classList.add('open');
+  openDetailDrawer();
 
   poiBadge.className = 'badge';
   poiBadge.textContent = `3D都市モデル (PLATEAU LOD${props.plateau_lod || 1})`;
@@ -1582,8 +1600,7 @@ function showLandmarkDetails(props) {
 
 // Show Toei Bus Route Details in Drawer
 function showBusRouteDetails(props) {
-  detailDrawer.style.display = 'flex';
-  detailDrawer.classList.add('open');
+  openDetailDrawer();
 
   const isSafe = props.is_safe_alternative === true || props.is_safe_alternative === 'true';
   poiBadge.className = isSafe ? 'badge success' : 'badge danger';
@@ -1614,8 +1631,7 @@ function showBusRouteDetails(props) {
 
 // Show Toei Bus Stop Details in Drawer
 function showBusStopDetails(props) {
-  detailDrawer.style.display = 'flex';
-  detailDrawer.classList.add('open');
+  openDetailDrawer();
 
   const isSafe = props.safe_stop === true || props.safe_stop === 'true';
   poiBadge.className = isSafe ? 'badge success' : 'badge danger';
