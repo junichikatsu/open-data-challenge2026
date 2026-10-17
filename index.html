@@ -59,6 +59,10 @@
             <option value="all_tokyo">🌐 東京都全域 (159箇所)</option>
           </select>
         </div>
+        <button id="btn-toggle-transit" class="ctrl-btn transit-btn" title="ODPT リアルタイム運行情報ステータス盤">
+          <span class="status-dot green" id="header-transit-dot"></span>
+          🚆 運行情報
+        </button>
         <button id="btn-scenario-toggle" class="ctrl-btn highlight-accent" title="17:15 ゲリラ豪雨シナリオを自動再生">
           🎬 17:15 再生
         </button>
@@ -269,6 +273,82 @@
           </div>
           <div class="score-footer">
             <button id="btn-submit-survey" class="btn-primary">✅ 報告を送信（ダッシュボードに反映）</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ODPT Transit Status & Storm Simulator Modal -->
+      <div id="transit-modal" class="modal-overlay hidden">
+        <div class="transit-modal-card glass-panel">
+          <div class="transit-header">
+            <div class="transit-title-group">
+              <div class="transit-title-row">
+                <span class="transit-main-icon">🚆</span>
+                <h2>ODPT 公共交通リアルタイム運行情報</h2>
+              </div>
+              <p class="transit-subtitle">都営地下鉄4路線（GTFS-RT / TrainInformation）＆ 都営バス運行速報</p>
+            </div>
+            <div class="transit-header-right">
+              <span class="live-pulse-badge" id="transit-live-badge">
+                <span class="pulse-dot green"></span> <span id="transit-last-updated">LIVE同期 (17:15)</span>
+              </span>
+              <button id="btn-close-transit" class="btn-icon">✕</button>
+            </div>
+          </div>
+
+          <!-- Simulator & Scenario Injection Bar -->
+          <div class="transit-simulator-card">
+            <div class="sim-header">
+              <span class="sim-title">🎯 【審査・検証用】豪雨運休シミュレータ（模擬運休注入）</span>
+              <span class="sim-note">※平常時・晴天時の審査でもワンクリックで豪雨被災時の運行見合わせを再現可能</span>
+            </div>
+            <div class="sim-buttons">
+              <button id="btn-sim-normal" class="sim-btn active" data-scenario="normal">
+                ☀️ 全線平常運行
+              </button>
+              <button id="btn-sim-delay" class="sim-btn" data-scenario="delay">
+                ⚠️ 17:10 局地豪雨 (遅延・バス迂回)
+              </button>
+              <button id="btn-sim-suspend" class="sim-btn highlight-danger" data-scenario="suspend">
+                🚨 17:15 豪雨全線見合わせ (大江戸・浅草線)
+              </button>
+              <button id="btn-sim-heavy" class="sim-btn highlight-critical" data-scenario="heavy">
+                🌊 首都直下激甚豪雨 (地下鉄全滅)
+              </button>
+            </div>
+          </div>
+
+          <!-- ODPT Live API Config Toggle -->
+          <div class="odpt-api-config-wrapper">
+            <button id="btn-toggle-api-config" class="api-toggle-btn">
+              <span>⚙️ ODPT 本番APIキー連携設定（オプション）</span>
+              <span class="toggle-arrow" id="api-toggle-arrow">▼</span>
+            </button>
+            <div id="odpt-api-config-box" class="api-config-box hidden">
+              <p class="api-hint">
+                公共交通オープンデータ協議会 (ODPT) のアクセストークン (<code>consumerKey</code>) を入力すると、本番APIから直接ライブフェッチします。未入力でも内蔵のリアルタイム実測キャッシュ・デモフィードで完全動作します。
+              </p>
+              <div class="api-input-row">
+                <input type="password" id="odpt-api-key-input" class="api-key-input" placeholder="ODPT APIトークン (acl:consumerKey)" />
+                <button id="btn-save-api-key" class="btn-sm-primary">保存</button>
+                <button id="btn-fetch-live-odpt" class="btn-sm-secondary">🔄 今すぐAPI取得</button>
+              </div>
+              <div id="odpt-api-status-msg" class="api-status-text"></div>
+            </div>
+          </div>
+
+          <!-- Train Lines Status Grid -->
+          <div class="transit-lines-grid" id="transit-lines-grid">
+            <!-- Dynamically populated via JavaScript -->
+          </div>
+
+          <div class="transit-footer">
+            <div class="transit-footer-note">
+              <span>出典: 公共交通オープンデータ協議会 (ODPT) / 東京都交通局 運行情報API</span>
+            </div>
+            <button id="btn-transit-navigate" class="btn-primary highlight-nav">
+              🚨 この運休状況で「豪雨避難ナビ」を起動
+            </button>
           </div>
         </div>
       </div>

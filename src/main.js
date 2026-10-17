@@ -89,6 +89,145 @@ const adminCatFilter = document.getElementById('admin-cat-filter');
 const adminSearchInput = document.getElementById('admin-search-input');
 const adminCountBadge = document.getElementById('admin-count-badge');
 
+// ODPT Transit Status Elements & Presets
+const btnToggleTransit = document.getElementById('btn-toggle-transit');
+const headerTransitDot = document.getElementById('header-transit-dot');
+const transitModal = document.getElementById('transit-modal');
+const btnCloseTransit = document.getElementById('btn-close-transit');
+const transitLiveBadge = document.getElementById('transit-live-badge');
+const transitLastUpdated = document.getElementById('transit-last-updated');
+const transitLinesGrid = document.getElementById('transit-lines-grid');
+const btnToggleApiConfig = document.getElementById('btn-toggle-api-config');
+const apiToggleArrow = document.getElementById('api-toggle-arrow');
+const odptApiConfigBox = document.getElementById('odpt-api-config-box');
+const odptApiKeyInput = document.getElementById('odpt-api-key-input');
+const btnSaveApiKey = document.getElementById('btn-save-api-key');
+const btnFetchLiveOdpt = document.getElementById('btn-fetch-live-odpt');
+const odptApiStatusMsg = document.getElementById('odpt-api-status-msg');
+const btnTransitNavigate = document.getElementById('btn-transit-navigate');
+
+let currentTransitScenarioKey = 'normal';
+
+const TOEI_LINES = [
+  {
+    id: 'asakusa',
+    code: 'A',
+    name: '都営浅草線',
+    enName: 'Toei Asakusa Line',
+    color: '#E85298',
+    textColor: '#ffffff',
+    odptRailway: 'odpt.Railway:Toei.Asakusa'
+  },
+  {
+    id: 'mita',
+    code: 'I',
+    name: '都営三田線',
+    enName: 'Toei Mita Line',
+    color: '#0079C2',
+    textColor: '#ffffff',
+    odptRailway: 'odpt.Railway:Toei.Mita'
+  },
+  {
+    id: 'shinjuku',
+    code: 'S',
+    name: '都営新宿線',
+    enName: 'Toei Shinjuku Line',
+    color: '#6CBB5A',
+    textColor: '#ffffff',
+    odptRailway: 'odpt.Railway:Toei.Shinjuku'
+  },
+  {
+    id: 'oedo',
+    code: 'E',
+    name: '都営大江戸線',
+    enName: 'Toei Oedo Line',
+    color: '#B6007A',
+    textColor: '#ffffff',
+    odptRailway: 'odpt.Railway:Toei.Oedo'
+  },
+  {
+    id: 'toei_bus',
+    code: '🚌',
+    name: '都営バス (安全代替幹線 & 警戒路線)',
+    enName: 'Toei Bus Routes',
+    color: '#15803d',
+    textColor: '#ffffff',
+    odptRailway: null
+  },
+  {
+    id: 'jr_east',
+    code: 'JR',
+    name: 'JR線 (山手線・京浜東北線)',
+    enName: 'JR Yamanote / Keihin-Tohoku',
+    color: '#16a34a',
+    textColor: '#ffffff',
+    odptRailway: null
+  }
+];
+
+const TRANSIT_SCENARIOS = {
+  normal: {
+    name: '☀️ 全線平常運行',
+    updatedText: 'LIVE同期 (平常)',
+    dotState: 'normal',
+    badgeClass: '',
+    pulseDotClass: 'green',
+    lines: {
+      asakusa: { status: 'normal', statusText: '平常運行', detail: '全線で平常通り運行しています。' },
+      mita: { status: 'normal', statusText: '平常運行', detail: '全線で平常通り運行しています。' },
+      shinjuku: { status: 'normal', statusText: '平常運行', detail: '全線で平常通り運行しています。' },
+      oedo: { status: 'normal', statusText: '平常運行', detail: '全線で平常通り運行しています。' },
+      toei_bus: { status: 'normal', statusText: '平常運行', detail: '都06（新橋〜渋谷）・浜95（品川〜東京タワー）など主要系統は定時運行中です。' },
+      jr_east: { status: 'normal', statusText: '平常運行', detail: '山手線・京浜東北線は平常通り運行しています。' }
+    }
+  },
+  delay: {
+    name: '⚠️ 17:10 局地豪雨 (遅延・バス迂回)',
+    updatedText: '17:10 局地豪雨警報',
+    dotState: 'warning',
+    badgeClass: 'danger',
+    pulseDotClass: 'red',
+    lines: {
+      asakusa: { status: 'delayed', statusText: '遅延 (約15分)', detail: '大雨に伴う安全確認のため、一部列車に10〜15分の遅れが発生しています。' },
+      mita: { status: 'normal', statusText: '平常運行', detail: '全線で平常通り運行しています。' },
+      shinjuku: { status: 'normal', statusText: '平常運行', detail: '全線で平常通り運行しています。' },
+      oedo: { status: 'delayed', statusText: '遅延 (約10分)', detail: '大雨による混雑および徐行運転のため、最大10分の遅れが出ています。' },
+      toei_bus: { status: 'delayed', statusText: '浜95迂回運行中', detail: '浜95系統は浜松町ガード下冠水警戒のため迂回運行を実施しています。都06系統（高台幹線）は平常運行中。' },
+      jr_east: { status: 'delayed', statusText: '遅延 (約20分)', detail: '雨量規制のため山手線・京浜東北線に一部遅れ。' }
+    }
+  },
+  suspend: {
+    name: '🚨 17:15 豪雨全線見合わせ (大江戸・浅草線)',
+    updatedText: '17:15 🚨 運転見合わせ発令',
+    dotState: 'danger',
+    badgeClass: 'danger',
+    pulseDotClass: 'red',
+    lines: {
+      asakusa: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 激甚豪雨・構内浸水のおそれのため、全線で運転を見合わせています。他社線への振替輸送を実施中。' },
+      mita: { status: 'delayed', statusText: '遅延・徐行運転', detail: '大雨の影響により徐行運転中。一部区間で運休が発生しています。' },
+      shinjuku: { status: 'delayed', statusText: '遅延 (約25分)', detail: '大雨の影響によりダイヤが乱れています。' },
+      oedo: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 地下出入口冠水警戒および大雨のため全線運転見合わせ。改札入場規制を実施中。低所出口（A1等）は閉鎖。' },
+      toei_bus: { status: 'delayed', statusText: '都06代替幹線運行', detail: '🚌 【安全代替輸送】都06系統（高台幹線・新橋〜渋谷）は通常運行中。浜95系統は運休。' },
+      jr_east: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 雨量計規制値超過のため山手線・京浜東北線が全線運転見合わせ。' }
+    }
+  },
+  heavy: {
+    name: '🌊 首都直下激甚豪雨 (地下鉄全滅)',
+    updatedText: '17:30 🌊 激甚災害避難指示',
+    dotState: 'danger',
+    badgeClass: 'danger',
+    pulseDotClass: 'red',
+    lines: {
+      asakusa: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 浸水被害のおそれのため全線運転見合わせ。' },
+      mita: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 地下道冠水のため全線運転見合わせ。' },
+      shinjuku: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 線路浸水警戒のため全線運転見合わせ。' },
+      oedo: { status: 'suspended', statusText: '運転見合わせ', detail: '⚠️ 全駅改札閉鎖。駅構内から地上・一時滞在施設へ退避指示。' },
+      toei_bus: { status: 'delayed', statusText: '高台幹線のみ運行', detail: '都06系統のみ徐行運行中。平地路線は全線運休。' },
+      jr_east: { status: 'suspended', statusText: '全線運転見合わせ', detail: '首都圏在来線全線で運転見合わせ。' }
+    }
+  }
+};
+
 // Initialize Map
 function initMap() {
   map = new maplibregl.Map({
@@ -478,8 +617,252 @@ function setupLayers() {
   });
 }
 
+// ==========================================================================
+// ODPT Transit Status & Simulator Functions
+// ==========================================================================
+
+function renderTransitGrid(scenarioKey = 'normal', customData = null) {
+  if (!transitLinesGrid) return;
+  const scenario = TRANSIT_SCENARIOS[scenarioKey] || TRANSIT_SCENARIOS.normal;
+  const lineStates = customData || scenario.lines;
+
+  transitLinesGrid.innerHTML = TOEI_LINES.map(line => {
+    const st = lineStates[line.id] || { status: 'normal', statusText: '平常運行', detail: '情報なし' };
+    const statusClass = st.status === 'suspended' ? 'status-suspended' : (st.status === 'delayed' ? 'status-delayed' : 'status-normal');
+    const pillClass = st.status;
+
+    return `
+      <div class="transit-line-card ${statusClass}">
+        <div class="line-info-col">
+          <div class="line-badge-symbol" style="background-color: ${line.color}; color: ${line.textColor};">
+            ${line.code}
+          </div>
+          <div class="line-name-group">
+            <span class="line-main-name">${line.name}</span>
+            <span class="line-sub-name">${line.enName}</span>
+          </div>
+        </div>
+        <div class="line-status-col">
+          <span class="line-status-pill ${pillClass}">
+            ${st.status === 'suspended' ? '🚨' : (st.status === 'delayed' ? '⚠️' : '✅')} ${st.statusText}
+          </span>
+          <span class="line-detail-text">${st.detail}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function applyTransitScenario(scenarioKey) {
+  const scenario = TRANSIT_SCENARIOS[scenarioKey];
+  if (!scenario) return;
+
+  currentTransitScenarioKey = scenarioKey;
+
+  // Header status dot update
+  if (headerTransitDot) {
+    headerTransitDot.className = `status-dot ${scenario.dotState === 'danger' ? 'red' : (scenario.dotState === 'warning' ? 'yellow' : 'green')}`;
+  }
+
+  // Live badge in modal
+  if (transitLastUpdated) {
+    transitLastUpdated.textContent = scenario.updatedText;
+  }
+  if (transitLiveBadge) {
+    transitLiveBadge.className = `live-pulse-badge ${scenario.badgeClass}`;
+    const pDot = transitLiveBadge.querySelector('.pulse-dot');
+    if (pDot) pDot.className = `pulse-dot ${scenario.pulseDotClass}`;
+  }
+
+  // Active button
+  const simBtnMap = {
+    normal: document.getElementById('btn-sim-normal'),
+    delay: document.getElementById('btn-sim-delay'),
+    suspend: document.getElementById('btn-sim-suspend'),
+    heavy: document.getElementById('btn-sim-heavy')
+  };
+  Object.entries(simBtnMap).forEach(([key, btn]) => {
+    if (btn) btn.classList.toggle('active', key === scenarioKey);
+  });
+
+  // Render cards
+  renderTransitGrid(scenarioKey);
+
+  // Storm banner sync
+  if (scenarioKey === 'suspend' || scenarioKey === 'heavy') {
+    const msgEl = stormBanner ? stormBanner.querySelector('.storm-msg') : null;
+    if (msgEl) {
+      msgEl.innerHTML = `⚠️ 都営大江戸線・浅草線：<strong>豪雨冠水により全線運転見合わせ</strong>`;
+    }
+  }
+}
+
+function showApiStatus(msg, isSuccess = true) {
+  if (!odptApiStatusMsg) return;
+  odptApiStatusMsg.textContent = msg;
+  odptApiStatusMsg.style.color = isSuccess ? '#34d399' : '#f87171';
+}
+
+async function fetchLiveODPT() {
+  const savedKey = odptApiKeyInput ? odptApiKeyInput.value.trim() : (localStorage.getItem('odpt_consumer_key') || '');
+  if (!savedKey) {
+    showApiStatus('⚠️ ODPT APIキーが未入力です。キーを入力して「保存」してください（未入力時は内蔵シミュレータで動作します）。', false);
+    return;
+  }
+  showApiStatus('🔄 ODPT APIから都営地下鉄運行情報を取得中...', true);
+  try {
+    const url = `https://api-public.odpt.org/api/v4/odpt:TrainInformation?odpt:operator=odpt.Operator:Toei&acl:consumerKey=${encodeURIComponent(savedKey)}`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('運行情報データが見つかりませんでした');
+    }
+
+    const parsedLines = { ...TRANSIT_SCENARIOS.normal.lines };
+    let hasSuspension = false;
+    let hasDelay = false;
+
+    data.forEach(item => {
+      const railway = item['odpt:railway'] || '';
+      const statusTextJa = item['odpt:trainInformationStatus'] ? (item['odpt:trainInformationStatus'].ja || '') : '';
+      const detailTextJa = item['odpt:trainInformationText'] ? (item['odpt:trainInformationText'].ja || '') : '';
+
+      let lineId = null;
+      if (railway.includes('Asakusa')) lineId = 'asakusa';
+      else if (railway.includes('Mita')) lineId = 'mita';
+      else if (railway.includes('Shinjuku')) lineId = 'shinjuku';
+      else if (railway.includes('Oedo')) lineId = 'oedo';
+
+      if (lineId) {
+        let status = 'normal';
+        if (statusTextJa.includes('見合わせ') || statusTextJa.includes('運休') || detailTextJa.includes('見合わせ') || detailTextJa.includes('運休')) {
+          status = 'suspended';
+          hasSuspension = true;
+        } else if (statusTextJa.includes('遅延') || detailTextJa.includes('遅れ') || detailTextJa.includes('遅延')) {
+          status = 'delayed';
+          hasDelay = true;
+        }
+        parsedLines[lineId] = {
+          status,
+          statusText: statusTextJa || (status === 'normal' ? '平常運行' : (status === 'suspended' ? '運転見合わせ' : '遅延')),
+          detail: detailTextJa || '全線で平常通り運行しています。'
+        };
+      }
+    });
+
+    const nowStr = new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    renderTransitGrid('normal', parsedLines);
+
+    if (transitLastUpdated) {
+      transitLastUpdated.textContent = `LIVE API (${nowStr})`;
+    }
+    if (headerTransitDot) {
+      headerTransitDot.className = `status-dot ${hasSuspension ? 'red' : (hasDelay ? 'yellow' : 'green')}`;
+    }
+    showApiStatus(`✅ ODPT 本番APIから最新データを取得しました (${nowStr} 更新)`, true);
+  } catch (err) {
+    console.warn('ODPT live fetch failed:', err);
+    showApiStatus(`⚠️ ライブ取得に失敗（${err.message}）。CORS制約または無効なキーです。内蔵データを使用します。`, false);
+  }
+}
+
+function setupTransitEvents() {
+  if (btnToggleTransit && transitModal) {
+    btnToggleTransit.addEventListener('click', () => {
+      transitModal.classList.remove('hidden');
+      renderTransitGrid(currentTransitScenarioKey);
+    });
+  }
+
+  if (btnCloseTransit && transitModal) {
+    btnCloseTransit.addEventListener('click', () => {
+      transitModal.classList.add('hidden');
+    });
+  }
+
+  if (transitModal) {
+    transitModal.addEventListener('click', (e) => {
+      if (e.target === transitModal) {
+        transitModal.classList.add('hidden');
+      }
+    });
+  }
+
+  // Simulator buttons
+  const simBtnMap = {
+    normal: document.getElementById('btn-sim-normal'),
+    delay: document.getElementById('btn-sim-delay'),
+    suspend: document.getElementById('btn-sim-suspend'),
+    heavy: document.getElementById('btn-sim-heavy')
+  };
+  Object.entries(simBtnMap).forEach(([key, btn]) => {
+    if (btn) {
+      btn.addEventListener('click', () => {
+        applyTransitScenario(key);
+      });
+    }
+  });
+
+  // API Toggle
+  if (btnToggleApiConfig && odptApiConfigBox) {
+    btnToggleApiConfig.addEventListener('click', () => {
+      const isHidden = odptApiConfigBox.classList.toggle('hidden');
+      if (apiToggleArrow) apiToggleArrow.textContent = isHidden ? '▼' : '▲';
+    });
+  }
+
+  // Load saved API Key
+  if (odptApiKeyInput) {
+    const saved = localStorage.getItem('odpt_consumer_key');
+    if (saved) odptApiKeyInput.value = saved;
+  }
+
+  if (btnSaveApiKey && odptApiKeyInput) {
+    btnSaveApiKey.addEventListener('click', () => {
+      const val = odptApiKeyInput.value.trim();
+      if (val) {
+        localStorage.setItem('odpt_consumer_key', val);
+        showApiStatus('✅ ODPT APIトークンを保存しました', true);
+      } else {
+        localStorage.removeItem('odpt_consumer_key');
+        showApiStatus('ℹ️ APIトークンをクリアしました', false);
+      }
+    });
+  }
+
+  if (btnFetchLiveOdpt) {
+    btnFetchLiveOdpt.addEventListener('click', () => {
+      fetchLiveODPT();
+    });
+  }
+
+  // Navigate to Storm Mode
+  if (btnTransitNavigate) {
+    btnTransitNavigate.addEventListener('click', () => {
+      if (transitModal) transitModal.classList.add('hidden');
+      switchMode('storm');
+      map.flyTo({
+        center: DAIMON_CENTER,
+        zoom: 16.5,
+        pitch: 60,
+        bearing: -25,
+        duration: 1500
+      });
+      applyTransitScenario('suspend');
+    });
+  }
+
+  // Initial render
+  renderTransitGrid('normal');
+}
+
 // UI & Map Events
 function setupEvents() {
+  setupTransitEvents();
+
   // Rain Slider
   rainSlider.addEventListener('input', (e) => {
     const rainMm = parseInt(e.target.value, 10);
@@ -803,6 +1186,7 @@ function switchMode(mode) {
     updateRainSimulation(0);
     map.setLayoutProperty('safe-route-glow', 'visibility', 'none');
     map.setLayoutProperty('safe-route-core', 'visibility', 'none');
+    applyTransitScenario('normal');
   } else if (mode === 'storm') {
     stormBanner.classList.remove('hidden');
     adminPanel.classList.add('hidden');
@@ -811,6 +1195,7 @@ function switchMode(mode) {
     updateRainSimulation(80);
     map.setLayoutProperty('safe-route-glow', 'visibility', 'visible');
     map.setLayoutProperty('safe-route-core', 'visibility', 'visible');
+    applyTransitScenario('suspend');
 
     // Ensure bus routes are visible in storm mode to show alternative transit
     ['toei-bus-routes-glow', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
@@ -1634,6 +2019,15 @@ function goToScenarioStep(idx) {
   // Update Rain Slider & Simulation
   rainSlider.value = step.rainMm;
   updateRainSimulation(step.rainMm);
+
+  // Sync ODPT Transit Status with Scenario Progression
+  if (idx === 0) {
+    applyTransitScenario('normal');
+  } else if (idx === 1) {
+    applyTransitScenario('delay');
+  } else if (idx >= 2) {
+    applyTransitScenario('suspend');
+  }
 
   // Storm Banner control
   if (step.showBanner) {
