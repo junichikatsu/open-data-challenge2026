@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>アメミチ 3D (Amemichi 3D) - 電車が止まった雨の日、くぐらずに帰る</title>
+  <meta name="description" content="公共交通オープンデータ×3D都市空間×アンダーパス冠水リスクを融合し、豪雨運休時の安全な駅出口と避難ルートを導くフェーズフリーナビ" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <!-- MapLibre GL CSS -->
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header-bar glass-panel">
+      <div class="brand">
+        <div class="logo-icon">🌧️</div>
+        <div class="brand-text">
+          <h1 class="brand-title">アメミチ 3D <span class="tag">PROTOTYPE</span></h1>
+          <p class="brand-tagline">電車が止まった雨の日、くぐらずに帰る</p>
+        </div>
+      </div>
+
+      <nav class="mode-tabs">
+        <button id="tab-peace" class="tab-btn active" data-mode="peace">
+          <span class="icon">☀️</span>平時: アメミチ探索
+        </button>
+        <button id="tab-storm" class="tab-btn" data-mode="storm">
+          <span class="icon">🚨</span>豪雨時: 避難ナビ
+        </button>
+        <button id="tab-admin" class="tab-btn" data-mode="admin">
+          <span class="icon">🏛️</span>管理者: 4区分判定
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Map Container -->
+    <main id="map-container">
+      <div id="map"></div>
+
+      <!-- Map 3D Pitch/Tilt Compass Indicator -->
+      <div class="map-perspective-controls glass-panel">
+        <button id="btn-tilt-toggle" class="ctrl-btn" title="3D視点切替">3D</button>
+        <button id="btn-focus-daimon" class="ctrl-btn" title="大門・浜松町にズーム">📍 大門駅</button>
+      </div>
+
+      <!-- Live Storm Status Banner (豪雨時のみ表示) -->
+      <div id="storm-alert-banner" class="storm-banner glass-panel hidden">
+        <div class="storm-badge pulse">警戒レベル4 (避難指示)</div>
+        <div class="storm-content">
+          <div class="storm-msg">⚠️ 都営大江戸線・浅草線：<strong>大雨により全線運転見合わせ</strong></div>
+          <div class="storm-advice">地下道・アンダーパス冠水のおそれ。<strong>「大門駅 B3出口」</strong>よりデッキ経由で一時滞在施設へ退避してください。</div>
+        </div>
+      </div>
+
+      <!-- Floating Rain Slider Controller -->
+      <div class="rain-control-card glass-panel" id="rain-panel">
+        <div class="control-header">
+          <span class="ctrl-title">🌧️ 降雨シミュレーション</span>
+          <span class="rain-val-badge" id="rain-value-display">0 mm/h (降雨なし)</span>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="rain-slider" min="0" max="100" value="0" step="5" />
+          <div class="slider-ticks">
+            <span>0</span>
+            <span>20</span>
+            <span>50(警報)</span>
+            <span>80(猛烈)</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="flood-status-indicator" id="flood-indicator">
+          <span class="dot green"></span> 通常水位（安全）
+        </div>
+      </div>
+
+      <!-- Detail Overlay Drawer -->
+      <aside class="detail-drawer glass-panel" id="detail-drawer">
+        <div class="drawer-handle" id="drawer-toggle"></div>
+        <div class="drawer-header">
+          <span class="badge" id="poi-badge">スポット情報</span>
+          <h2 id="poi-title" class="drawer-title">スポットを選択してください</h2>
+          <button id="btn-close-drawer" class="btn-icon">✕</button>
+        </div>
+        <div class="drawer-body" id="drawer-content">
+          <p class="placeholder-text">地図上の <strong>アンダーパス注意箇所（🔴）</strong> または <strong>駅出入口（🟢）</strong> をクリックすると、詳細な設備状況・鉄道交差・冠水予測が表示されます。</p>
+        </div>
+      </aside>
+
+      <!-- Admin 4-Category Table (管理者モード時表示) -->
+      <div id="admin-panel" class="admin-panel-overlay glass-panel hidden">
+        <div class="admin-header">
+          <h2>🏛️ 国交省ガイドライン（2026-10-06改定）港区5箇所 区分仮判定</h2>
+          <button id="btn-close-admin" class="btn-icon">✕</button>
+        </div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>箇所名・路線</th>
+                <th>鉄道交差</th>
+                <th>標高</th>
+                <th>バス系統</th>
+                <th>現地設備状況</th>
+                <th>仮判定区分</th>
+                <th>推奨措置</th>
+              </tr>
+            </thead>
+            <tbody id="admin-tbody"></tbody>
+          </table>
+        </div>
+        <div class="admin-footer">
+          <span class="note">※全国約3,800箇所のアンダーパスおよび公共交通GTFSへ同一パイプラインで自動判定可能</span>
+          <button id="btn-export-csv" class="btn-primary">📥 判定結果CSV出力</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7548, 35.6565]
+      },
+      "properties": {
+        "id": "daimon-b3",
+        "station_name": "大門駅 / 浜松町駅",
+        "exit_code": "B3出口",
+        "type": "exit",
+        "deck_connected": true,
+        "recommendation_in_flood": "推奨（ペデストリアンデッキ直結・高架回避ルート）",
+        "note": "浜松町駅・竹芝方面への歩行者デッキに直結。浜松町ガード下を潜らずに安全に通行可能。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7533, 35.6560]
+      },
+      "properties": {
+        "id": "daimon-a1",
+        "station_name": "大門駅",
+        "exit_code": "A1出口",
+        "type": "exit",
+        "deck_connected": false,
+        "recommendation_in_flood": "注意（地上道路経由）",
+        "note": "芝大門方面。南下するとJR川口架道橋の低位冠水区域に接近するため迂回推奨。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7541, 35.6575]
+      },
+      "properties": {
+        "id": "daimon-b1",
+        "station_name": "大門駅",
+        "exit_code": "B1出口",
+        "type": "exit",
+        "deck_connected": false,
+        "recommendation_in_flood": "通常出口",
+        "note": "大門交差点北西。第一京浜沿い。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7595, 35.6558]
+      },
+      "properties": {
+        "id": "shelter-sanbou",
+        "name": "東京都立産業貿易センター 浜松町館",
+        "type": "shelter",
+        "category": "都立一時滞在施設",
+        "capacity": 2500,
+        "deck_connected": true,
+        "status": "警戒レベル4時 開設推奨施設",
+        "note": "帰宅困難者一時滞在施設。大門駅・浜松町駅からペデストリアンデッキ経由で浸水区間を通らずに到達可能。"
+      }
+    }
+  ]
+}
