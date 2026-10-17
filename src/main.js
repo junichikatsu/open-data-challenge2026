@@ -9,7 +9,9 @@ const INITIAL_BEARING = -25;
 let map;
 let underpassesData = null;
 let stationFacilitiesData = null;
+let landmarksData = null;
 let currentMode = 'peace'; // 'peace' | 'storm' | 'admin'
+let buildingsVisible = true;
 
 // DOM Elements
 const rainSlider = document.getElementById('rain-slider');
@@ -64,12 +66,14 @@ function initMap() {
 // Load GeoJSON data
 async function loadData() {
   try {
-    const [underpassRes, facilitiesRes] = await Promise.all([
+    const [underpassRes, facilitiesRes, landmarksRes] = await Promise.all([
       fetch('./data/minato_underpass_5.geojson'),
-      fetch('./data/station_facilities.geojson')
+      fetch('./data/station_facilities.geojson'),
+      fetch('./data/minato_landmarks_3d.geojson')
     ]);
     underpassesData = await underpassRes.json();
     stationFacilitiesData = await facilitiesRes.json();
+    landmarksData = await landmarksRes.json();
   } catch (err) {
     console.error('Failed to load geojson:', err);
   }
@@ -78,6 +82,58 @@ async function loadData() {
 // Setup Map Layers
 function setupLayers() {
   if (!underpassesData || !stationFacilitiesData) return;
+
+  // 0. 3D Buildings (Carto Vector Tile - Base city blocks)
+  try {
+    map.addLayer({
+      id: '3d-buildings-base',
+      source: 'carto',
+      'source-layer': 'building',
+      type: 'fill-extrusion',
+      minzoom: 13,
+      paint: {
+        'fill-extrusion-color': [
+          'interpolate',
+          ['linear'],
+          ['coalesce', ['get', 'render_height'], ['get', 'height'], 15],
+          0, '#111827',
+          30, '#1e293b',
+          80, '#334155'
+        ],
+        'fill-extrusion-height': ['coalesce', ['get', 'render_height'], ['get', 'height'], 16],
+        'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], ['get', 'min_height'], 0],
+        'fill-extrusion-opacity': 0.72
+      }
+    });
+  } catch (err) {
+    console.warn('Base 3d-buildings layer setup error:', err);
+  }
+
+  // 0.1 3D Landmarks (PLATEAU LOD1/2 Attributes - High Precision)
+  if (landmarksData) {
+    map.addSource('minato-landmarks', {
+      type: 'geojson',
+      data: landmarksData
+    });
+
+    map.addLayer({
+      id: '3d-landmarks-layer',
+      source: 'minato-landmarks',
+      type: 'fill-extrusion',
+      paint: {
+        'fill-extrusion-color': [
+          'case',
+          ['==', ['get', 'type'], 'shelter_facility'], '#0284c7', // 一時滞在施設（ポートシティ竹芝）: シアンブルー
+          ['==', ['get', 'type'], 'railway_structure'], '#475569', // 鉄道高架: スレート
+          ['==', ['get', 'type'], 'welfare_facility'], '#f43f5e', // 身障者センター: ローズ
+          '#2563eb' // 一般ランドマーク（WTC/クレアタワー）: ブルー
+        ],
+        'fill-extrusion-height': ['get', 'height'],
+        'fill-extrusion-base': ['get', 'min_height'],
+        'fill-extrusion-opacity': 0.88
+      }
+    });
+  }
 
   // 1. Water simulation puddle polygons around underpasses
   const waterPuddlesGeoJSON = {
@@ -273,6 +329,22 @@ function setupEvents() {
   // Export CSV
   document.getElementById('btn-export-csv').addEventListener('click', exportAdminCSV);
 
+  // 3D Buildings Toggle
+  const toggleBuildingsBtn = document.getElementById('btn-toggle-buildings');
+  if (toggleBuildingsBtn) {
+    toggleBuildingsBtn.addEventListener('click', () => {
+      buildingsVisible = !buildingsVisible;
+      toggleBuildingsBtn.classList.toggle('active', buildingsVisible);
+      const visibility = buildingsVisible ? 'visible' : 'none';
+      if (map.getLayer('3d-buildings-base')) {
+        map.setLayoutProperty('3d-buildings-base', 'visibility', visibility);
+      }
+      if (map.getLayer('3d-landmarks-layer')) {
+        map.setLayoutProperty('3d-landmarks-layer', 'visibility', visibility);
+      }
+    });
+  }
+
   // Map Feature Click Listeners
   map.on('click', 'underpass-points', (e) => {
     if (!e.features.length) return;
@@ -286,8 +358,14 @@ function setupEvents() {
     showFacilityDetails(f.properties);
   });
 
+  map.on('click', '3d-landmarks-layer', (e) => {
+    if (!e.features.length) return;
+    const f = e.features[0];
+    showLandmarkDetails(f.properties);
+  });
+
   // Cursor change on hover
-  ['underpass-points', 'facility-points'].forEach(layer => {
+  ['underpass-points', 'facility-points', '3d-landmarks-layer'].forEach(layer => {
     map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
   });
@@ -468,6 +546,37 @@ function showFacilityDetails(props) {
       </div>
     `;
   }
+}
+
+// Show 3D Landmark Building Details in Drawer
+function showLandmarkDetails(props) {
+  detailDrawer.style.display = 'flex';
+  detailDrawer.classList.add('open');
+
+  poiBadge.className = 'badge';
+  poiBadge.textContent = `3D都市モデル (PLATEAU LOD${props.plateau_lod || 1})`;
+  poiTitle.textContent = props.name;
+
+  drawerContent.innerHTML = `
+    <div class="poi-property-list">
+      <div class="poi-item">
+        <div class="poi-item-label">建物規模（PLATEAU属性）</div>
+        <div class="poi-item-value">地上 <strong>${props.floors}階</strong> / 高さ <strong>約${props.height}m</strong></div>
+      </div>
+      <div class="poi-item">
+        <div class="poi-item-label">建築種別 / 役割</div>
+        <div class="poi-item-value">${props.name_en || ''}<br><span class="badge-tag cat-3">${props.type}</span></div>
+      </div>
+      <div class="poi-item">
+        <div class="poi-item-label">ペデストリアンデッキ接続</div>
+        <div class="poi-item-value">${props.deck_level ? `✅ 2階〜${props.deck_level}階レベルで歩行者デッキ直結` : '地上道路接続'}</div>
+      </div>
+    </div>
+    <div class="poi-route-guidance">
+      <div class="guidance-title">🏢 防災・空間特性</div>
+      <div>${props.note}</div>
+    </div>
+  `;
 }
 
 // Render Admin Table

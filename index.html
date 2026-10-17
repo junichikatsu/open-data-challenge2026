@@ -36,17 +36,23 @@
           <span class="icon">🏛️</span>管理者: 4区分判定
         </button>
       </nav>
+
+      <div class="header-quick-tools">
+        <button id="btn-toggle-buildings" class="ctrl-btn active" title="3D建築物表示切替">
+          🏢 3D建物
+        </button>
+        <button id="btn-tilt-toggle" class="ctrl-btn" title="3D視点切替">
+          📐 3D視点
+        </button>
+        <button id="btn-focus-daimon" class="ctrl-btn" title="大門・浜松町にズーム">
+          📍 大門駅
+        </button>
+      </div>
     </header>
 
     <!-- Main Map Container -->
     <main id="map-container">
       <div id="map"></div>
-
-      <!-- Map 3D Pitch/Tilt Compass Indicator -->
-      <div class="map-perspective-controls glass-panel">
-        <button id="btn-tilt-toggle" class="ctrl-btn" title="3D視点切替">3D</button>
-        <button id="btn-focus-daimon" class="ctrl-btn" title="大門・浜松町にズーム">📍 大門駅</button>
-      </div>
 
       <!-- Live Storm Status Banner (豪雨時のみ表示) -->
       <div id="storm-alert-banner" class="storm-banner glass-panel hidden">

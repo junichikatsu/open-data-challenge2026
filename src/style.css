@@ -174,34 +174,45 @@ body {
   height: 100%;
 }
 
-/* Perspective Controls */
-.map-perspective-controls {
-  position: absolute;
-  top: 96px;
-  right: 16px;
-  z-index: 50;
+/* Header Quick Tools */
+.header-quick-tools {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 6px;
-  padding: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 4px;
   border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .ctrl-btn {
   background: rgba(255, 255, 255, 0.06);
-  color: var(--text-main);
+  color: var(--text-muted);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 12px;
   font-size: 0.8rem;
   font-weight: 700;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .ctrl-btn:hover {
-  background: rgba(56, 189, 248, 0.2);
-  border-color: rgba(56, 189, 248, 0.5);
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ctrl-btn.active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(59, 130, 246, 0.35));
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
 }
 
 /* Storm Alert Banner */
@@ -607,9 +618,8 @@ body {
     font-size: 0.74rem;
   }
 
-  .map-perspective-controls {
-    top: 130px;
-    right: 8px;
+  .header-quick-tools {
+    justify-content: space-between;
   }
 
   .storm-banner {
