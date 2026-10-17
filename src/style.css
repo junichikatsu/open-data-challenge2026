@@ -968,6 +968,192 @@ body {
   box-shadow: none;
 }
 
+.ctrl-btn.highlight-accent {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.3));
+  border-color: rgba(245, 158, 11, 0.6);
+  color: #fbbf24;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+}
+.ctrl-btn.highlight-accent:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(239, 68, 68, 0.5));
+  border-color: #f59e0b;
+  transform: translateY(-1px);
+}
+.ctrl-btn.highlight-accent.playing {
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+/* Scenario Floating Card */
+.scenario-control-card {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  max-width: calc(100vw - 32px);
+  z-index: 60;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(14, 165, 233, 0.2);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slide-up 0.3s ease-out;
+}
+
+.scenario-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge-scenario {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* Narration Box */
+.scenario-story-box {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid var(--accent-cyan);
+  border-radius: 8px;
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+}
+.scenario-story-box.warning-state {
+  border-left-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+.scenario-story-box.danger-state {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+}
+.scenario-story-box.safe-state {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.story-time {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.story-text {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+/* Timeline Chapter Slider */
+.scenario-timeline {
+  position: relative;
+  margin: 6px 0 2px 0;
+}
+.timeline-track {
+  position: absolute;
+  top: 10px;
+  left: 24px;
+  right: 24px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  z-index: 1;
+}
+.timeline-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-cyan), #3b82f6);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.timeline-steps {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.step-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 0 4px;
+  outline: none;
+}
+.step-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.25s ease;
+}
+.step-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  transition: color 0.25s;
+  white-space: nowrap;
+}
+
+.step-btn.active .step-dot {
+  background: var(--accent-cyan);
+  border-color: #fff;
+  box-shadow: 0 0 10px var(--accent-cyan);
+  transform: scale(1.15);
+}
+.step-btn.active .step-label {
+  color: #fff;
+  font-weight: 800;
+}
+.step-btn:hover .step-dot {
+  border-color: var(--accent-cyan);
+}
+
+/* Control Buttons */
+.scenario-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-ctrl-sm {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ctrl-sm:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 .hidden {
   display: none !important;
 }

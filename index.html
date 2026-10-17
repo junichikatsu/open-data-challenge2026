@@ -50,6 +50,9 @@
         <button id="btn-focus-daimon" class="ctrl-btn" title="大門・浜松町にズーム">
           📍 大門駅
         </button>
+        <button id="btn-scenario-toggle" class="ctrl-btn highlight-accent" title="17:15 ゲリラ豪雨シナリオを自動再生">
+          🎬 17:15 再生
+        </button>
       </div>
     </header>
 
@@ -117,6 +120,55 @@
         </div>
         <div id="draw-hint-box" class="draw-hint hidden">
           💡 地図をクリックして経由地を追加してください。アンダーパスを避けてペデストリアンデッキを活用しましょう。
+        </div>
+      </div>
+
+      <!-- Scenario Player Floating Bar (17:15 ゲリラ豪雨シミュレーション) -->
+      <div class="scenario-control-card glass-panel hidden" id="scenario-panel">
+        <div class="control-header">
+          <div class="scenario-title-group">
+            <span class="ctrl-title">🎬 17:15 ゲリラ豪雨・運転見合わせシナリオ</span>
+            <span class="badge badge-scenario" id="scenario-time-badge">16:50 (降雨開始)</span>
+          </div>
+          <button id="btn-close-scenario" class="btn-icon" title="シナリオプレイヤーを閉じる">✕</button>
+        </div>
+
+        <!-- Narration Box -->
+        <div class="scenario-story-box" id="scenario-story-box">
+          <div class="story-time" id="story-time-display">16:50 ｜ 通常降雨</div>
+          <div class="story-text" id="story-text-display">港区一帯で雨が降り始めました。地下鉄・JRは通常運行中です。アンダーパスの水位も平常です。</div>
+        </div>
+
+        <!-- Timeline Chapters -->
+        <div class="scenario-timeline">
+          <div class="timeline-track">
+            <div class="timeline-progress-bar" id="timeline-progress-bar"></div>
+          </div>
+          <div class="timeline-steps">
+            <button class="step-btn active" data-step="0" title="16:50 降雨開始">
+              <span class="step-dot"></span>
+              <span class="step-label">16:50 平常</span>
+            </button>
+            <button class="step-btn" data-step="1" title="17:10 急変・警戒">
+              <span class="step-dot"></span>
+              <span class="step-label">17:10 急変</span>
+            </button>
+            <button class="step-btn" data-step="2" title="17:15 運転見合わせ">
+              <span class="step-dot"></span>
+              <span class="step-label">17:15 見合わせ</span>
+            </button>
+            <button class="step-btn" data-step="3" title="17:20 アメミチ誘導">
+              <span class="step-dot"></span>
+              <span class="step-label">17:20 誘導</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="scenario-controls">
+          <button id="btn-scenario-play" class="btn-primary">▶ 再生</button>
+          <button id="btn-scenario-speed" class="btn-ctrl-sm">⏩ 1x</button>
+          <button id="btn-scenario-reset" class="btn-ctrl-sm">⏹ リセット</button>
         </div>
       </div>
 
