@@ -1,0 +1,13 @@
+# Google ドライブ・OS が作るファイル
+desktop.ini
+.DS_Store
+Thumbs.db
+~$*
+
+# ODPT・PLATEAU などの大きな取得データは手順だけ残し、リポジトリに入れない
+# （チャレンジ提供データは第三者提供が禁止されている：応募規約25・27）
+*.zip
+data/raw/odpt/
+data/raw/plateau/
+20_案3plus/data/raw/odpt/
+20_案3plus/data/raw/plateau/
