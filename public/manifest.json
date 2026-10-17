@@ -1,0 +1,33 @@
+{
+  "name": "アメミチ 3D (Amemichi 3D) - 電車が止まった雨の日、くぐらずに帰る",
+  "short_name": "アメミチ 3D",
+  "description": "公共交通オープンデータ×PLATEAU 3D都市モデル×道路冠水防災データを融合したフェーズフリー3D避難ナビゲーションシステム",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#070a12",
+  "theme_color": "#0b0f19",
+  "orientation": "portrait-primary",
+  "lang": "ja",
+  "categories": ["navigation", "weather", "utilities"],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

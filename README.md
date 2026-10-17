@@ -9,6 +9,10 @@
 [![Project PLATEAU](https://img.shields.io/badge/MLIT-Project_PLATEAU-orange?style=for-the-badge)](https://www.mlit.go.jp/plateau/)
 [![ODPT](https://img.shields.io/badge/ODPT-Challenge_2026-00b4d8?style=for-the-badge)](https://tokyochallenge.odpt.org/)
 
+<p align="center">
+  <img src="public/ogp.jpg" alt="アメミチ 3D 豪雨防災3Dデジタルツインマップ" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);" />
+</p>
+
 ---
 
 ## 🌐 公開デモ（ブラウザですぐに動かせます）
