@@ -52,6 +52,25 @@ const closeMitekitaBtn = document.getElementById('btn-close-mitekita');
 const submitSurveyBtn = document.getElementById('btn-submit-survey');
 let currentSurveyUnderpassNo = null;
 
+// Scenario Player Elements & State
+const scenarioToggleBtn = document.getElementById('btn-scenario-toggle');
+const scenarioPanel = document.getElementById('scenario-panel');
+const scenarioPlayBtn = document.getElementById('btn-scenario-play');
+const scenarioSpeedBtn = document.getElementById('btn-scenario-speed');
+const scenarioResetBtn = document.getElementById('btn-scenario-reset');
+const closeScenarioBtn = document.getElementById('btn-close-scenario');
+const scenarioTimeBadge = document.getElementById('scenario-time-badge');
+const scenarioStoryBox = document.getElementById('scenario-story-box');
+const storyTimeDisplay = document.getElementById('story-time-display');
+const storyTextDisplay = document.getElementById('story-text-display');
+const timelineProgressBar = document.getElementById('timeline-progress-bar');
+const stepBtns = document.querySelectorAll('.scenario-timeline .step-btn');
+
+let scenarioPlaying = false;
+let scenarioCurrentStep = 0;
+let scenarioTimer = null;
+let scenarioSpeed = 1; // 1 or 2
+
 // Initialize Map
 function initMap() {
   map = new maplibregl.Map({
@@ -406,6 +425,39 @@ function setupLayers() {
       'circle-stroke-color': '#ffffff'
     }
   });
+
+  // Scenario Auto-Navigation Safe Route Source & Layers
+  map.addSource('scenario-safe-route-source', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: []
+    }
+  });
+
+  map.addLayer({
+    id: 'scenario-safe-route-glow',
+    type: 'line',
+    source: 'scenario-safe-route-source',
+    layout: { 'line-join': 'round', 'line-cap': 'round' },
+    paint: {
+      'line-color': '#10b981',
+      'line-width': 12,
+      'line-opacity': 0.6,
+      'line-blur': 6
+    }
+  });
+
+  map.addLayer({
+    id: 'scenario-safe-route-core',
+    type: 'line',
+    source: 'scenario-safe-route-source',
+    layout: { 'line-join': 'round', 'line-cap': 'round' },
+    paint: {
+      'line-color': '#34d399',
+      'line-width': 5
+    }
+  });
 }
 
 // UI & Map Events
@@ -585,6 +637,44 @@ function setupEvents() {
       scoreRouteBtn.textContent = `🏆 採点する (${drawnPoints.length}地点)`;
     }
     clearRouteBtn.disabled = false;
+  });
+
+  // Scenario Player Events
+  if (scenarioToggleBtn) {
+    scenarioToggleBtn.addEventListener('click', () => {
+      if (scenarioPanel.classList.contains('hidden')) {
+        openScenarioPlayer();
+      } else {
+        closeScenarioPlayer();
+      }
+    });
+  }
+
+  if (closeScenarioBtn) {
+    closeScenarioBtn.addEventListener('click', closeScenarioPlayer);
+  }
+
+  if (scenarioPlayBtn) {
+    scenarioPlayBtn.addEventListener('click', toggleScenarioPlayback);
+  }
+
+  if (scenarioSpeedBtn) {
+    scenarioSpeedBtn.addEventListener('click', () => {
+      scenarioSpeed = scenarioSpeed === 1 ? 2 : 1;
+      scenarioSpeedBtn.textContent = `⏩ ${scenarioSpeed}x`;
+    });
+  }
+
+  if (scenarioResetBtn) {
+    scenarioResetBtn.addEventListener('click', stopScenarioPlayback);
+  }
+
+  stepBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const stepIdx = parseInt(e.currentTarget.dataset.step, 10);
+      pauseScenarioPlayback();
+      goToScenarioStep(stepIdx);
+    });
   });
 }
 
@@ -1276,6 +1366,225 @@ function handleMitekitaSubmit() {
   if (source) source.setData(underpassesData);
 
   mitekitaModal.classList.add('hidden');
+}
+
+// ==========================================
+// Scenario Simulation Playback Engine
+// ==========================================
+
+const SCENARIO_SAFE_ROUTE = {
+  type: 'Feature',
+  properties: {
+    name: 'アメミチ安全推奨ルート (B3出口〜竹芝デッキ〜産業貿易センター)',
+    underpass_count: 0,
+    deck_usage: true
+  },
+  geometry: {
+    type: 'LineString',
+    coordinates: [
+      [139.75535, 35.65525], // 大門駅 B3出口
+      [139.75620, 35.65510], // 浜松町2丁目ペデストリアン入口
+      [139.75715, 35.65495], // JR線横断高架歩道デッキ
+      [139.75860, 35.65475], // ポートシティ竹芝 連絡デッキ
+      [139.75980, 35.65490], // スカイデッキ歩行者専用通路
+      [139.76060, 35.65550]  // 都立産業貿易センター浜松町館（東京都指定・帰宅困難者一時滞在施設）
+    ]
+  }
+};
+
+const SCENARIO_STEPS = [
+  {
+    step: 0,
+    time: '16:50',
+    badge: '16:50 (降雨開始)',
+    title: '16:50 ｜ 通常降雨 (20mm/h)',
+    text: '港区一帯で雨が降り始めました。都営地下鉄（大江戸線・浅草線）およびJR山手線・京浜東北線は平常運行中です。アンダーパスの水位も平常です。',
+    rainMm: 20,
+    camera: { center: [139.7555, 35.6555], zoom: 15.6, pitch: 52, bearing: -25 },
+    stateClass: 'normal-state',
+    showBanner: false,
+    showSafeRoute: false
+  },
+  {
+    step: 1,
+    time: '17:10',
+    badge: '17:10 (局地豪雨・冠水警戒)',
+    title: '17:10 ｜ 線状降水帯急変 (65mm/h)',
+    text: '急激なゲリラ豪雨が発生！札の辻ガード・芝五丁目アンダーパスの水位が急速に上昇し、国交省ガイドライン【区分I（冠水注意・事前閉鎖準備）】に移行。浜95系統バス路線が冠水警戒エリアに突入します。',
+    rainMm: 65,
+    camera: { center: [139.7465, 35.6482], zoom: 16.5, pitch: 62, bearing: 22 },
+    stateClass: 'warning-state',
+    showBanner: false,
+    showSafeRoute: false
+  },
+  {
+    step: 2,
+    time: '17:15',
+    badge: '17:15 (全線運転見合わせ)',
+    title: '17:15 ｜ 【ODPT速報】地下鉄・JR全線 運転見合わせ！',
+    text: '⚠️ 【ODPTリアルタイム速報】都営浅草線・大江戸線が大雨冠水のため全線運転見合わせ！JR各線も抑止。大門駅・三田駅で改札制限が発生。地下通路は浸水危険のため、低所出入口（A1等）は使用禁止です。',
+    rainMm: 80,
+    camera: { center: [139.7555, 35.6555], zoom: 16.3, pitch: 58, bearing: -15 },
+    stateClass: 'danger-state',
+    showBanner: true,
+    bannerData: {
+      badge: '🚨 ODPT速報: 全線見合わせ発令',
+      msg: '⚠️ 都営大江戸線・浅草線・JR各線: 豪雨のため全線運転見合わせ',
+      advice: '地下通路浸水のおそれ。<strong>「大門駅 B3出口」</strong>よりペデストリアンデッキ経由で一時滞在施設へ退避してください。<br>🚌 <strong>平常運行代替バス</strong>: 高台幹線を走る<strong>都営バス【都06系統】</strong>は平常運行中。'
+    },
+    showSafeRoute: false
+  },
+  {
+    step: 3,
+    time: '17:20',
+    badge: '17:20 (アメミチ誘導完了)',
+    title: '17:20 ｜ 「アメミチ・ナビ」発動・くぐらずに帰る！',
+    text: '✅ ガード下を通らない【アメミチ安全ルート】が自動提示されました！大門駅B3出口から地上デッキへ直結し、冠水危険箇所を100%回避して安全な都立一時滞在施設（産業貿易センター）および平常運行中の【都営バス 都06系統】へ安全に誘導します。',
+    rainMm: 85,
+    camera: { center: [139.7580, 35.6552], zoom: 16.8, pitch: 66, bearing: -38 },
+    stateClass: 'safe-state',
+    showBanner: true,
+    bannerData: {
+      badge: '✅ アメミチ・ナビ発動中 (安全避難誘導)',
+      msg: '🚶 ガード下完全回避ルートへ誘導中 (安全性100点)',
+      advice: 'ガード下を一切くぐらず地上デッキ・高台へ。平常運行中の<strong>都営バス【都06系統】</strong>（停留所まで徒歩2分）への安全な乗換退避が可能です。'
+    },
+    showSafeRoute: true
+  }
+];
+
+function openScenarioPlayer() {
+  scenarioPanel.classList.remove('hidden');
+  scenarioToggleBtn.classList.add('playing');
+  goToScenarioStep(0);
+}
+
+function closeScenarioPlayer() {
+  stopScenarioPlayback();
+  scenarioPanel.classList.add('hidden');
+  scenarioToggleBtn.classList.remove('playing');
+  clearScenarioRoute();
+}
+
+function toggleScenarioPlayback() {
+  if (scenarioPlaying) {
+    pauseScenarioPlayback();
+  } else {
+    startScenarioPlayback();
+  }
+}
+
+function startScenarioPlayback() {
+  scenarioPlaying = true;
+  scenarioPlayBtn.textContent = '⏸ 一時停止';
+  scenarioToggleBtn.classList.add('playing');
+
+  if (scenarioCurrentStep >= SCENARIO_STEPS.length - 1) {
+    scenarioCurrentStep = 0;
+  }
+  goToScenarioStep(scenarioCurrentStep);
+
+  scheduleNextScenarioStep();
+}
+
+function pauseScenarioPlayback() {
+  scenarioPlaying = false;
+  scenarioPlayBtn.textContent = '▶ 再生';
+  if (scenarioTimer) clearTimeout(scenarioTimer);
+}
+
+function stopScenarioPlayback() {
+  pauseScenarioPlayback();
+  scenarioCurrentStep = 0;
+  goToScenarioStep(0);
+}
+
+function scheduleNextScenarioStep() {
+  if (!scenarioPlaying) return;
+  const delay = scenarioSpeed === 2 ? 2200 : 4800;
+  scenarioTimer = setTimeout(() => {
+    if (!scenarioPlaying) return;
+    if (scenarioCurrentStep < SCENARIO_STEPS.length - 1) {
+      goToScenarioStep(scenarioCurrentStep + 1);
+      scheduleNextScenarioStep();
+    } else {
+      pauseScenarioPlayback();
+    }
+  }, delay);
+}
+
+function goToScenarioStep(idx) {
+  if (idx < 0 || idx >= SCENARIO_STEPS.length) return;
+  scenarioCurrentStep = idx;
+
+  const step = SCENARIO_STEPS[idx];
+
+  // Update UI Elements
+  scenarioTimeBadge.textContent = step.badge;
+  storyTimeDisplay.textContent = step.title;
+  storyTextDisplay.textContent = step.text;
+
+  // Box status class
+  scenarioStoryBox.className = 'scenario-story-box ' + step.stateClass;
+
+  // Step buttons & progress bar
+  stepBtns.forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+  const progressPercent = (idx / (SCENARIO_STEPS.length - 1)) * 100;
+  timelineProgressBar.style.width = `${progressPercent}%`;
+
+  // Update Rain Slider & Simulation
+  rainSlider.value = step.rainMm;
+  updateRainSimulation(step.rainMm);
+
+  // Storm Banner control
+  if (step.showBanner) {
+    stormBanner.classList.remove('hidden');
+    if (step.bannerData) {
+      const badgeEl = stormBanner.querySelector('.storm-badge');
+      const msgEl = stormBanner.querySelector('.storm-msg');
+      const advEl = stormBanner.querySelector('.storm-advice');
+      if (badgeEl) badgeEl.textContent = step.bannerData.badge;
+      if (msgEl) msgEl.innerHTML = step.bannerData.msg;
+      if (advEl) advEl.innerHTML = step.bannerData.advice;
+    }
+  } else {
+    stormBanner.classList.add('hidden');
+  }
+
+  // Safe Route Layer
+  const routeSource = map.getSource('scenario-safe-route-source');
+  if (routeSource) {
+    if (step.showSafeRoute) {
+      routeSource.setData({
+        type: 'FeatureCollection',
+        features: [SCENARIO_SAFE_ROUTE]
+      });
+    } else {
+      routeSource.setData({
+        type: 'FeatureCollection',
+        features: []
+      });
+    }
+  }
+
+  // Camera animation
+  map.flyTo({
+    ...step.camera,
+    duration: 1800,
+    essential: true
+  });
+}
+
+function clearScenarioRoute() {
+  const routeSource = map.getSource('scenario-safe-route-source');
+  if (routeSource) {
+    routeSource.setData({
+      type: 'FeatureCollection',
+      features: []
+    });
+  }
 }
 
 // Launch
