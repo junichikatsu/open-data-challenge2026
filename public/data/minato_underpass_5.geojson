@@ -1,0 +1,140 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7582, 35.6542]
+      },
+      "properties": {
+        "no": 122,
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "1102号線 港区海岸一丁目3番先(浜松町ガード下)",
+        "short_name": "浜松町ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR山手線・京浜東北線・東海道線・新幹線",
+        "elevation_m": 1.2,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "浜松町駅南口 徒歩1分 / 大門駅B3出口 徒歩4分",
+        "risk_note": "線路群下を潜るすり鉢状の窪地。大雨時に東側（海岸方面）への動線が水没する危険あり。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7547, 35.6515]
+      },
+      "properties": {
+        "no": 121,
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "196号線 芝一丁目 （区立身障者センター南側、ＪＲ川口架道橋下）",
+        "short_name": "JR川口架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道新幹線・在来線高架下",
+        "elevation_m": 0.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "浜松町駅南口 徒歩6分 / 大門駅A1出口 徒歩8分",
+        "risk_note": "古川に近い低位地帯。身障者センター隣接のためバリアフリー・緊急避難の最重要注意箇所。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7540, 35.6660]
+      },
+      "properties": {
+        "no": 65,
+        "municipality": "港区",
+        "road_type": "都道",
+        "route_and_name": "特４０５号 外濠環状線 築地虎ノ門トンネル",
+        "short_name": "築地虎ノ門トンネル",
+        "rail_crossing": 0,
+        "rail_crossing_line": "なし（地下トンネル）",
+        "elevation_m": -4.5,
+        "category_tentative": "区分II（監視・設備型）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "新橋駅 徒歩5分 / 汐留駅 徒歩4分",
+        "risk_note": "大規模地下自動車道。自動排水・遠隔遮断機あり。通行規制情報との連携が主。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7600, 35.6630]
+      },
+      "properties": {
+        "no": 123,
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "1138号線 東新橋一丁目（区街4号線こ道橋）",
+        "short_name": "東新橋こ道橋",
+        "rail_crossing": 0,
+        "rail_crossing_line": "ゆりかもめ・道路立体交差",
+        "elevation_m": 2.1,
+        "category_tentative": "区分III（一般監視）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "汐留駅 徒歩2分",
+        "risk_note": "汐留シオサイト周辺。周囲の高層ビルペデストリアンデッキへの退避ルートが有効。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.7408, 35.6372]
+      },
+      "properties": {
+        "no": 126,
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "241号線 高輪二丁目 （ＪＲ高輪架道橋下）",
+        "short_name": "JR高輪架道橋下（旧お化けトンネル）",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道線・京浜東北線・山手線等",
+        "elevation_m": 1.5,
+        "category_tentative": "区分I（重点対策・工事中）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "高輪ゲートウェイ駅 徒歩3分 / 泉岳寺駅 徒歩4分",
+        "risk_note": "東西を結ぶ重要な歩行・車両ボトルネック。低頭構造で豪雨時は冠水リスク極めて高。"
+      }
+    }
+  ]
+}

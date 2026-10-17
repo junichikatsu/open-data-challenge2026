@@ -11,3 +11,8 @@ data/raw/odpt/
 data/raw/plateau/
 20_案3plus/data/raw/odpt/
 20_案3plus/data/raw/plateau/
+
+# Web App build & dependencies
+node_modules/
+dist/
+.vite/
