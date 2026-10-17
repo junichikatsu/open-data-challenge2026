@@ -505,12 +505,103 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
+}
+
+.admin-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .admin-header h2 {
   font-size: 1.15rem;
   font-weight: 800;
+}
+
+/* Admin Filter Bar */
+.admin-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+.admin-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.admin-filter-item.search-grow {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-select {
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+.admin-select:focus {
+  border-color: var(--accent-cyan);
+}
+
+.admin-input {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  outline: none;
+}
+.admin-input:focus {
+  border-color: var(--accent-cyan);
+}
+
+/* Header Area Select Dropdown */
+.area-selector-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ctrl-select {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #38bdf8;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.ctrl-select:hover, .ctrl-select:focus {
+  border-color: #38bdf8;
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 
 .admin-table-wrapper {

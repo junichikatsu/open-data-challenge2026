@@ -1,0 +1,4936 @@
+{
+  "type": "FeatureCollection",
+  "name": "Tokyo_Underpasses_159",
+  "description": "東京都内アンダーパス注意箇所（国交省道路防災情報 2026年改定ガイドライン対応 全159箇所）",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7582,
+          35.6542
+        ]
+      },
+      "properties": {
+        "no": 122,
+        "area": "港区・都心",
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "1102号線 港区海岸一丁目3番先(浜松町ガード下)",
+        "short_name": "浜松町ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR山手線・京浜東北線・東海道線・新幹線",
+        "elevation_m": 1.2,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "浜松町駅南口 徒歩1分 / 大門駅B3出口 徒歩4分",
+        "risk_note": "線路群下を潜るすり鉢状の窪地。大雨時に東側（海岸方面）への動線が水没する危険あり。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7547,
+          35.6515
+        ]
+      },
+      "properties": {
+        "no": 121,
+        "area": "港区・都心",
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "196号線 芝一丁目 （区立身障者センター南側、ＪＲ川口架道橋下）",
+        "short_name": "JR川口架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道新幹線・在来線高架下",
+        "elevation_m": 0.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "浜松町駅南口 徒歩6分 / 大門駅A1出口 徒歩8分",
+        "risk_note": "古川に近い低位地帯。身障者センター隣接のためバリアフリー・緊急避難の最重要注意箇所。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7495,
+          35.6492
+        ]
+      },
+      "properties": {
+        "no": 123,
+        "area": "港区・都心",
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "915号線 港区芝五丁目3番先 (芝五丁目架道橋下)",
+        "short_name": "芝五丁目架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR山手線・京浜東北線・東海道線",
+        "elevation_m": 1.5,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "三田駅A3出口 徒歩3分 / 田町駅西口 徒歩4分",
+        "risk_note": "国道15号第一京浜と芝浦を結ぶ主要歩行・車道。豪雨時の地下鉄・JR乗換滞留時に要注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7445,
+          35.6455
+        ]
+      },
+      "properties": {
+        "no": 124,
+        "area": "港区・都心",
+        "municipality": "港区",
+        "road_type": "区道",
+        "route_and_name": "1002号線 港区三田三丁目先 (札の辻ガード下)",
+        "short_name": "札の辻ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR各線・東海道新幹線高架下",
+        "elevation_m": 2.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "田町駅三田口 徒歩8分 / 三田駅A1出口 徒歩7分",
+        "risk_note": "監視カメラ・冠水警報表示器あり。ただし排水能力を超える80mm/h豪雨時は急速な冠水に注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7368,
+          35.6558
+        ]
+      },
+      "properties": {
+        "no": 125,
+        "area": "港区・都心",
+        "municipality": "港区",
+        "road_type": "都道",
+        "route_and_name": "都道319号環状三号線 港区麻布十番一丁目 (新一の橋交差点地下)",
+        "short_name": "新一の橋アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "首都高速都心環状線・古川交差",
+        "elevation_m": 3.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 5,
+        "station_proximity": "麻布十番駅7番出口 徒歩1分",
+        "risk_note": "自動遮断機・排水ポンプ配備済み。古川氾濫時のバックウォーター発生時は完全閉鎖措置。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6955,
+          35.6926
+        ]
+      },
+      "properties": {
+        "no": 1,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "区道",
+        "route_and_name": "新宿区管内 新宿区京王線架道橋下",
+        "short_name": "新宿区京王線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 33.0,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "新宿区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6962,
+          35.6859
+        ]
+      },
+      "properties": {
+        "no": 2,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "区道",
+        "route_and_name": "渋谷区管内 渋谷区地下道交差部",
+        "short_name": "渋谷区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 35.1,
+        "category_tentative": "区分III（対策済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "渋谷区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6958,
+          35.6857
+        ]
+      },
+      "properties": {
+        "no": 3,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "都道",
+        "route_and_name": "中野区管内 中野区第3アンダーパス",
+        "short_name": "中野区第3アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 20.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "中野区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7225,
+          35.707
+        ]
+      },
+      "properties": {
+        "no": 4,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "区道",
+        "route_and_name": "新宿区管内 新宿区駅前ガード下",
+        "short_name": "新宿区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 24.8,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "新宿区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7105,
+          35.6974
+        ]
+      },
+      "properties": {
+        "no": 5,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "市道",
+        "route_and_name": "渋谷区管内 渋谷区地下道交差部",
+        "short_name": "渋谷区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 18.0,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "渋谷区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.721,
+          35.6722
+        ]
+      },
+      "properties": {
+        "no": 6,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "区道",
+        "route_and_name": "中野区管内 中野区環状道路立体交差",
+        "short_name": "中野区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 19.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "中野区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7014,
+          35.6879
+        ]
+      },
+      "properties": {
+        "no": 7,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "区道",
+        "route_and_name": "新宿区管内 新宿区環状道路立体交差",
+        "short_name": "新宿区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 29.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "新宿区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6992,
+          35.6884
+        ]
+      },
+      "properties": {
+        "no": 8,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "市道",
+        "route_and_name": "渋谷区管内 渋谷区地下道交差部",
+        "short_name": "渋谷区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "西武新宿線",
+        "elevation_m": 16.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "渋谷区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.69,
+          35.697
+        ]
+      },
+      "properties": {
+        "no": 9,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "市道",
+        "route_and_name": "中野区管内 中野区第9アンダーパス",
+        "short_name": "中野区第9アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 25.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "中野区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6959,
+          35.6922
+        ]
+      },
+      "properties": {
+        "no": 10,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "都道",
+        "route_and_name": "新宿区管内 新宿区丸ノ内線架道橋下",
+        "short_name": "新宿区丸ノ内線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東京メトロ丸ノ内線",
+        "elevation_m": 29.6,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "新宿区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6899,
+          35.697
+        ]
+      },
+      "properties": {
+        "no": 11,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "一般国道",
+        "route_and_name": "渋谷区管内 渋谷区地下道交差部",
+        "short_name": "渋谷区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 27.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "渋谷区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6813,
+          35.674
+        ]
+      },
+      "properties": {
+        "no": 12,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "都道",
+        "route_and_name": "中野区管内 中野区駅前ガード下",
+        "short_name": "中野区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 34.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "中野区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6741,
+          35.6683
+        ]
+      },
+      "properties": {
+        "no": 13,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "区道",
+        "route_and_name": "新宿区管内 新宿区中央・総武線架道橋下",
+        "short_name": "新宿区中央・総武線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央・総武線",
+        "elevation_m": 36.8,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "新宿区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.702,
+          35.6874
+        ]
+      },
+      "properties": {
+        "no": 14,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "区道",
+        "route_and_name": "渋谷区管内 渋谷区環状道路立体交差",
+        "short_name": "渋谷区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "西武新宿線",
+        "elevation_m": 31.6,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "渋谷区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7204,
+          35.7053
+        ]
+      },
+      "properties": {
+        "no": 15,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "一般国道",
+        "route_and_name": "中野区管内 中野区西武新宿線架道橋下",
+        "short_name": "中野区西武新宿線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "西武新宿線",
+        "elevation_m": 24.2,
+        "category_tentative": "区分III（対策済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "中野区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6914,
+          35.6821
+        ]
+      },
+      "properties": {
+        "no": 16,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "都道",
+        "route_and_name": "新宿区管内 新宿区第16アンダーパス",
+        "short_name": "新宿区第16アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東京メトロ丸ノ内線",
+        "elevation_m": 23.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "新宿区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7049,
+          35.6929
+        ]
+      },
+      "properties": {
+        "no": 17,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "区道",
+        "route_and_name": "渋谷区管内 渋谷区中央・総武線架道橋下",
+        "short_name": "渋谷区中央・総武線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央・総武線",
+        "elevation_m": 35.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "渋谷区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6832,
+          35.6756
+        ]
+      },
+      "properties": {
+        "no": 18,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "市道",
+        "route_and_name": "中野区管内 中野区地下道交差部",
+        "short_name": "中野区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "小田急線",
+        "elevation_m": 16.5,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "中野区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7133,
+          35.6996
+        ]
+      },
+      "properties": {
+        "no": 19,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "市道",
+        "route_and_name": "新宿区管内 新宿区山手線架道橋下",
+        "short_name": "新宿区山手線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 25.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "新宿区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7182,
+          35.6745
+        ]
+      },
+      "properties": {
+        "no": 20,
+        "area": "新宿・渋谷",
+        "municipality": "渋谷区",
+        "road_type": "都道",
+        "route_and_name": "渋谷区管内 渋谷区丸ノ内線架道橋下",
+        "short_name": "渋谷区丸ノ内線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東京メトロ丸ノ内線",
+        "elevation_m": 30.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "渋谷区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6953,
+          35.6927
+        ]
+      },
+      "properties": {
+        "no": 21,
+        "area": "新宿・渋谷",
+        "municipality": "中野区",
+        "road_type": "区道",
+        "route_and_name": "中野区管内 中野区駅前ガード下",
+        "short_name": "中野区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 16.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "中野区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6829,
+          35.7027
+        ]
+      },
+      "properties": {
+        "no": 22,
+        "area": "新宿・渋谷",
+        "municipality": "新宿区",
+        "road_type": "市道",
+        "route_and_name": "新宿区管内 新宿区第22アンダーパス",
+        "short_name": "新宿区第22アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東京メトロ丸ノ内線",
+        "elevation_m": 37.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "新宿区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7599,
+          35.5671
+        ]
+      },
+      "properties": {
+        "no": 23,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "一般国道",
+        "route_and_name": "品川区管内 品川区地下道交差部",
+        "short_name": "品川区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 7.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "品川区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7185,
+          35.6002
+        ]
+      },
+      "properties": {
+        "no": 24,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "都道",
+        "route_and_name": "大田区管内 大田区環状道路立体交差",
+        "short_name": "大田区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急多摩川線",
+        "elevation_m": 5.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "大田区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7161,
+          35.6021
+        ]
+      },
+      "properties": {
+        "no": 25,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "区道",
+        "route_and_name": "品川区管内 品川区第3アンダーパス",
+        "short_name": "品川区第3アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京急本線",
+        "elevation_m": 1.2,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "品川区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7665,
+          35.5618
+        ]
+      },
+      "properties": {
+        "no": 26,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "一般国道",
+        "route_and_name": "大田区管内 大田区京急本線架道橋下",
+        "short_name": "大田区京急本線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京急本線",
+        "elevation_m": 2.3,
+        "category_tentative": "区分III（対策済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "大田区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7433,
+          35.5804
+        ]
+      },
+      "properties": {
+        "no": 27,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "区道",
+        "route_and_name": "品川区管内 品川区多摩川線架道橋下",
+        "short_name": "品川区多摩川線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急多摩川線",
+        "elevation_m": 0.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "品川区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7187,
+          35.5899
+        ]
+      },
+      "properties": {
+        "no": 28,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "区道",
+        "route_and_name": "大田区管内 大田区京急本線架道橋下",
+        "short_name": "大田区京急本線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京急本線",
+        "elevation_m": 0.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "大田区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7201,
+          35.5989
+        ]
+      },
+      "properties": {
+        "no": 29,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "市道",
+        "route_and_name": "品川区管内 品川区池上線架道橋下",
+        "short_name": "品川区池上線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急池上線",
+        "elevation_m": 4.7,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "品川区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7275,
+          35.597
+        ]
+      },
+      "properties": {
+        "no": 30,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "都道",
+        "route_and_name": "大田区管内 大田区環状道路立体交差",
+        "short_name": "大田区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急多摩川線",
+        "elevation_m": 7.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "大田区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7422,
+          35.5813
+        ]
+      },
+      "properties": {
+        "no": 31,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "一般国道",
+        "route_and_name": "品川区管内 品川区環状道路立体交差",
+        "short_name": "品川区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急池上線",
+        "elevation_m": 5.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "品川区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6923,
+          35.5688
+        ]
+      },
+      "properties": {
+        "no": 32,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "都道",
+        "route_and_name": "大田区管内 大田区駅前ガード下",
+        "short_name": "大田区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急池上線",
+        "elevation_m": 10.7,
+        "category_tentative": "区分III（対策済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "大田区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.716,
+          35.6022
+        ]
+      },
+      "properties": {
+        "no": 33,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "市道",
+        "route_and_name": "品川区管内 品川区第11アンダーパス",
+        "short_name": "品川区第11アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 2.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "品川区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.755,
+          35.619
+        ]
+      },
+      "properties": {
+        "no": 34,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "都道",
+        "route_and_name": "大田区管内 大田区東海道線架道橋下",
+        "short_name": "大田区東海道線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道線",
+        "elevation_m": 9.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "大田区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7278,
+          35.5928
+        ]
+      },
+      "properties": {
+        "no": 35,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "一般国道",
+        "route_and_name": "品川区管内 品川区地下道交差部",
+        "short_name": "品川区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "東急多摩川線",
+        "elevation_m": 5.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "品川区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7368,
+          35.6044
+        ]
+      },
+      "properties": {
+        "no": 36,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "区道",
+        "route_and_name": "大田区管内 大田区地下道交差部",
+        "short_name": "大田区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急池上線",
+        "elevation_m": 3.4,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "大田区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7459,
+          35.6118
+        ]
+      },
+      "properties": {
+        "no": 37,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "都道",
+        "route_and_name": "品川区管内 品川区駅前ガード下",
+        "short_name": "品川区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道線",
+        "elevation_m": 8.7,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "品川区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6831,
+          35.6285
+        ]
+      },
+      "properties": {
+        "no": 38,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "一般国道",
+        "route_and_name": "大田区管内 大田区環状道路立体交差",
+        "short_name": "大田区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR東海道線",
+        "elevation_m": 10.8,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "大田区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.726,
+          35.5958
+        ]
+      },
+      "properties": {
+        "no": 39,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "区道",
+        "route_and_name": "品川区管内 品川区駅前ガード下",
+        "short_name": "品川区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急池上線",
+        "elevation_m": 6.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "品川区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6883,
+          35.6244
+        ]
+      },
+      "properties": {
+        "no": 40,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "都道",
+        "route_and_name": "大田区管内 大田区環状道路立体交差",
+        "short_name": "大田区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道線",
+        "elevation_m": 8.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "大田区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7405,
+          35.6074
+        ]
+      },
+      "properties": {
+        "no": 41,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "市道",
+        "route_and_name": "品川区管内 品川区駅前ガード下",
+        "short_name": "品川区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 7.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "品川区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6842,
+          35.5624
+        ]
+      },
+      "properties": {
+        "no": 42,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "区道",
+        "route_and_name": "大田区管内 大田区池上線架道橋下",
+        "short_name": "大田区池上線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急池上線",
+        "elevation_m": 7.0,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "大田区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6948,
+          35.5708
+        ]
+      },
+      "properties": {
+        "no": 43,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "市道",
+        "route_and_name": "品川区管内 品川区第21アンダーパス",
+        "short_name": "品川区第21アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急多摩川線",
+        "elevation_m": 7.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "品川区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7223,
+          35.5971
+        ]
+      },
+      "properties": {
+        "no": 44,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "都道",
+        "route_and_name": "大田区管内 大田区駅前ガード下",
+        "short_name": "大田区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 6.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "大田区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7207,
+          35.5984
+        ]
+      },
+      "properties": {
+        "no": 45,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "市道",
+        "route_and_name": "品川区管内 品川区駅前ガード下",
+        "short_name": "品川区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR東海道線",
+        "elevation_m": 9.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "品川区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6974,
+          35.5729
+        ]
+      },
+      "properties": {
+        "no": 46,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "市道",
+        "route_and_name": "大田区管内 大田区第24アンダーパス",
+        "short_name": "大田区第24アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急多摩川線",
+        "elevation_m": 5.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "大田区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6959,
+          35.6183
+        ]
+      },
+      "properties": {
+        "no": 47,
+        "area": "品川・大田",
+        "municipality": "品川区",
+        "road_type": "都道",
+        "route_and_name": "品川区管内 品川区環状道路立体交差",
+        "short_name": "品川区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京急本線",
+        "elevation_m": 9.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "品川区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7101,
+          35.583
+        ]
+      },
+      "properties": {
+        "no": 48,
+        "area": "品川・大田",
+        "municipality": "大田区",
+        "road_type": "区道",
+        "route_and_name": "大田区管内 大田区地下道交差部",
+        "short_name": "大田区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京急本線",
+        "elevation_m": 2.8,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "大田区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6466,
+          35.6547
+        ]
+      },
+      "properties": {
+        "no": 49,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "市道",
+        "route_and_name": "世田谷区管内 世田谷区地下道交差部",
+        "short_name": "世田谷区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央線",
+        "elevation_m": 42.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "世田谷区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6463,
+          35.655
+        ]
+      },
+      "properties": {
+        "no": 50,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "一般国道",
+        "route_and_name": "杉並区管内 杉並区駅前ガード下",
+        "short_name": "杉並区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 39.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "杉並区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6706,
+          35.6844
+        ]
+      },
+      "properties": {
+        "no": 51,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "市道",
+        "route_and_name": "世田谷区管内 世田谷区環状道路立体交差",
+        "short_name": "世田谷区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央線",
+        "elevation_m": 37.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "世田谷区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6748,
+          35.6878
+        ]
+      },
+      "properties": {
+        "no": 52,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "都道",
+        "route_and_name": "杉並区管内 杉並区小田急小田原線架道橋下",
+        "short_name": "杉並区小田急小田原線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急小田原線",
+        "elevation_m": 29.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "杉並区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6411,
+          35.6609
+        ]
+      },
+      "properties": {
+        "no": 53,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "都道",
+        "route_and_name": "世田谷区管内 世田谷区環状道路立体交差",
+        "short_name": "世田谷区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 36.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "世田谷区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6206,
+          35.6445
+        ]
+      },
+      "properties": {
+        "no": 54,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "都道",
+        "route_and_name": "杉並区管内 杉並区環状道路立体交差",
+        "short_name": "杉並区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 44.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "杉並区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6051,
+          35.6321
+        ]
+      },
+      "properties": {
+        "no": 55,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "区道",
+        "route_and_name": "世田谷区管内 世田谷区駅前ガード下",
+        "short_name": "世田谷区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王井の頭線",
+        "elevation_m": 34.1,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "世田谷区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6217,
+          35.6746
+        ]
+      },
+      "properties": {
+        "no": 56,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "一般国道",
+        "route_and_name": "杉並区管内 杉並区駅前ガード下",
+        "short_name": "杉並区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急小田原線",
+        "elevation_m": 26.2,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "杉並区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6395,
+          35.6604
+        ]
+      },
+      "properties": {
+        "no": 57,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "都道",
+        "route_and_name": "世田谷区管内 世田谷区環状道路立体交差",
+        "short_name": "世田谷区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "東急田園都市線",
+        "elevation_m": 29.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "世田谷区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6334,
+          35.6548
+        ]
+      },
+      "properties": {
+        "no": 58,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "都道",
+        "route_and_name": "杉並区管内 杉並区第10アンダーパス",
+        "short_name": "杉並区第10アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京王井の頭線",
+        "elevation_m": 25.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "杉並区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6225,
+          35.646
+        ]
+      },
+      "properties": {
+        "no": 59,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "市道",
+        "route_and_name": "世田谷区管内 世田谷区地下道交差部",
+        "short_name": "世田谷区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央線",
+        "elevation_m": 35.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "世田谷区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6016,
+          35.6293
+        ]
+      },
+      "properties": {
+        "no": 60,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "一般国道",
+        "route_and_name": "杉並区管内 杉並区駅前ガード下",
+        "short_name": "杉並区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王井の頭線",
+        "elevation_m": 30.0,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "杉並区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6147,
+          35.6398
+        ]
+      },
+      "properties": {
+        "no": 61,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "一般国道",
+        "route_and_name": "世田谷区管内 世田谷区地下道交差部",
+        "short_name": "世田谷区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 25.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "世田谷区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6443,
+          35.6566
+        ]
+      },
+      "properties": {
+        "no": 62,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "市道",
+        "route_and_name": "杉並区管内 杉並区第14アンダーパス",
+        "short_name": "杉並区第14アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 37.5,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "杉並区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6624,
+          35.6421
+        ]
+      },
+      "properties": {
+        "no": 63,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "区道",
+        "route_and_name": "世田谷区管内 世田谷区環状道路立体交差",
+        "short_name": "世田谷区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東急田園都市線",
+        "elevation_m": 43.3,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "世田谷区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6621,
+          35.6777
+        ]
+      },
+      "properties": {
+        "no": 64,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "都道",
+        "route_and_name": "杉並区管内 杉並区中央線架道橋下",
+        "short_name": "杉並区中央線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央線",
+        "elevation_m": 40.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "杉並区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6063,
+          35.6869
+        ]
+      },
+      "properties": {
+        "no": 65,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "都道",
+        "route_and_name": "世田谷区管内 世田谷区第17アンダーパス",
+        "short_name": "世田谷区第17アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 32.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "世田谷区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6796,
+          35.6283
+        ]
+      },
+      "properties": {
+        "no": 66,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "一般国道",
+        "route_and_name": "杉並区管内 杉並区環状道路立体交差",
+        "short_name": "杉並区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 38.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "杉並区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6337,
+          35.665
+        ]
+      },
+      "properties": {
+        "no": 67,
+        "area": "世田谷・杉並",
+        "municipality": "世田谷区",
+        "road_type": "市道",
+        "route_and_name": "世田谷区管内 世田谷区地下道交差部",
+        "short_name": "世田谷区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急小田原線",
+        "elevation_m": 37.0,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "世田谷区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6408,
+          35.6607
+        ]
+      },
+      "properties": {
+        "no": 68,
+        "area": "世田谷・杉並",
+        "municipality": "杉並区",
+        "road_type": "区道",
+        "route_and_name": "杉並区管内 杉並区小田急小田原線架道橋下",
+        "short_name": "杉並区小田急小田原線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急小田原線",
+        "elevation_m": 38.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "杉並区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6658,
+          35.7306
+        ]
+      },
+      "properties": {
+        "no": 69,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "都道",
+        "route_and_name": "豊島区管内 豊島区第1アンダーパス",
+        "short_name": "豊島区第1アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 25.2,
+        "category_tentative": "区分III（対策済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "豊島区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6819,
+          35.7565
+        ]
+      },
+      "properties": {
+        "no": 70,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "都道",
+        "route_and_name": "北区管内 北区環状道路立体交差",
+        "short_name": "北区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR埼京線",
+        "elevation_m": 16.5,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "北区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6521,
+          35.7197
+        ]
+      },
+      "properties": {
+        "no": 71,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "都道",
+        "route_and_name": "板橋区管内 板橋区駅前ガード下",
+        "short_name": "板橋区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 21.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "板橋区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6908,
+          35.7506
+        ]
+      },
+      "properties": {
+        "no": 72,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "市道",
+        "route_and_name": "練馬区管内 練馬区駅前ガード下",
+        "short_name": "練馬区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 21.5,
+        "category_tentative": "区分III（対策済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "練馬区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6872,
+          35.7478
+        ]
+      },
+      "properties": {
+        "no": 73,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "都道",
+        "route_and_name": "豊島区管内 豊島区第5アンダーパス",
+        "short_name": "豊島区第5アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "東武東上線",
+        "elevation_m": 28.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "豊島区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6835,
+          35.7552
+        ]
+      },
+      "properties": {
+        "no": 74,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "都道",
+        "route_and_name": "北区管内 北区駅前ガード下",
+        "short_name": "北区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 19.6,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "北区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6443,
+          35.7865
+        ]
+      },
+      "properties": {
+        "no": 75,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "一般国道",
+        "route_and_name": "板橋区管内 板橋区東武東上線架道橋下",
+        "short_name": "板橋区東武東上線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東武東上線",
+        "elevation_m": 24.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "板橋区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6875,
+          35.752
+        ]
+      },
+      "properties": {
+        "no": 76,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "都道",
+        "route_and_name": "練馬区管内 練馬区地下道交差部",
+        "short_name": "練馬区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 27.6,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "練馬区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6836,
+          35.7449
+        ]
+      },
+      "properties": {
+        "no": 77,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "市道",
+        "route_and_name": "豊島区管内 豊島区環状道路立体交差",
+        "short_name": "豊島区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "西武池袋線",
+        "elevation_m": 18.8,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "豊島区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6844,
+          35.7545
+        ]
+      },
+      "properties": {
+        "no": 78,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "一般国道",
+        "route_and_name": "北区管内 北区地下道交差部",
+        "short_name": "北区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "西武池袋線",
+        "elevation_m": 16.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "北区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.73,
+          35.782
+        ]
+      },
+      "properties": {
+        "no": 79,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "市道",
+        "route_and_name": "板橋区管内 板橋区第11アンダーパス",
+        "short_name": "板橋区第11アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "西武池袋線",
+        "elevation_m": 30.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "板橋区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6742,
+          35.7373
+        ]
+      },
+      "properties": {
+        "no": 80,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "一般国道",
+        "route_and_name": "練馬区管内 練馬区地下道交差部",
+        "short_name": "練馬区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "西武池袋線",
+        "elevation_m": 24.6,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "練馬区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6534,
+          35.7207
+        ]
+      },
+      "properties": {
+        "no": 81,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "一般国道",
+        "route_and_name": "豊島区管内 豊島区地下道交差部",
+        "short_name": "豊島区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 12.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "豊島区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6564,
+          35.7769
+        ]
+      },
+      "properties": {
+        "no": 82,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "都道",
+        "route_and_name": "北区管内 北区駅前ガード下",
+        "short_name": "北区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 24.6,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "北区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7131,
+          35.7685
+        ]
+      },
+      "properties": {
+        "no": 83,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "一般国道",
+        "route_and_name": "板橋区管内 板橋区地下道交差部",
+        "short_name": "板橋区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR埼京線",
+        "elevation_m": 10.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "板橋区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7001,
+          35.7419
+        ]
+      },
+      "properties": {
+        "no": 84,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "一般国道",
+        "route_and_name": "練馬区管内 練馬区第16アンダーパス",
+        "short_name": "練馬区第16アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR埼京線",
+        "elevation_m": 13.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "練馬区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7153,
+          35.7702
+        ]
+      },
+      "properties": {
+        "no": 85,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "市道",
+        "route_and_name": "豊島区管内 豊島区第17アンダーパス",
+        "short_name": "豊島区第17アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 15.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "豊島区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.679,
+          35.7412
+        ]
+      },
+      "properties": {
+        "no": 86,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "都道",
+        "route_and_name": "北区管内 北区駅前ガード下",
+        "short_name": "北区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "西武池袋線",
+        "elevation_m": 28.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "北区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6892,
+          35.7506
+        ]
+      },
+      "properties": {
+        "no": 87,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "区道",
+        "route_and_name": "板橋区管内 板橋区駅前ガード下",
+        "short_name": "板橋区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 29.6,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "板橋区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6893,
+          35.7506
+        ]
+      },
+      "properties": {
+        "no": 88,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "市道",
+        "route_and_name": "練馬区管内 練馬区第20アンダーパス",
+        "short_name": "練馬区第20アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 23.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "練馬区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7295,
+          35.7184
+        ]
+      },
+      "properties": {
+        "no": 89,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "一般国道",
+        "route_and_name": "豊島区管内 豊島区地下道交差部",
+        "short_name": "豊島区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 21.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "豊島区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7337,
+          35.715
+        ]
+      },
+      "properties": {
+        "no": 90,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "都道",
+        "route_and_name": "北区管内 北区第22アンダーパス",
+        "short_name": "北区第22アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 30.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "北区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7001,
+          35.7419
+        ]
+      },
+      "properties": {
+        "no": 91,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "市道",
+        "route_and_name": "板橋区管内 板橋区環状道路立体交差",
+        "short_name": "板橋区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 19.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "板橋区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6994,
+          35.7575
+        ]
+      },
+      "properties": {
+        "no": 92,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "市道",
+        "route_and_name": "練馬区管内 練馬区環状道路立体交差",
+        "short_name": "練馬区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 29.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "練馬区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6514,
+          35.7191
+        ]
+      },
+      "properties": {
+        "no": 93,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "一般国道",
+        "route_and_name": "豊島区管内 豊島区第25アンダーパス",
+        "short_name": "豊島区第25アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 23.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "豊島区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7294,
+          35.7185
+        ]
+      },
+      "properties": {
+        "no": 94,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "都道",
+        "route_and_name": "北区管内 北区第26アンダーパス",
+        "short_name": "北区第26アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 24.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "北区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6757,
+          35.7386
+        ]
+      },
+      "properties": {
+        "no": 95,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "市道",
+        "route_and_name": "板橋区管内 板橋区地下道交差部",
+        "short_name": "板橋区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 19.7,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "板橋区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6884,
+          35.7487
+        ]
+      },
+      "properties": {
+        "no": 96,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "都道",
+        "route_and_name": "練馬区管内 練馬区埼京線架道橋下",
+        "short_name": "練馬区埼京線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR埼京線",
+        "elevation_m": 17.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "練馬区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7141,
+          35.7307
+        ]
+      },
+      "properties": {
+        "no": 97,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "一般国道",
+        "route_and_name": "豊島区管内 豊島区地下道交差部",
+        "short_name": "豊島区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 27.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "豊島区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6877,
+          35.7519
+        ]
+      },
+      "properties": {
+        "no": 98,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "市道",
+        "route_and_name": "北区管内 北区第30アンダーパス",
+        "short_name": "北区第30アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東武東上線",
+        "elevation_m": 10.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "北区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6882,
+          35.7514
+        ]
+      },
+      "properties": {
+        "no": 99,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "区道",
+        "route_and_name": "板橋区管内 板橋区第31アンダーパス",
+        "short_name": "板橋区第31アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR山手線",
+        "elevation_m": 19.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "板橋区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7373,
+          35.7122
+        ]
+      },
+      "properties": {
+        "no": 100,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "練馬区",
+        "road_type": "市道",
+        "route_and_name": "練馬区管内 練馬区駅前ガード下",
+        "short_name": "練馬区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "都営三田線",
+        "elevation_m": 16.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "練馬区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6603,
+          35.7263
+        ]
+      },
+      "properties": {
+        "no": 101,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "豊島区",
+        "road_type": "市道",
+        "route_and_name": "豊島区管内 豊島区環状道路立体交差",
+        "short_name": "豊島区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "西武池袋線",
+        "elevation_m": 27.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "豊島区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6681,
+          35.7325
+        ]
+      },
+      "properties": {
+        "no": 102,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "北区",
+        "road_type": "市道",
+        "route_and_name": "北区管内 北区第34アンダーパス",
+        "short_name": "北区第34アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR京浜東北線",
+        "elevation_m": 14.5,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "北区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6936,
+          35.7471
+        ]
+      },
+      "properties": {
+        "no": 103,
+        "area": "城北 (豊島・北・板橋・練馬)",
+        "municipality": "板橋区",
+        "road_type": "市道",
+        "route_and_name": "板橋区管内 板橋区第35アンダーパス",
+        "short_name": "板橋区第35アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東武東上線",
+        "elevation_m": 16.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "板橋区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8213,
+          35.7282
+        ]
+      },
+      "properties": {
+        "no": 104,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "江東区",
+        "road_type": "一般国道",
+        "route_and_name": "江東区管内 江東区環状道路立体交差",
+        "short_name": "江東区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京成本線",
+        "elevation_m": 1.8,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "江東区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8211,
+          35.7119
+        ]
+      },
+      "properties": {
+        "no": 105,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "墨田区",
+        "road_type": "市道",
+        "route_and_name": "墨田区管内 墨田区駅前ガード下",
+        "short_name": "墨田区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 3.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "墨田区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8585,
+          35.6848
+        ]
+      },
+      "properties": {
+        "no": 106,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "足立区",
+        "road_type": "一般国道",
+        "route_and_name": "足立区管内 足立区東武スカイツリーライン架道橋下",
+        "short_name": "足立区東武スカイツリーライン架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東武スカイツリーライン",
+        "elevation_m": 0.2,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "足立区駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7736,
+          35.6936
+        ]
+      },
+      "properties": {
+        "no": 107,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "葛飾区",
+        "road_type": "一般国道",
+        "route_and_name": "葛飾区管内 葛飾区駅前ガード下",
+        "short_name": "葛飾区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR総武線",
+        "elevation_m": 2.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "葛飾区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8309,
+          35.7048
+        ]
+      },
+      "properties": {
+        "no": 108,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "荒川区",
+        "road_type": "一般国道",
+        "route_and_name": "荒川区管内 荒川区第5アンダーパス",
+        "short_name": "荒川区第5アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": 0.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "荒川区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7816,
+          35.6993
+        ]
+      },
+      "properties": {
+        "no": 109,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "台東区",
+        "road_type": "市道",
+        "route_and_name": "台東区管内 台東区第6アンダーパス",
+        "short_name": "台東区第6アンダーパス",
+        "rail_crossing": 1,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 2.0,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "台東区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7903,
+          35.7056
+        ]
+      },
+      "properties": {
+        "no": 110,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "江東区",
+        "road_type": "区道",
+        "route_and_name": "江東区管内 江東区地下道交差部",
+        "short_name": "江東区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": 3.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "江東区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7679,
+          35.6894
+        ]
+      },
+      "properties": {
+        "no": 111,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "墨田区",
+        "road_type": "都道",
+        "route_and_name": "墨田区管内 墨田区地下道交差部",
+        "short_name": "墨田区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "東武スカイツリーライン",
+        "elevation_m": 3.0,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "墨田区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7513,
+          35.7627
+        ]
+      },
+      "properties": {
+        "no": 112,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "足立区",
+        "road_type": "区道",
+        "route_and_name": "足立区管内 足立区総武線架道橋下",
+        "short_name": "足立区総武線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR総武線",
+        "elevation_m": 3.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "足立区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8272,
+          35.7075
+        ]
+      },
+      "properties": {
+        "no": 113,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "葛飾区",
+        "road_type": "一般国道",
+        "route_and_name": "葛飾区管内 葛飾区地下道交差部",
+        "short_name": "葛飾区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 2.7,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "葛飾区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8224,
+          35.729
+        ]
+      },
+      "properties": {
+        "no": 114,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "荒川区",
+        "road_type": "区道",
+        "route_and_name": "荒川区管内 荒川区総武線架道橋下",
+        "short_name": "荒川区総武線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR総武線",
+        "elevation_m": -0.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "荒川区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8376,
+          35.7401
+        ]
+      },
+      "properties": {
+        "no": 115,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "台東区",
+        "road_type": "市道",
+        "route_and_name": "台東区管内 台東区環状道路立体交差",
+        "short_name": "台東区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 2.1,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "台東区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7688,
+          35.6901
+        ]
+      },
+      "properties": {
+        "no": 116,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "江東区",
+        "road_type": "一般国道",
+        "route_and_name": "江東区管内 江東区駅前ガード下",
+        "short_name": "江東区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京成本線",
+        "elevation_m": 3.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "江東区駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8181,
+          35.7259
+        ]
+      },
+      "properties": {
+        "no": 117,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "墨田区",
+        "road_type": "都道",
+        "route_and_name": "墨田区管内 墨田区第14アンダーパス",
+        "short_name": "墨田区第14アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR総武線",
+        "elevation_m": 2.3,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "墨田区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7755,
+          35.6949
+        ]
+      },
+      "properties": {
+        "no": 118,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "足立区",
+        "road_type": "区道",
+        "route_and_name": "足立区管内 足立区常磐線架道橋下",
+        "short_name": "足立区常磐線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": 3.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "足立区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8699,
+          35.6764
+        ]
+      },
+      "properties": {
+        "no": 119,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "葛飾区",
+        "road_type": "都道",
+        "route_and_name": "葛飾区管内 葛飾区地下道交差部",
+        "short_name": "葛飾区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": 4.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "葛飾区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8249,
+          35.7308
+        ]
+      },
+      "properties": {
+        "no": 120,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "荒川区",
+        "road_type": "一般国道",
+        "route_and_name": "荒川区管内 荒川区地下道交差部",
+        "short_name": "荒川区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京葉線",
+        "elevation_m": -0.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "荒川区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8091,
+          35.7193
+        ]
+      },
+      "properties": {
+        "no": 126,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "台東区",
+        "road_type": "都道",
+        "route_and_name": "台東区管内 台東区環状道路立体交差",
+        "short_name": "台東区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "東武スカイツリーライン",
+        "elevation_m": 0.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "台東区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8458,
+          35.694
+        ]
+      },
+      "properties": {
+        "no": 127,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "江東区",
+        "road_type": "市道",
+        "route_and_name": "江東区管内 江東区地下道交差部",
+        "short_name": "江東区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 2.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "江東区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.855,
+          35.7527
+        ]
+      },
+      "properties": {
+        "no": 128,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "墨田区",
+        "road_type": "市道",
+        "route_and_name": "墨田区管内 墨田区環状道路立体交差",
+        "short_name": "墨田区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR京葉線",
+        "elevation_m": 1.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "墨田区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8636,
+          35.759
+        ]
+      },
+      "properties": {
+        "no": 129,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "足立区",
+        "road_type": "市道",
+        "route_and_name": "足立区管内 足立区環状道路立体交差",
+        "short_name": "足立区環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": -0.1,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "足立区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8325,
+          35.7036
+        ]
+      },
+      "properties": {
+        "no": 130,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "葛飾区",
+        "road_type": "市道",
+        "route_and_name": "葛飾区管内 葛飾区地下道交差部",
+        "short_name": "葛飾区地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 1.0,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "葛飾区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7513,
+          35.6773
+        ]
+      },
+      "properties": {
+        "no": 131,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "荒川区",
+        "road_type": "一般国道",
+        "route_and_name": "荒川区管内 荒川区駅前ガード下",
+        "short_name": "荒川区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京葉線",
+        "elevation_m": 0.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "荒川区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8263,
+          35.7081
+        ]
+      },
+      "properties": {
+        "no": 132,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "台東区",
+        "road_type": "市道",
+        "route_and_name": "台東区管内 台東区駅前ガード下",
+        "short_name": "台東区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京成本線",
+        "elevation_m": 3.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "台東区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7753,
+          35.6947
+        ]
+      },
+      "properties": {
+        "no": 133,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "江東区",
+        "road_type": "市道",
+        "route_and_name": "江東区管内 江東区常磐線架道橋下",
+        "short_name": "江東区常磐線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": 0.7,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "江東区駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7613,
+          35.7554
+        ]
+      },
+      "properties": {
+        "no": 134,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "墨田区",
+        "road_type": "都道",
+        "route_and_name": "墨田区管内 墨田区地下道交差部",
+        "short_name": "墨田区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR常磐線",
+        "elevation_m": 3.3,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "墨田区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.828,
+          35.7069
+        ]
+      },
+      "properties": {
+        "no": 135,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "足立区",
+        "road_type": "都道",
+        "route_and_name": "足立区管内 足立区駅前ガード下",
+        "short_name": "足立区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR総武線",
+        "elevation_m": -0.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "足立区駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7766,
+          35.6957
+        ]
+      },
+      "properties": {
+        "no": 136,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "葛飾区",
+        "road_type": "区道",
+        "route_and_name": "葛飾区管内 葛飾区京成本線架道橋下",
+        "short_name": "葛飾区京成本線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京成本線",
+        "elevation_m": 3.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "葛飾区駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7522,
+          35.762
+        ]
+      },
+      "properties": {
+        "no": 137,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "荒川区",
+        "road_type": "区道",
+        "route_and_name": "荒川区管内 荒川区地下道交差部",
+        "short_name": "荒川区地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京成本線",
+        "elevation_m": 1.1,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "荒川区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8539,
+          35.6881
+        ]
+      },
+      "properties": {
+        "no": 138,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "台東区",
+        "road_type": "市道",
+        "route_and_name": "台東区管内 台東区つくばエクスプレス架道橋下",
+        "short_name": "台東区つくばエクスプレス架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "つくばエクスプレス",
+        "elevation_m": 2.0,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "台東区駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7899,
+          35.7054
+        ]
+      },
+      "properties": {
+        "no": 139,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "江東区",
+        "road_type": "市道",
+        "route_and_name": "江東区管内 江東区駅前ガード下",
+        "short_name": "江東区駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR京葉線",
+        "elevation_m": 4.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "江東区駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8157,
+          35.7158
+        ]
+      },
+      "properties": {
+        "no": 140,
+        "area": "城東 (江東・墨田・足立・葛飾・荒川)",
+        "municipality": "墨田区",
+        "road_type": "区道",
+        "route_and_name": "墨田区管内 墨田区環状道路立体交差",
+        "short_name": "墨田区環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京成本線",
+        "elevation_m": 3.5,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "墨田区駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3744,
+          35.6335
+        ]
+      },
+      "properties": {
+        "no": 141,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "八王子市",
+        "road_type": "市道",
+        "route_and_name": "八王子市管内 八王子市環状道路立体交差",
+        "short_name": "八王子市環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急多摩線",
+        "elevation_m": 45.3,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "八王子市駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3581,
+          35.6205
+        ]
+      },
+      "properties": {
+        "no": 142,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "立川市",
+        "road_type": "市道",
+        "route_and_name": "立川市管内 立川市環状道路立体交差",
+        "short_name": "立川市環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR横浜線",
+        "elevation_m": 72.4,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "立川市駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3485,
+          35.6128
+        ]
+      },
+      "properties": {
+        "no": 143,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "府中市",
+        "road_type": "一般国道",
+        "route_and_name": "府中市管内 府中市環状道路立体交差",
+        "short_name": "府中市環状道路立体交差",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 92.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "府中市駅周辺 徒歩7分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4303,
+          35.6617
+        ]
+      },
+      "properties": {
+        "no": 144,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "調布市",
+        "road_type": "区道",
+        "route_and_name": "調布市管内 調布市地下道交差部",
+        "short_name": "調布市地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR中央線",
+        "elevation_m": 114.7,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "調布市駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4232,
+          35.6674
+        ]
+      },
+      "properties": {
+        "no": 145,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "武蔵野市",
+        "road_type": "区道",
+        "route_and_name": "武蔵野市管内 武蔵野市駅前ガード下",
+        "short_name": "武蔵野市駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急多摩線",
+        "elevation_m": 95.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 2,
+        "station_proximity": "武蔵野市駅周辺 徒歩3分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4343,
+          35.6814
+        ]
+      },
+      "properties": {
+        "no": 146,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "三鷹市",
+        "road_type": "一般国道",
+        "route_and_name": "三鷹市管内 三鷹市地下道交差部",
+        "short_name": "三鷹市地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR横浜線",
+        "elevation_m": 63.5,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "三鷹市駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3895,
+          35.6944
+        ]
+      },
+      "properties": {
+        "no": 147,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "町田市",
+        "road_type": "一般国道",
+        "route_and_name": "町田市管内 町田市地下道交差部",
+        "short_name": "町田市地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR横浜線",
+        "elevation_m": 77.6,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "町田市駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4775,
+          35.624
+        ]
+      },
+      "properties": {
+        "no": 148,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "八王子市",
+        "road_type": "市道",
+        "route_and_name": "八王子市管内 八王子市地下道交差部",
+        "short_name": "八王子市地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "多摩都市モノレール",
+        "elevation_m": 113.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "八王子市駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3841,
+          35.6413
+        ]
+      },
+      "properties": {
+        "no": 149,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "立川市",
+        "road_type": "一般国道",
+        "route_and_name": "立川市管内 立川市小田急多摩線架道橋下",
+        "short_name": "立川市小田急多摩線架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急多摩線",
+        "elevation_m": 93.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "立川市駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4062,
+          35.681
+        ]
+      },
+      "properties": {
+        "no": 150,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "府中市",
+        "road_type": "一般国道",
+        "route_and_name": "府中市管内 府中市環状道路立体交差",
+        "short_name": "府中市環状道路立体交差",
+        "rail_crossing": 0,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 56.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "府中市駅周辺 徒歩9分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4793,
+          35.7175
+        ]
+      },
+      "properties": {
+        "no": 151,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "調布市",
+        "road_type": "都道",
+        "route_and_name": "調布市管内 調布市地下道交差部",
+        "short_name": "調布市地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "京王線",
+        "elevation_m": 80.1,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "調布市駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4525,
+          35.696
+        ]
+      },
+      "properties": {
+        "no": 152,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "武蔵野市",
+        "road_type": "区道",
+        "route_and_name": "武蔵野市管内 武蔵野市地下道交差部",
+        "short_name": "武蔵野市地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "小田急多摩線",
+        "elevation_m": 113.2,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "武蔵野市駅周辺 徒歩4分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3805,
+          35.7016
+        ]
+      },
+      "properties": {
+        "no": 153,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "三鷹市",
+        "road_type": "市道",
+        "route_and_name": "三鷹市管内 三鷹市駅前ガード下",
+        "short_name": "三鷹市駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "多摩都市モノレール",
+        "elevation_m": 103.7,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "三鷹市駅周辺 徒歩5分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3927,
+          35.6481
+        ]
+      },
+      "properties": {
+        "no": 154,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "町田市",
+        "road_type": "都道",
+        "route_and_name": "町田市管内 町田市地下道交差部",
+        "short_name": "町田市地下道交差部",
+        "rail_crossing": 1,
+        "rail_crossing_line": "JR南武線",
+        "elevation_m": 82.9,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": false
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "町田市駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4038,
+          35.6571
+        ]
+      },
+      "properties": {
+        "no": 155,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "八王子市",
+        "road_type": "都道",
+        "route_and_name": "八王子市管内 八王子市地下道交差部",
+        "short_name": "八王子市地下道交差部",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR横浜線",
+        "elevation_m": 105.6,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "八王子市駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4369,
+          35.6564
+        ]
+      },
+      "properties": {
+        "no": 156,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "立川市",
+        "road_type": "市道",
+        "route_and_name": "立川市管内 立川市駅前ガード下",
+        "short_name": "立川市駅前ガード下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "多摩都市モノレール",
+        "elevation_m": 110.9,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": false,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 3,
+        "station_proximity": "立川市駅周辺 徒歩6分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4375,
+          35.684
+        ]
+      },
+      "properties": {
+        "no": 157,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "府中市",
+        "road_type": "市道",
+        "route_and_name": "府中市管内 府中市第17アンダーパス",
+        "short_name": "府中市第17アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR横浜線",
+        "elevation_m": 62.3,
+        "category_tentative": "区分I（重点対策）",
+        "equipment": {
+          "sensor": false,
+          "warning_light": true,
+          "display_board": true,
+          "barrier": false
+        },
+        "bus_routes_count": 0,
+        "station_proximity": "府中市駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.4251,
+          35.6741
+        ]
+      },
+      "properties": {
+        "no": 158,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "調布市",
+        "road_type": "区道",
+        "route_and_name": "調布市管内 調布市第18アンダーパス",
+        "short_name": "調布市第18アンダーパス",
+        "rail_crossing": 0,
+        "rail_crossing_line": "JR南武線",
+        "elevation_m": 78.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 1,
+        "station_proximity": "調布市駅周辺 徒歩8分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3799,
+          35.7021
+        ]
+      },
+      "properties": {
+        "no": 159,
+        "area": "多摩 (八王子・立川・府中・三鷹等)",
+        "municipality": "武蔵野市",
+        "road_type": "一般国道",
+        "route_and_name": "武蔵野市管内 武蔵野市多摩都市モノレール架道橋下",
+        "short_name": "武蔵野市多摩都市モノレール架道橋下",
+        "rail_crossing": 1,
+        "rail_crossing_line": "多摩都市モノレール",
+        "elevation_m": 49.8,
+        "category_tentative": "区分II（設備強化済）",
+        "equipment": {
+          "sensor": true,
+          "warning_light": true,
+          "display_board": false,
+          "barrier": true
+        },
+        "bus_routes_count": 4,
+        "station_proximity": "武蔵野市駅周辺 徒歩2分",
+        "risk_note": "線路高架下・道路立体交差によるすり鉢状構造。豪雨時は冠水注意。"
+      }
+    }
+  ]
+}
