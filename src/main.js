@@ -502,21 +502,27 @@ function setupEvents() {
     }
   });
 
-  document.getElementById('btn-focus-daimon').addEventListener('click', () => {
-    map.flyTo({
-      center: DAIMON_CENTER,
-      zoom: 16.2,
-      pitch: 55,
-      bearing: -20,
-      duration: 1500
+  const btnFocusDaimon = document.getElementById('btn-focus-daimon');
+  if (btnFocusDaimon) {
+    btnFocusDaimon.addEventListener('click', () => {
+      map.flyTo({
+        center: DAIMON_CENTER,
+        zoom: 16.2,
+        pitch: 55,
+        bearing: -20,
+        duration: 1500
+      });
     });
-  });
+  }
 
   // Drawer Close
-  document.getElementById('btn-close-drawer').addEventListener('click', () => {
-    detailDrawer.classList.remove('open');
-    detailDrawer.style.display = 'none';
-  });
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  if (btnCloseDrawer) {
+    btnCloseDrawer.addEventListener('click', () => {
+      detailDrawer.classList.remove('open');
+      detailDrawer.style.display = 'none';
+    });
+  }
 
   // Admin Panel Close
   document.getElementById('btn-close-admin').addEventListener('click', () => {
@@ -559,11 +565,13 @@ function setupEvents() {
   }
 
   // Map Feature Click Listeners
-  map.on('click', 'underpass-points', (e) => {
+  const handleUnderpassClick = (e) => {
     if (!e.features.length) return;
     const f = e.features[0];
     showUnderpassDetails(f.properties);
-  });
+  };
+  map.on('click', 'underpass-points', handleUnderpassClick);
+  map.on('click', 'underpass-pulse', handleUnderpassClick);
 
   map.on('click', 'facility-points', (e) => {
     if (!e.features.length) return;
@@ -590,7 +598,7 @@ function setupEvents() {
   });
 
   // Cursor change on hover
-  ['underpass-points', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
+  ['underpass-points', 'underpass-pulse', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
     map.on('mouseenter', layer, () => {
       if (!isDrawing) map.getCanvas().style.cursor = 'pointer';
     });
