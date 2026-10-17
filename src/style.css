@@ -827,6 +827,147 @@ body {
   flex: 1;
 }
 
+/* Mitekita Survey Modal */
+.mitekita-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 160;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 14, 23, 0.85);
+}
+
+.mitekita-modal-card {
+  width: 520px;
+  max-width: 92vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(16, 185, 129, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.survey-safety-alert {
+  background: rgba(245, 158, 11, 0.15);
+  border-left: 4px solid var(--accent-amber);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  color: #fde68a;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.survey-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.survey-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.survey-question {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.question-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.survey-options {
+  display: flex;
+  gap: 8px;
+}
+
+.opt-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.opt-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.opt-btn.active[data-val="true"] {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: var(--accent-emerald);
+  color: #34d399;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.opt-btn.active[data-val="false"] {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: var(--accent-rose);
+  color: #f87171;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
+}
+
+.opt-btn.active[data-val="unknown"] {
+  background: rgba(100, 116, 139, 0.3);
+  border-color: #94a3b8;
+  color: #e2e8f0;
+}
+
+/* Button in Underpass Drawer */
+.btn-survey-launch {
+  width: 100%;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #10b981, #0d9488);
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-survey-launch:hover:not(:disabled) {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+.btn-survey-launch:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .hidden {
   display: none !important;
 }

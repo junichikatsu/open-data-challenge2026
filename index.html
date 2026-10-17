@@ -145,6 +145,73 @@
         </div>
       </div>
 
+      <!-- Mitekita Citizen Equipment Survey Modal -->
+      <div id="mitekita-modal" class="mitekita-modal-overlay glass-panel hidden">
+        <div class="mitekita-modal-card">
+          <div class="score-header">
+            <div>
+              <span class="score-eyebrow">CITIZEN COOPERATION</span>
+              <h2 id="mitekita-title">現地設備を見てきた報告</h2>
+            </div>
+            <button id="btn-close-mitekita" class="btn-icon">✕</button>
+          </div>
+          <div class="survey-safety-alert">
+            🛡️ <strong>安全設計原則</strong>: 回答は日常の晴天・平常時のみ行ってください。雨天・冠水時は危険箇所に絶対に近づかないでください。
+          </div>
+          <div class="survey-form-body">
+            <p class="survey-desc">現地で確認した設備を回答してください。市民の報告が集まることで、国交省ガイドラインの4区分判定が自動で更新されます。</p>
+
+            <div class="survey-question" data-key="sensor">
+              <div class="question-label">1. 水位センサ・水位計標示（路面・壁面の目盛り）</div>
+              <div class="survey-options">
+                <button type="button" class="opt-btn" data-val="true">はい</button>
+                <button type="button" class="opt-btn" data-val="false">いいえ</button>
+                <button type="button" class="opt-btn active" data-val="unknown">わからない</button>
+              </div>
+            </div>
+
+            <div class="survey-question" data-key="warning_light">
+              <div class="question-label">2. 回転赤色灯・警報灯</div>
+              <div class="survey-options">
+                <button type="button" class="opt-btn" data-val="true">はい</button>
+                <button type="button" class="opt-btn" data-val="false">いいえ</button>
+                <button type="button" class="opt-btn active" data-val="unknown">わからない</button>
+              </div>
+            </div>
+
+            <div class="survey-question" data-key="display_board">
+              <div class="question-label">3. 道路情報板（電光掲示板・注意板）</div>
+              <div class="survey-options">
+                <button type="button" class="opt-btn" data-val="true">はい</button>
+                <button type="button" class="opt-btn" data-val="false">いいえ</button>
+                <button type="button" class="opt-btn active" data-val="unknown">わからない</button>
+              </div>
+            </div>
+
+            <div class="survey-question" data-key="barrier">
+              <div class="question-label">4. 遮断機（自動または手動ゲート）</div>
+              <div class="survey-options">
+                <button type="button" class="opt-btn" data-val="true">はい</button>
+                <button type="button" class="opt-btn" data-val="false">いいえ</button>
+                <button type="button" class="opt-btn active" data-val="unknown">わからない</button>
+              </div>
+            </div>
+
+            <div class="survey-question" data-key="warning_sign">
+              <div class="question-label">5. 冠水注意喚起標識（路面塗装・看板）</div>
+              <div class="survey-options">
+                <button type="button" class="opt-btn" data-val="true">はい</button>
+                <button type="button" class="opt-btn" data-val="false">いいえ</button>
+                <button type="button" class="opt-btn active" data-val="unknown">わからない</button>
+              </div>
+            </div>
+          </div>
+          <div class="score-footer">
+            <button id="btn-submit-survey" class="btn-primary">✅ 報告を送信（ダッシュボードに反映）</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Admin 4-Category Table (管理者モード時表示) -->
       <div id="admin-panel" class="admin-panel-overlay glass-panel hidden">
         <div class="admin-header">

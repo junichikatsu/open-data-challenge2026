@@ -45,6 +45,13 @@ const closeScoreBtn = document.getElementById('btn-close-score');
 const testFloodBtn = document.getElementById('btn-test-flood');
 const redrawBtn = document.getElementById('btn-redraw');
 
+// Mitekita Survey Elements
+const mitekitaModal = document.getElementById('mitekita-modal');
+const mitekitaTitle = document.getElementById('mitekita-title');
+const closeMitekitaBtn = document.getElementById('btn-close-mitekita');
+const submitSurveyBtn = document.getElementById('btn-submit-survey');
+let currentSurveyUnderpassNo = null;
+
 // Initialize Map
 function initMap() {
   map = new maplibregl.Map({
@@ -549,6 +556,23 @@ function setupEvents() {
     testFloodBtn.addEventListener('click', runFloodTestForRoute);
   }
 
+  // Mitekita Survey Modal Events
+  if (closeMitekitaBtn) {
+    closeMitekitaBtn.addEventListener('click', () => mitekitaModal.classList.add('hidden'));
+  }
+  if (submitSurveyBtn) {
+    submitSurveyBtn.addEventListener('click', () => handleMitekitaSubmit());
+  }
+
+  // Option buttons in survey modal
+  document.querySelectorAll('.survey-question .opt-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const parent = e.target.closest('.survey-options');
+      parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  });
+
   // Map Click for Drawing Points
   map.on('click', (e) => {
     if (!isDrawing) return;
@@ -691,6 +715,9 @@ function showUnderpassDetails(props) {
   const lightText = equipObj?.warning_light ? '✅ 赤色灯あり' : '❌ 赤色灯なし';
   const barrierText = equipObj?.barrier ? '✅ 遮断機あり' : '❌ 遮断機なし';
 
+  const rainMm = parseInt(rainSlider.value, 10);
+  const isRainy = rainMm >= 50;
+
   drawerContent.innerHTML = `
     <div class="poi-property-list">
       <div class="poi-item">
@@ -718,7 +745,16 @@ function showUnderpassDetails(props) {
       <div class="guidance-title">🚶‍♂️ 豪雨時アメミチ迂回アドバイス</div>
       <div>${props.risk_note} 大雨の際は地上道路を避け、大門駅B3出口からペデストリアンデッキ経由で通行してください。</div>
     </div>
+    ${isRainy ?
+      '<button class="btn-survey-launch" disabled>⚠️ 豪雨時: 安全のため現地調査は停止中</button>' :
+      `<button id="btn-open-survey" class="btn-survey-launch" data-no="${props.no}">📸 現地設備を「見てきた」報告</button>`
+    }
   `;
+
+  const openSurveyBtn = document.getElementById('btn-open-survey');
+  if (openSurveyBtn) {
+    openSurveyBtn.addEventListener('click', () => openMitekitaSurvey(props));
+  }
 }
 
 // Show Facility Details in Drawer
@@ -1175,6 +1211,71 @@ function distToSegment(p, v, w) {
   t = Math.max(0, Math.min(1, t));
   const projection = [v[0] + t * (w[0] - v[0]), v[1] + t * (w[1] - v[1])];
   return getDistanceMeters(p, projection);
+}
+
+// ==========================================
+// Mitekita Survey Implementation
+// ==========================================
+
+function openMitekitaSurvey(props) {
+  currentSurveyUnderpassNo = props.no;
+  mitekitaTitle.textContent = `${props.short_name || props.route_and_name} の設備報告`;
+
+  let equipObj = {};
+  try {
+    equipObj = typeof props.equipment === 'string' ? JSON.parse(props.equipment) : props.equipment;
+  } catch (e) {}
+
+  document.querySelectorAll('.survey-question').forEach(q => {
+    const key = q.dataset.key;
+    const val = equipObj ? equipObj[key] : null;
+    const opts = q.querySelectorAll('.opt-btn');
+    opts.forEach(b => b.classList.remove('active'));
+
+    if (val === true) {
+      q.querySelector('.opt-btn[data-val="true"]')?.classList.add('active');
+    } else if (val === false) {
+      q.querySelector('.opt-btn[data-val="false"]')?.classList.add('active');
+    } else {
+      q.querySelector('.opt-btn[data-val="unknown"]')?.classList.add('active');
+    }
+  });
+
+  mitekitaModal.classList.remove('hidden');
+}
+
+function handleMitekitaSubmit() {
+  if (!currentSurveyUnderpassNo || !underpassesData) return;
+
+  const targetFeature = underpassesData.features.find(f => f.properties.no === currentSurveyUnderpassNo);
+  if (!targetFeature) return;
+
+  const newEquip = {};
+  document.querySelectorAll('.survey-question').forEach(q => {
+    const key = q.dataset.key;
+    const activeBtn = q.querySelector('.opt-btn.active');
+    const val = activeBtn ? activeBtn.dataset.val : 'unknown';
+    if (val === 'true') newEquip[key] = true;
+    else if (val === 'false') newEquip[key] = false;
+    else newEquip[key] = null;
+  });
+
+  targetFeature.properties.equipment = newEquip;
+
+  // Re-calculate category tentative if needed
+  if (newEquip.barrier && newEquip.sensor) {
+    targetFeature.properties.category_tentative = '区分II（設備強化済）';
+  }
+
+  // Update Drawer
+  showUnderpassDetails(targetFeature.properties);
+
+  // Update Admin Table & GeoJSON source
+  renderAdminTable();
+  const source = map.getSource('underpasses');
+  if (source) source.setData(underpassesData);
+
+  mitekitaModal.classList.add('hidden');
 }
 
 // Launch
