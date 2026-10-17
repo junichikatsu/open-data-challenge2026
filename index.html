@@ -103,6 +103,48 @@
         </div>
       </aside>
 
+      <!-- Amemichi Maker Floating Card (平時モード時に活用) -->
+      <div class="maker-control-card glass-panel" id="maker-panel">
+        <div class="control-header">
+          <span class="ctrl-title">✏️ アメミチをつくる（平時事前学習）</span>
+          <span class="badge" id="draw-status-badge">待機中</span>
+        </div>
+        <p class="maker-help-text">大門駅の出口から家や施設までの避難線を地図クリックで描いて、アンダーパス冠水回避度を採点！</p>
+        <div class="maker-btn-group">
+          <button id="btn-draw-toggle" class="btn-primary">✏️ ルートを描く</button>
+          <button id="btn-score-route" class="btn-accent" disabled>🏆 採点する</button>
+          <button id="btn-clear-route" class="btn-secondary" disabled>🗑️ リセット</button>
+        </div>
+        <div id="draw-hint-box" class="draw-hint hidden">
+          💡 地図をクリックして経由地を追加してください。アンダーパスを避けてペデストリアンデッキを活用しましょう。
+        </div>
+      </div>
+
+      <!-- Scoring Result Modal -->
+      <div id="score-modal" class="score-modal-overlay glass-panel hidden">
+        <div class="score-modal-card">
+          <div class="score-header">
+            <span class="score-eyebrow">AMEMICHI DIAGNOSIS</span>
+            <h2>アメミチ安全度 判定結果</h2>
+            <button id="btn-close-score" class="btn-icon">✕</button>
+          </div>
+          <div class="score-body">
+            <div class="score-score-circle">
+              <div class="score-num" id="score-val">--</div>
+              <div class="score-max">/ 100点</div>
+              <div class="score-rank-badge" id="score-rank">RANK -</div>
+            </div>
+            <div class="score-breakdown" id="score-details">
+              <!-- 動的生成 -->
+            </div>
+          </div>
+          <div class="score-footer">
+            <button id="btn-test-flood" class="btn-primary">🌧️ 豪雨（80mm/h）で耐水テスト</button>
+            <button id="btn-redraw" class="btn-secondary">✏️ もう一度描く</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Admin 4-Category Table (管理者モード時表示) -->
       <div id="admin-panel" class="admin-panel-overlay glass-panel hidden">
         <div class="admin-header">

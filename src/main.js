@@ -14,6 +14,8 @@ let busRoutesData = null;
 let currentMode = 'peace'; // 'peace' | 'storm' | 'admin'
 let buildingsVisible = true;
 let busVisible = true;
+let isDrawing = false;
+let drawnPoints = [];
 
 // DOM Elements
 const rainSlider = document.getElementById('rain-slider');
@@ -26,6 +28,22 @@ const poiBadge = document.getElementById('poi-badge');
 const drawerContent = document.getElementById('drawer-content');
 const adminPanel = document.getElementById('admin-panel');
 const adminTbody = document.getElementById('admin-tbody');
+
+// Maker & Score Modal Elements
+const makerPanel = document.getElementById('maker-panel');
+const drawToggleBtn = document.getElementById('btn-draw-toggle');
+const scoreRouteBtn = document.getElementById('btn-score-route');
+const clearRouteBtn = document.getElementById('btn-clear-route');
+const drawStatusBadge = document.getElementById('draw-status-badge');
+const drawHintBox = document.getElementById('draw-hint-box');
+
+const scoreModal = document.getElementById('score-modal');
+const scoreVal = document.getElementById('score-val');
+const scoreRank = document.getElementById('score-rank');
+const scoreDetails = document.getElementById('score-details');
+const closeScoreBtn = document.getElementById('btn-close-score');
+const testFloodBtn = document.getElementById('btn-test-flood');
+const redrawBtn = document.getElementById('btn-redraw');
 
 // Initialize Map
 function initMap() {
@@ -328,6 +346,59 @@ function setupLayers() {
       'circle-blur': 0.6
     }
   });
+
+  // 5. User Amemichi Drawing Layer
+  map.addSource('user-amemichi-source', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: []
+    }
+  });
+
+  map.addLayer({
+    id: 'user-amemichi-line-glow',
+    type: 'line',
+    source: 'user-amemichi-source',
+    filter: ['==', '$type', 'LineString'],
+    layout: { 'line-join': 'round', 'line-cap': 'round' },
+    paint: {
+      'line-color': '#06b6d4',
+      'line-width': 9,
+      'line-opacity': 0.5,
+      'line-blur': 4
+    }
+  });
+
+  map.addLayer({
+    id: 'user-amemichi-line-core',
+    type: 'line',
+    source: 'user-amemichi-source',
+    filter: ['==', '$type', 'LineString'],
+    layout: { 'line-join': 'round', 'line-cap': 'round' },
+    paint: {
+      'line-color': '#38bdf8',
+      'line-width': 4
+    }
+  });
+
+  map.addLayer({
+    id: 'user-amemichi-points',
+    type: 'circle',
+    source: 'user-amemichi-source',
+    filter: ['==', '$type', 'Point'],
+    paint: {
+      'circle-radius': 7,
+      'circle-color': [
+        'case',
+        ['==', ['get', 'point_type'], 'start'], '#10b981',
+        ['==', ['get', 'point_type'], 'end'], '#f59e0b',
+        '#06b6d4'
+      ],
+      'circle-stroke-width': 2.5,
+      'circle-stroke-color': '#ffffff'
+    }
+  });
 }
 
 // UI & Map Events
@@ -444,8 +515,52 @@ function setupEvents() {
 
   // Cursor change on hover
   ['underpass-points', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
-    map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
+    map.on('mouseenter', layer, () => {
+      if (!isDrawing) map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', layer, () => {
+      if (!isDrawing) map.getCanvas().style.cursor = '';
+    });
+  });
+
+  // Amemichi Maker Events
+  if (drawToggleBtn) {
+    drawToggleBtn.addEventListener('click', toggleDrawingMode);
+  }
+
+  if (clearRouteBtn) {
+    clearRouteBtn.addEventListener('click', clearDrawnRoute);
+  }
+
+  if (scoreRouteBtn) {
+    scoreRouteBtn.addEventListener('click', handleScoreRoute);
+  }
+
+  if (closeScoreBtn) {
+    closeScoreBtn.addEventListener('click', () => scoreModal.classList.add('hidden'));
+  }
+  if (redrawBtn) {
+    redrawBtn.addEventListener('click', () => {
+      scoreModal.classList.add('hidden');
+      toggleDrawingMode(true);
+    });
+  }
+  if (testFloodBtn) {
+    testFloodBtn.addEventListener('click', runFloodTestForRoute);
+  }
+
+  // Map Click for Drawing Points
+  map.on('click', (e) => {
+    if (!isDrawing) return;
+    const pt = [e.lngLat.lng, e.lngLat.lat];
+    drawnPoints.push(pt);
+    updateUserAmemichiMapLayer();
+
+    if (drawnPoints.length >= 2) {
+      scoreRouteBtn.disabled = false;
+      scoreRouteBtn.textContent = `🏆 採点する (${drawnPoints.length}地点)`;
+    }
+    clearRouteBtn.disabled = false;
   });
 }
 
@@ -479,20 +594,20 @@ function updateRainSimulation(rainMm) {
   // Update Toei Bus flood risk styling
   if (map.getLayer('toei-bus-routes-core')) {
     if (rainMm > 50) {
-      // Warning styling: Hama95 turns into dashed red/orange, Miyako06 stays green
+      // Warning styling: Hama95 turns into warning red, Miyako06 stays green
       map.setPaintProperty('toei-bus-routes-core', 'line-color', [
         'case',
         ['==', ['get', 'route_id'], 'Toei_Hama95'], '#f43f5e',
         '#10b981'
       ]);
-      map.setPaintProperty('toei-bus-routes-core', 'line-dasharray', [
+      map.setPaintProperty('toei-bus-routes-core', 'line-width', [
         'case',
-        ['==', ['get', 'route_id'], 'Toei_Hama95'], ['literal', [2, 2]],
-        ['literal', [1, 0]]
+        ['==', ['get', 'route_id'], 'Toei_Hama95'], 5.5,
+        4
       ]);
     } else {
       map.setPaintProperty('toei-bus-routes-core', 'line-color', ['get', 'color']);
-      map.setPaintProperty('toei-bus-routes-core', 'line-dasharray', [1, 0]);
+      map.setPaintProperty('toei-bus-routes-core', 'line-width', 4);
     }
   }
 
@@ -517,6 +632,7 @@ function switchMode(mode) {
   if (mode === 'peace') {
     stormBanner.classList.add('hidden');
     adminPanel.classList.add('hidden');
+    if (makerPanel) makerPanel.classList.remove('hidden');
     rainSlider.value = 0;
     updateRainSimulation(0);
     map.setLayoutProperty('safe-route-glow', 'visibility', 'none');
@@ -524,6 +640,7 @@ function switchMode(mode) {
   } else if (mode === 'storm') {
     stormBanner.classList.remove('hidden');
     adminPanel.classList.add('hidden');
+    if (makerPanel) makerPanel.classList.add('hidden');
     rainSlider.value = 80;
     updateRainSimulation(80);
     map.setLayoutProperty('safe-route-glow', 'visibility', 'visible');
@@ -552,6 +669,7 @@ function switchMode(mode) {
   } else if (mode === 'admin') {
     stormBanner.classList.add('hidden');
     adminPanel.classList.remove('hidden');
+    if (makerPanel) makerPanel.classList.add('hidden');
   }
 }
 
@@ -806,6 +924,257 @@ function exportAdminCSV() {
   a.download = 'amemichi3d_minato_4category_export.csv';
   a.click();
   URL.revokeObjectURL(url);
+}
+
+// ==========================================
+// Amemichi Maker & Scoring Logic
+// ==========================================
+
+function toggleDrawingMode(forceState) {
+  isDrawing = typeof forceState === 'boolean' ? forceState : !isDrawing;
+
+  if (isDrawing) {
+    drawToggleBtn.textContent = '⏹️ 描画を完了';
+    drawToggleBtn.classList.replace('btn-primary', 'btn-accent');
+    drawStatusBadge.className = 'badge danger';
+    drawStatusBadge.textContent = '描画中（地図をクリック）';
+    if (drawHintBox) drawHintBox.classList.remove('hidden');
+    map.getCanvas().style.cursor = 'crosshair';
+  } else {
+    drawToggleBtn.textContent = '✏️ ルートを描く';
+    drawToggleBtn.classList.replace('btn-accent', 'btn-primary');
+    drawStatusBadge.className = 'badge';
+    drawStatusBadge.textContent = drawnPoints.length > 0 ? `${drawnPoints.length}地点 登録済` : '待機中';
+    if (drawHintBox) drawHintBox.classList.add('hidden');
+    map.getCanvas().style.cursor = '';
+  }
+}
+
+function clearDrawnRoute() {
+  drawnPoints = [];
+  updateUserAmemichiMapLayer();
+  scoreRouteBtn.disabled = true;
+  scoreRouteBtn.textContent = '🏆 採点する';
+  clearRouteBtn.disabled = true;
+  drawStatusBadge.className = 'badge';
+  drawStatusBadge.textContent = '待機中';
+}
+
+function updateUserAmemichiMapLayer() {
+  const source = map.getSource('user-amemichi-source');
+  if (!source) return;
+
+  const features = [];
+
+  // Line
+  if (drawnPoints.length >= 2) {
+    features.push({
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: drawnPoints
+      },
+      properties: {}
+    });
+  }
+
+  // Points
+  drawnPoints.forEach((pt, idx) => {
+    let pType = 'mid';
+    if (idx === 0) pType = 'start';
+    else if (idx === drawnPoints.length - 1) pType = 'end';
+
+    features.push({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: pt
+      },
+      properties: {
+        point_type: pType,
+        index: idx
+      }
+    });
+  });
+
+  source.setData({
+    type: 'FeatureCollection',
+    features: features
+  });
+}
+
+function handleScoreRoute() {
+  if (drawnPoints.length < 2) return;
+  toggleDrawingMode(false);
+
+  const res = scoreAmemichi(drawnPoints);
+  if (!res) return;
+
+  scoreVal.textContent = res.score;
+  scoreRank.textContent = `RANK ${res.rank}`;
+
+  // Styling based on rank
+  scoreRank.className = 'score-rank-badge';
+  if (res.rank === 'S') scoreRank.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+  else if (res.rank === 'A') scoreRank.style.background = 'linear-gradient(135deg, #06b6d4, #2563eb)';
+  else if (res.rank === 'B') scoreRank.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+  else scoreRank.style.background = 'linear-gradient(135deg, #f43f5e, #be123c)';
+
+  scoreDetails.innerHTML = res.breakdown.map(item => `
+    <div class="breakdown-row ${item.status}">
+      <span class="breakdown-icon">${item.icon}</span>
+      <div class="breakdown-text">
+        <div class="breakdown-title">${item.title}</div>
+        <div class="breakdown-desc">${item.desc}</div>
+      </div>
+      <div class="breakdown-pts ${item.pts.startsWith('+') ? 'pos' : (item.pts.startsWith('-') ? 'neg' : '')}">${item.pts}</div>
+    </div>
+  `).join('');
+
+  scoreModal.classList.remove('hidden');
+}
+
+function scoreAmemichi(points) {
+  if (points.length < 2) return null;
+
+  let score = 100;
+  const breakdown = [];
+
+  const underpassCoords = [
+    { name: '浜松町ガード下 (No.122)', coords: [139.7582, 35.6542] },
+    { name: 'JR川口架道橋下 (No.121)', coords: [139.7547, 35.6515] },
+    { name: '東新橋こ道橋 (No.123)', coords: [139.7600, 35.6630] },
+    { name: '築地虎ノ門トンネル (No.65)', coords: [139.7540, 35.6660] },
+    { name: 'JR高輪架道橋下 (No.126)', coords: [139.7408, 35.6372] }
+  ];
+
+  let closestUnderpassDist = Infinity;
+  let closestUnderpassName = '';
+
+  for (const up of underpassCoords) {
+    for (let i = 0; i < points.length - 1; i++) {
+      const d = distToSegment(up.coords, points[i], points[i + 1]);
+      if (d < closestUnderpassDist) {
+        closestUnderpassDist = d;
+        closestUnderpassName = up.name;
+      }
+    }
+  }
+
+  // 1. Underpass flood risk penalty
+  if (closestUnderpassDist < 45) {
+    score -= 50;
+    breakdown.push({
+      status: 'fail',
+      icon: '🚨',
+      title: '冠水危険アンダーパスを通過',
+      desc: `${closestUnderpassName}（最接近: 約${Math.round(closestUnderpassDist)}m）を通過しています。豪雨時は完全水没立ち往生のリスクが極めて高いです。`,
+      pts: '-50点'
+    });
+  } else if (closestUnderpassDist < 90) {
+    score -= 20;
+    breakdown.push({
+      status: 'warning',
+      icon: '⚠️',
+      title: '低地すり鉢窪地への接近注意',
+      desc: `${closestUnderpassName}の浸水警戒エリア（最接近: 約${Math.round(closestUnderpassDist)}m）に接近しています。`,
+      pts: '-20点'
+    });
+  } else {
+    breakdown.push({
+      status: 'pass',
+      icon: '✅',
+      title: 'アンダーパス冠水箇所を完全回避',
+      desc: 'すべてのアンダーパス注意箇所から十分な安全距離（90m以上）を保って迂回できています。',
+      pts: '+0点'
+    });
+  }
+
+  // 2. Station Exit Selection (GTFS-Pathways)
+  const daimonB3 = [139.7548, 35.6565];
+  const startPt = points[0];
+  const distToB3 = getDistanceMeters(startPt, daimonB3);
+
+  if (distToB3 < 100) {
+    score = Math.min(100, score + 10);
+    breakdown.push({
+      status: 'pass',
+      icon: '🌉',
+      title: 'GTFS-Pathways: 大門駅B3出口（デッキ直結）を選択',
+      desc: '地上道路へ降りずにペデストリアンデッキ経由で高所移動できる最良の出口から出発しています。',
+      pts: '+10点 (ボーナス)'
+    });
+  } else {
+    breakdown.push({
+      status: 'warning',
+      icon: '🚶',
+      title: 'GTFS-Pathways: 地上出口からの出発',
+      desc: '地上出口は直後に低位路面を通るため、大雨時はB3出口（デッキ直結）の活用を推奨します。',
+      pts: '±0点'
+    });
+  }
+
+  // 3. Shelter / Safe Landmark Connection
+  const shelterCoord = [139.7595, 35.6558];
+  const endPt = points[points.length - 1];
+  const distToShelter = getDistanceMeters(endPt, shelterCoord);
+
+  if (distToShelter < 120) {
+    score = Math.min(100, score + 10);
+    breakdown.push({
+      status: 'pass',
+      icon: '🏢',
+      title: '都立一時滞在施設（産業貿易センター）へ安全到達',
+      desc: '水害時の帰宅困難者用一時滞在施設へ、浸水区域を通らずデッキ経由で安全に到達できています。',
+      pts: '+10点 (ボーナス)'
+    });
+  }
+
+  score = Math.max(10, Math.min(100, score));
+  let rank = 'C';
+  if (score >= 90) rank = 'S';
+  else if (score >= 75) rank = 'A';
+  else if (score >= 50) rank = 'B';
+
+  return { score, rank, breakdown };
+}
+
+function runFloodTestForRoute() {
+  scoreModal.classList.add('hidden');
+  rainSlider.value = 0;
+  updateRainSimulation(0);
+
+  let currentMm = 0;
+  const targetMm = 80;
+  const timer = setInterval(() => {
+    currentMm += 5;
+    rainSlider.value = currentMm;
+    updateRainSimulation(currentMm);
+    if (currentMm >= targetMm) {
+      clearInterval(timer);
+    }
+  }, 70);
+}
+
+// Distance calculation helpers (Haversine & Point-to-Segment)
+function getDistanceMeters(c1, c2) {
+  const R = 6371000;
+  const dLat = (c2[1] - c1[1]) * Math.PI / 180;
+  const dLon = (c2[0] - c1[0]) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(c1[1] * Math.PI / 180) * Math.cos(c2[1] * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function distToSegment(p, v, w) {
+  const l2 = (v[0] - w[0])**2 + (v[1] - w[1])**2;
+  if (l2 === 0) return getDistanceMeters(p, v);
+  let t = ((p[0] - v[0]) * (w[0] - v[0]) + (p[1] - v[1]) * (w[1] - v[1])) / l2;
+  t = Math.max(0, Math.min(1, t));
+  const projection = [v[0] + t * (w[0] - v[0]), v[1] + t * (w[1] - v[1])];
+  return getDistanceMeters(p, projection);
 }
 
 // Launch
