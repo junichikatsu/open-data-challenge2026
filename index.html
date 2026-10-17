@@ -47,9 +47,18 @@
         <button id="btn-tilt-toggle" class="ctrl-btn" title="3D視点切替">
           📐 3D視点
         </button>
-        <button id="btn-focus-daimon" class="ctrl-btn" title="大門・浜松町にズーム">
-          📍 大門駅
-        </button>
+        <div class="area-selector-wrapper">
+          <select id="area-select" class="ctrl-select" title="対象エリアを選択">
+            <option value="minato" selected>📍 港区モデル (高精細)</option>
+            <option value="shinjuku_shibuya">📍 新宿・渋谷 エリア</option>
+            <option value="shinagawa_ota">📍 品川・大田 エリア</option>
+            <option value="setagaya_suginami">📍 世田谷・杉並 エリア</option>
+            <option value="johoku">📍 城北 (豊島・北・板橋・練馬)</option>
+            <option value="joto">📍 城東 (江東・墨田・足立・葛飾)</option>
+            <option value="tama">📍 多摩 (八王子・立川・府中)</option>
+            <option value="all_tokyo">🌐 東京都全域 (159箇所)</option>
+          </select>
+        </div>
         <button id="btn-scenario-toggle" class="ctrl-btn highlight-accent" title="17:15 ゲリラ豪雨シナリオを自動再生">
           🎬 17:15 再生
         </button>
@@ -267,9 +276,42 @@
       <!-- Admin 4-Category Table (管理者モード時表示) -->
       <div id="admin-panel" class="admin-panel-overlay glass-panel hidden">
         <div class="admin-header">
-          <h2>🏛️ 国交省ガイドライン（2026-10-06改定）港区5箇所 区分仮判定</h2>
+          <div class="admin-title-group">
+            <h2>🏛️ 国交省ガイドライン（2026-10-06改定）都内159箇所 区分仮判定</h2>
+            <span class="badge" id="admin-count-badge">全159箇所表示中</span>
+          </div>
           <button id="btn-close-admin" class="btn-icon">✕</button>
         </div>
+
+        <!-- Admin Filter & Search Bar -->
+        <div class="admin-filter-bar">
+          <div class="admin-filter-item">
+            <label for="admin-area-filter">エリア:</label>
+            <select id="admin-area-filter" class="admin-select">
+              <option value="all">すべてのエリア (都内全域)</option>
+              <option value="港区・都心">港区・都心</option>
+              <option value="新宿・渋谷">新宿・渋谷</option>
+              <option value="品川・大田">品川・大田</option>
+              <option value="世田谷・杉並">世田谷・杉並</option>
+              <option value="城北 (豊島・北・板橋・練馬)">城北</option>
+              <option value="城東 (江東・墨田・足立・葛飾・荒川)">城東</option>
+              <option value="多摩 (八王子・立川・府中・三鷹等)">多摩</option>
+            </select>
+          </div>
+          <div class="admin-filter-item">
+            <label for="admin-cat-filter">判定区分:</label>
+            <select id="admin-cat-filter" class="admin-select">
+              <option value="all">すべての区分</option>
+              <option value="区分I">区分I (重点対策)</option>
+              <option value="区分II">区分II (設備強化済)</option>
+              <option value="区分III">区分III (対策済)</option>
+            </select>
+          </div>
+          <div class="admin-filter-item search-grow">
+            <input type="text" id="admin-search-input" class="admin-input" placeholder="🔍 箇所名・交差路線・自治体名で検索..." />
+          </div>
+        </div>
+
         <div class="admin-table-wrapper">
           <table class="admin-table">
             <thead>

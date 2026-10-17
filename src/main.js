@@ -70,6 +70,24 @@ let scenarioPlaying = false;
 let scenarioCurrentStep = 0;
 let scenarioTimer = null;
 let scenarioSpeed = 1; // 1 or 2
+// Area Viewports Configuration (東京都主要エリア・全域)
+const AREA_VIEWPORTS = {
+  minato: { center: [139.7555, 35.6555], zoom: 15.6, pitch: 52, bearing: -25 },
+  shinjuku_shibuya: { center: [139.7000, 35.6780], zoom: 14.2, pitch: 48, bearing: -10 },
+  shinagawa_ota: { center: [139.7250, 35.5950], zoom: 13.8, pitch: 45, bearing: 0 },
+  setagaya_suginami: { center: [139.6400, 35.6600], zoom: 13.8, pitch: 42, bearing: -5 },
+  johoku: { center: [139.6900, 35.7500], zoom: 13.5, pitch: 45, bearing: 10 },
+  joto: { center: [139.8100, 35.7200], zoom: 13.2, pitch: 40, bearing: -15 },
+  tama: { center: [139.4200, 35.6700], zoom: 12.5, pitch: 45, bearing: 0 },
+  all_tokyo: { center: [139.6917, 35.6895], zoom: 10.5, pitch: 35, bearing: 0 }
+};
+
+// Area Selector & Admin Filter Elements
+const areaSelect = document.getElementById('area-select');
+const adminAreaFilter = document.getElementById('admin-area-filter');
+const adminCatFilter = document.getElementById('admin-cat-filter');
+const adminSearchInput = document.getElementById('admin-search-input');
+const adminCountBadge = document.getElementById('admin-count-badge');
 
 // Initialize Map
 function initMap() {
@@ -113,7 +131,7 @@ function initMap() {
 async function loadData() {
   try {
     const [underpassRes, facilitiesRes, landmarksRes, busRes] = await Promise.all([
-      fetch('./data/minato_underpass_5.geojson'),
+      fetch('./data/tokyo_underpass_159.geojson'),
       fetch('./data/station_facilities.geojson'),
       fetch('./data/minato_landmarks_3d.geojson'),
       fetch('./data/toei_bus_routes.geojson')
@@ -485,21 +503,27 @@ function setupEvents() {
     }
   });
 
-  document.getElementById('btn-focus-daimon').addEventListener('click', () => {
-    map.flyTo({
-      center: DAIMON_CENTER,
-      zoom: 16.2,
-      pitch: 55,
-      bearing: -20,
-      duration: 1500
+  const btnFocusDaimon = document.getElementById('btn-focus-daimon');
+  if (btnFocusDaimon) {
+    btnFocusDaimon.addEventListener('click', () => {
+      map.flyTo({
+        center: DAIMON_CENTER,
+        zoom: 16.2,
+        pitch: 55,
+        bearing: -20,
+        duration: 1500
+      });
     });
-  });
+  }
 
   // Drawer Close
-  document.getElementById('btn-close-drawer').addEventListener('click', () => {
-    detailDrawer.classList.remove('open');
-    detailDrawer.style.display = 'none';
-  });
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  if (btnCloseDrawer) {
+    btnCloseDrawer.addEventListener('click', () => {
+      detailDrawer.classList.remove('open');
+      detailDrawer.style.display = 'none';
+    });
+  }
 
   // Admin Panel Close
   document.getElementById('btn-close-admin').addEventListener('click', () => {
@@ -542,11 +566,13 @@ function setupEvents() {
   }
 
   // Map Feature Click Listeners
-  map.on('click', 'underpass-points', (e) => {
+  const handleUnderpassClick = (e) => {
     if (!e.features.length) return;
     const f = e.features[0];
     showUnderpassDetails(f.properties);
-  });
+  };
+  map.on('click', 'underpass-points', handleUnderpassClick);
+  map.on('click', 'underpass-pulse', handleUnderpassClick);
 
   map.on('click', 'facility-points', (e) => {
     if (!e.features.length) return;
@@ -573,7 +599,7 @@ function setupEvents() {
   });
 
   // Cursor change on hover
-  ['underpass-points', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
+  ['underpass-points', 'underpass-pulse', 'facility-points', '3d-landmarks-layer', 'toei-bus-routes-core', 'toei-bus-stops-circle'].forEach(layer => {
     map.on('mouseenter', layer, () => {
       if (!isDrawing) map.getCanvas().style.cursor = 'pointer';
     });
@@ -676,6 +702,32 @@ function setupEvents() {
       goToScenarioStep(stepIdx);
     });
   });
+
+  // Area Select Jump
+  if (areaSelect) {
+    areaSelect.addEventListener('change', (e) => {
+      const key = e.target.value;
+      const vp = AREA_VIEWPORTS[key];
+      if (vp) {
+        map.flyTo({
+          ...vp,
+          duration: 1800,
+          essential: true
+        });
+      }
+    });
+  }
+
+  // Admin Panel Filters & Search
+  if (adminAreaFilter) {
+    adminAreaFilter.addEventListener('change', () => renderAdminTable());
+  }
+  if (adminCatFilter) {
+    adminCatFilter.addEventListener('change', () => renderAdminTable());
+  }
+  if (adminSearchInput) {
+    adminSearchInput.addEventListener('input', () => renderAdminTable());
+  }
 }
 
 // Update simulation based on rain slider
@@ -1000,10 +1052,53 @@ function showBusStopDetails(props) {
   `;
 }
 
+// Filter underpasses for Admin Table
+function getFilteredUnderpasses() {
+  if (!underpassesData) return [];
+  const selectedArea = adminAreaFilter ? adminAreaFilter.value : 'all';
+  const selectedCat = adminCatFilter ? adminCatFilter.value : 'all';
+  const query = adminSearchInput ? adminSearchInput.value.trim().toLowerCase() : '';
+
+  return underpassesData.features.filter(f => {
+    const p = f.properties;
+    // Area filter
+    if (selectedArea !== 'all') {
+      if (p.area !== selectedArea && p.municipality !== selectedArea) return false;
+    }
+    // Category filter
+    if (selectedCat !== 'all') {
+      if (!p.category_tentative.includes(selectedCat)) return false;
+    }
+    // Query search
+    if (query) {
+      const targetStr = `${p.short_name || ''} ${p.route_and_name || ''} ${p.municipality || ''} ${p.rail_crossing_line || ''}`.toLowerCase();
+      if (!targetStr.includes(query)) return false;
+    }
+    return true;
+  });
+}
+
 // Render Admin Table
 function renderAdminTable() {
   if (!underpassesData) return;
-  adminTbody.innerHTML = underpassesData.features.map(f => {
+  const filtered = getFilteredUnderpasses();
+
+  if (adminCountBadge) {
+    adminCountBadge.textContent = `${filtered.length}箇所表示中 / 全${underpassesData.features.length}箇所`;
+  }
+
+  if (filtered.length === 0) {
+    adminTbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">
+          🔍 条件に一致するアンダーパス注意箇所が見つかりませんでした。
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  adminTbody.innerHTML = filtered.map(f => {
     const p = f.properties;
     let equip = {};
     try {
@@ -1023,7 +1118,7 @@ function renderAdminTable() {
       <tr>
         <td><strong>#${p.no}</strong></td>
         <td><strong>${p.short_name || p.route_and_name}</strong><br><small style="color:#94a3b8">${p.road_type} (${p.municipality})</small></td>
-        <td>${p.rail_crossing ? 'あり（高架下）' : 'なし'}</td>
+        <td>${p.rail_crossing ? `あり (${p.rail_crossing_line || '高架下'})` : 'なし'}</td>
         <td>${p.elevation_m}m</td>
         <td>${p.bus_routes_count}系統</td>
         <td>${equipStr}</td>
@@ -1037,17 +1132,18 @@ function renderAdminTable() {
 // Export CSV
 function exportAdminCSV() {
   if (!underpassesData) return;
-  const header = ['no,municipality,road_type,route_and_name,rail_crossing,elevation_m,bus_routes,category_tentative,risk_note'];
-  const rows = underpassesData.features.map(f => {
+  const filtered = getFilteredUnderpasses();
+  const header = ['no,area,municipality,road_type,route_and_name,rail_crossing,rail_crossing_line,elevation_m,bus_routes,category_tentative,risk_note'];
+  const rows = filtered.map(f => {
     const p = f.properties;
-    return `"${p.no}","${p.municipality}","${p.road_type}","${p.route_and_name}","${p.rail_crossing}","${p.elevation_m}","${p.bus_routes_count}","${p.category_tentative}","${p.risk_note}"`;
+    return `"${p.no}","${p.area || ''}","${p.municipality}","${p.road_type}","${p.short_name || p.route_and_name}","${p.rail_crossing}","${p.rail_crossing_line || ''}","${p.elevation_m}","${p.bus_routes_count}","${p.category_tentative}","${p.risk_note}"`;
   });
   const csvContent = '\uFEFF' + [header, ...rows].join('\n');
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'amemichi3d_minato_4category_export.csv';
+  a.download = `amemichi3d_tokyo_underpass_${filtered.length}items_export.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -1454,6 +1550,7 @@ const SCENARIO_STEPS = [
 ];
 
 function openScenarioPlayer() {
+  if (areaSelect) areaSelect.value = 'minato';
   scenarioPanel.classList.remove('hidden');
   scenarioToggleBtn.classList.add('playing');
   goToScenarioStep(0);
