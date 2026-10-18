@@ -16,3 +16,4 @@ data/raw/plateau/
 node_modules/
 dist/
 .vite/
+scratch/
