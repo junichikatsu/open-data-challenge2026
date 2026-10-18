@@ -53,6 +53,17 @@ const closeMitekitaBtn = document.getElementById('btn-close-mitekita');
 const submitSurveyBtn = document.getElementById('btn-submit-survey');
 let currentSurveyUnderpassNo = null;
 
+// Emergency Breaking News Ticker Elements
+const emergencyTicker = document.getElementById('emergency-ticker');
+const tickerText = document.getElementById('ticker-text');
+const btnTickerAction = document.getElementById('btn-ticker-action');
+
+// Dramatic 3D Markers Storage (Issue #31)
+let dramaticCalloutMarkers = [];
+let underpassBillboardMarkers = [];
+let underpassBillboardElements = [];
+let routeAchievementMarkers = [];
+
 // Scenario Player Elements & State
 const scenarioToggleBtn = document.getElementById('btn-scenario-toggle');
 const scenarioPanel = document.getElementById('scenario-panel');
@@ -262,6 +273,7 @@ function initMap() {
 
     await loadData();
     setupLayers();
+    setupDramaticElements();
     setupEvents();
     renderAdminTable();
   });
@@ -664,9 +676,9 @@ function setupLayers() {
     layout: { 'line-join': 'round', 'line-cap': 'round' },
     paint: {
       'line-color': '#10b981',
-      'line-width': 12,
-      'line-opacity': 0.6,
-      'line-blur': 6
+      'line-width': 18,
+      'line-opacity': 0.75,
+      'line-blur': 8
     }
   });
 
@@ -676,8 +688,8 @@ function setupLayers() {
     source: 'scenario-safe-route-source',
     layout: { 'line-join': 'round', 'line-cap': 'round' },
     paint: {
-      'line-color': '#34d399',
-      'line-width': 5
+      'line-color': '#6ee7b7',
+      'line-width': 7
     }
   });
 }
@@ -1294,6 +1306,298 @@ function updateRainSimulation(rainMm) {
       ]);
       map.setPaintProperty('facility-pulse', 'circle-opacity', 0.28);
     }
+  }
+
+  // Update 3D Underpass Billboards (Issue #31)
+  updateUnderpassBillboards(rainMm);
+}
+
+// ==========================================
+// Dramatic Visual Clarity Controls (Issue #31)
+// ==========================================
+
+function setupDramaticElements() {
+  setupDramaticCallouts();
+  setupUnderpassBillboards();
+}
+
+function setupDramaticCallouts() {
+  dramaticCalloutMarkers.forEach(m => m.remove());
+  dramaticCalloutMarkers = [];
+
+  const CALLOUT_ITEMS = [
+    {
+      id: 'callout-daimon-a1',
+      coords: [139.7533, 35.6560], // 大門駅 A1出口
+      type: 'danger',
+      tag: '⛔️ 危険出口',
+      status: '⚠️ 冠水直面',
+      title: '大門駅 A1出口',
+      subtitle: '直面道路 冠水危険（膝上50cm）／線路下窪地に直面・避難禁止',
+      onClick: () => {
+        map.flyTo({ center: [139.7533, 35.6560], zoom: 17.5, pitch: 65, bearing: -35, duration: 1200 });
+        showFacilityDetails({
+          station_name: '都営浅草線・大江戸線 大門駅',
+          exit_code: 'A1出口 (芝大門・南方面)',
+          type: 'exit',
+          deck_connected: false,
+          flood_risk_level: 'danger',
+          facing_underpass: 'JR川口架道橋（南120m・すり鉢状窪地）',
+          recommendation_in_flood: '【進入危険】地下通路浸水注意・川口架道橋冠水エリア接近',
+          nearest_shelter: 'B3出口デッキ経由で産業貿易センターへ',
+          note: '第一京浜西側。南下するとJR川口架道橋（線路下アンダーパス）の冠水窪地へ直面するため、豪雨時は利用を避けてB3出口をご利用ください。'
+        });
+      }
+    },
+    {
+      id: 'callout-daimon-b3',
+      coords: [139.7554, 35.6558], // 大門駅 B3出口
+      type: 'safe',
+      tag: '✨ 最推奨出口',
+      status: '🛡️ 安全脱出',
+      title: '大門駅 B3出口',
+      subtitle: '高架デッキ直結・濡れずに脱出／一時滞在施設＆都06バス直結',
+      onClick: () => {
+        map.flyTo({ center: [139.7554, 35.6558], zoom: 17.2, pitch: 60, bearing: -30, duration: 1200 });
+        showFacilityDetails({
+          station_name: '都営大江戸線・浅草線 大門駅',
+          exit_code: 'B3出口 (デッキ直結)',
+          type: 'exit',
+          deck_connected: true,
+          flood_risk_level: 'safe',
+          facing_underpass: 'なし（高架歩道デッキ経由）',
+          recommendation_in_flood: '【最推奨出口】地上冠水回避・ペデストリアンデッキ直結',
+          nearest_shelter: '東京都立産業貿易センター 浜松町館 (徒歩2分)',
+          note: '浜松町駅・竹芝方面への歩行者デッキに直結。浜松町ガード下・川口架道橋を潜らずに安全に一時滞在施設や都06バス停へ退避可能。'
+        });
+      }
+    },
+    {
+      id: 'callout-shelter-trade',
+      coords: [139.7606, 35.6555], // 都立産業貿易センター浜松町館
+      type: 'shelter',
+      tag: '🏢 一時滞在施設',
+      status: '安全高台',
+      title: '都立産業貿易センター',
+      subtitle: '東京都指定・帰宅困難者受入施設（物資・電源・Wi-Fi完備）',
+      onClick: () => {
+        map.flyTo({ center: [139.7606, 35.6555], zoom: 17.2, pitch: 62, bearing: -45, duration: 1200 });
+        showFacilityDetails({
+          station_name: '東京都指定 一時滞在施設',
+          exit_code: '都立産業貿易センター 浜松町館',
+          type: 'shelter',
+          deck_connected: true,
+          flood_risk_level: 'safe',
+          facing_underpass: 'なし（ペデストリアンデッキ直結）',
+          recommendation_in_flood: '【受入可能】高台避難先・物資備蓄拠点',
+          nearest_shelter: '本施設（収容可能人数 約1,500名）',
+          note: '大門駅B3出口から地上冠水道路を一切通らずデッキ経由で直行可能。'
+        });
+      }
+    }
+  ];
+
+  CALLOUT_ITEMS.forEach(item => {
+    const el = document.createElement('div');
+    el.className = `dramatic-callout-marker callout-${item.type}`;
+    el.innerHTML = `
+      <div class="dramatic-callout-wrapper">
+        <div class="callout-card">
+          <div class="callout-top-row">
+            <span class="callout-tag">${item.tag}</span>
+            <span class="callout-status-pill">${item.status}</span>
+          </div>
+          <div class="callout-title">${item.title}</div>
+          <div class="callout-subtitle">${item.subtitle}</div>
+        </div>
+        <div class="callout-pointer"></div>
+        <div class="callout-ping-ring"></div>
+      </div>
+    `;
+
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      item.onClick();
+    });
+
+    const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+      .setLngLat(item.coords)
+      .addTo(map);
+
+    dramaticCalloutMarkers.push(marker);
+  });
+}
+
+const UNDERPASS_BILLBOARD_DATA = [
+  {
+    no: 122,
+    short_name: '浜松町ガード下',
+    category: '区分I（重点対策）',
+    coords: [139.7582, 35.6542],
+    baselineElevation: 1.2
+  },
+  {
+    no: 121,
+    short_name: 'JR川口架道橋下',
+    category: '区分I（重点対策）',
+    coords: [139.7547, 35.6515],
+    baselineElevation: 0.9
+  }
+];
+
+function setupUnderpassBillboards() {
+  underpassBillboardMarkers.forEach(m => m.remove());
+  underpassBillboardMarkers = [];
+  underpassBillboardElements = [];
+
+  UNDERPASS_BILLBOARD_DATA.forEach(data => {
+    const el = document.createElement('div');
+    el.className = 'underpass-billboard-marker state-safe';
+    el.innerHTML = `
+      <div class="underpass-billboard-wrapper">
+        <div class="billboard-header">
+          <span class="billboard-name">⚠️ ${data.short_name}</span>
+          <span class="billboard-cat">${data.category.replace('（重点対策）', '')}</span>
+        </div>
+        <div class="billboard-depth-row">
+          <span class="billboard-depth-label">予測水深</span>
+          <span class="billboard-depth-val depth-text">0.00 m</span>
+        </div>
+        <div class="billboard-gauge-track">
+          <div class="billboard-gauge-bar gauge-bar"></div>
+        </div>
+        <div class="billboard-status-badge status-badge">
+          <span class="status-icon">🟢</span>
+          <span class="status-text">通常水位（通行可）</span>
+        </div>
+        <div class="billboard-pointer"></div>
+      </div>
+    `;
+
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetUnderpass = underpassesData ? underpassesData.features.find(f => f.properties.no === data.no) : null;
+      if (targetUnderpass) {
+        showUnderpassDetails(targetUnderpass.properties);
+      }
+    });
+
+    const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+      .setLngLat(data.coords)
+      .addTo(map);
+
+    underpassBillboardMarkers.push(marker);
+    underpassBillboardElements.push({ data, el });
+  });
+
+  updateUnderpassBillboards(Number(rainSlider ? rainSlider.value : 0) || 0);
+}
+
+function updateUnderpassBillboards(rainMm) {
+  underpassBillboardElements.forEach(({ data, el }) => {
+    let depthM = 0;
+    if (rainMm <= 10) {
+      depthM = (rainMm * 0.008);
+    } else if (rainMm <= 40) {
+      depthM = 0.08 + (rainMm - 10) * 0.012;
+    } else if (rainMm <= 70) {
+      depthM = 0.44 + (rainMm - 40) * 0.018;
+    } else {
+      depthM = 0.98 + (rainMm - 70) * 0.022;
+    }
+    depthM = Math.min(1.85, depthM);
+
+    const depthText = el.querySelector('.depth-text');
+    const gaugeBar = el.querySelector('.gauge-bar');
+    const statusIcon = el.querySelector('.status-icon');
+    const statusText = el.querySelector('.status-text');
+
+    if (depthText) depthText.textContent = `${depthM.toFixed(2)} m`;
+    if (gaugeBar) {
+      const pct = Math.min(100, (depthM / 1.5) * 100);
+      gaugeBar.style.width = `${pct}%`;
+    }
+
+    el.classList.remove('state-safe', 'state-warning', 'state-danger', 'state-blocked');
+    if (depthM < 0.15) {
+      el.classList.add('state-safe');
+      if (statusIcon) statusIcon.textContent = '🟢';
+      if (statusText) statusText.textContent = '平常水位 (通行可)';
+    } else if (depthM < 0.50) {
+      el.classList.add('state-warning');
+      if (statusIcon) statusIcon.textContent = '🟡';
+      if (statusText) statusText.textContent = '路面冠水注意 (徐行)';
+    } else if (depthM < 1.00) {
+      el.classList.add('state-danger');
+      if (statusIcon) statusIcon.textContent = '🟠';
+      if (statusText) statusText.textContent = '⚠️ 車両進入危険 (膝丈浸水)';
+    } else {
+      el.classList.add('state-blocked');
+      if (statusIcon) statusIcon.textContent = '⛔️';
+      if (statusText) statusText.textContent = '⛔️ 通行止め (水没危険)';
+    }
+  });
+}
+
+const ROUTE_ACHIEVEMENT_DATA = [
+  {
+    coords: [139.75715, 35.65495],
+    icon: '🌉',
+    title: '高架歩道デッキ経由',
+    desc: '冠水回避率 100%・路面水深 0cm'
+  },
+  {
+    coords: [139.75980, 35.65490],
+    icon: '🚌',
+    title: '都営バス【都06】直結',
+    desc: '高台幹線平常運行・新橋/渋谷方面'
+  }
+];
+
+function showRouteAchievementBadges(visible) {
+  routeAchievementMarkers.forEach(m => m.remove());
+  routeAchievementMarkers = [];
+
+  if (!visible) return;
+
+  ROUTE_ACHIEVEMENT_DATA.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'route-achievement-marker';
+    el.innerHTML = `
+      <div class="route-achievement-badge">
+        <span class="achievement-icon">${item.icon}</span>
+        <div class="achievement-info">
+          <span class="achievement-title">${item.title}</span>
+          <span class="achievement-desc">${item.desc}</span>
+        </div>
+      </div>
+    `;
+
+    const marker = new maplibregl.Marker({ element: el, anchor: 'center' })
+      .setLngLat(item.coords)
+      .addTo(map);
+
+    routeAchievementMarkers.push(marker);
+  });
+}
+
+function updateEmergencyTicker(visible, text, actionText, onAction) {
+  if (!emergencyTicker) return;
+
+  if (visible) {
+    emergencyTicker.classList.remove('hidden');
+    if (tickerText && text) tickerText.textContent = text;
+    if (btnTickerAction) {
+      if (actionText) {
+        btnTickerAction.style.display = 'inline-block';
+        btnTickerAction.textContent = actionText;
+        btnTickerAction.onclick = onAction || null;
+      } else {
+        btnTickerAction.style.display = 'none';
+      }
+    }
+  } else {
+    emergencyTicker.classList.add('hidden');
   }
 }
 
@@ -2108,21 +2412,29 @@ const SCENARIO_STEPS = [
     text: '港区一帯で雨が降り始めました。都営地下鉄（大江戸線・浅草線）およびJR山手線・京浜東北線は平常運行中です。アンダーパスの水位も平常です。',
     rainMm: 20,
     camera: { center: [139.7555, 35.6555], zoom: 15.6, pitch: 52, bearing: -25 },
+    flyDuration: 1800,
     stateClass: 'normal-state',
     showBanner: false,
-    showSafeRoute: false
+    showTicker: false,
+    showSafeRoute: false,
+    showAchievements: false
   },
   {
     step: 1,
     time: '17:10',
     badge: '17:10 (局地豪雨・冠水警戒)',
     title: '17:10 ｜ 線状降水帯急変 (65mm/h)',
-    text: '急激なゲリラ豪雨が発生！札の辻ガード・芝五丁目アンダーパスの水位が急速に上昇し、国交省ガイドライン【区分I（冠水注意・事前閉鎖準備）】に移行。浜95系統バス路線が冠水警戒エリアに突入します。',
+    text: '急激なゲリラ豪雨が発生！浜松町ガード下・JR川口架道橋の水位が急速に上昇し、国交省ガイドライン【区分I（冠水注意・事前閉鎖準備）】に移行。浜95系統バス路線が冠水警戒エリアに突入します。',
     rainMm: 65,
-    camera: { center: [139.7465, 35.6482], zoom: 16.5, pitch: 62, bearing: 22 },
+    camera: { center: [139.7582, 35.6542], zoom: 17.4, pitch: 68, bearing: 35 },
+    flyDuration: 2400,
     stateClass: 'warning-state',
     showBanner: false,
-    showSafeRoute: false
+    showTicker: true,
+    tickerText: '⚠️【気象急変】港区に猛烈な雨（65mm/h）！浜松町ガード下・川口架道橋の水深が急上昇中。アンダーパス進入禁止に警戒してください',
+    tickerActionText: '被災現場へ ❯',
+    showSafeRoute: false,
+    showAchievements: false
   },
   {
     step: 2,
@@ -2131,15 +2443,20 @@ const SCENARIO_STEPS = [
     title: '17:15 ｜ 【ODPT速報】地下鉄・JR全線 運転見合わせ！',
     text: '⚠️ 【ODPTリアルタイム速報】都営浅草線・大江戸線が大雨冠水のため全線運転見合わせ！JR各線も抑止。大門駅・三田駅で改札制限が発生。地下通路は浸水危険のため、低所出入口（A1等）は使用禁止です。',
     rainMm: 80,
-    camera: { center: [139.7555, 35.6555], zoom: 16.3, pitch: 58, bearing: -15 },
+    camera: { center: [139.7540, 35.6560], zoom: 17.6, pitch: 65, bearing: -35 },
+    flyDuration: 2200,
     stateClass: 'danger-state',
     showBanner: true,
+    showTicker: true,
+    tickerText: '🚨【緊急速報】17:15 都営地下鉄・JR全線 運転見合わせ！大門駅A1出口は冠水直面のため避けて「B3出口（デッキ直結）」へ迂回してください',
+    tickerActionText: '安全出口へ ❯',
     bannerData: {
       badge: '🚨 ODPT速報: 全線見合わせ発令',
       msg: '⚠️ 都営大江戸線・浅草線・JR各線: 豪雨のため全線運転見合わせ',
       advice: '地下通路浸水のおそれ。<strong>「大門駅 B3出口」</strong>よりペデストリアンデッキ経由で一時滞在施設へ退避してください。<br>🚌 <strong>平常運行代替バス</strong>: 高台幹線を走る<strong>都営バス【都06系統】</strong>は平常運行中。'
     },
-    showSafeRoute: false
+    showSafeRoute: false,
+    showAchievements: false
   },
   {
     step: 3,
@@ -2148,15 +2465,20 @@ const SCENARIO_STEPS = [
     title: '17:20 ｜ 「アメミチ・ナビ」発動・くぐらずに帰る！',
     text: '✅ ガード下を通らない【アメミチ安全ルート】が自動提示されました！大門駅B3出口から地上デッキへ直結し、冠水危険箇所を100%回避して安全な都立一時滞在施設（産業貿易センター）および平常運行中の【都営バス 都06系統】へ安全に誘導します。',
     rainMm: 85,
-    camera: { center: [139.7580, 35.6552], zoom: 16.8, pitch: 66, bearing: -38 },
+    camera: { center: [139.7578, 35.6552], zoom: 16.3, pitch: 56, bearing: -28 },
+    flyDuration: 2800,
     stateClass: 'safe-state',
     showBanner: true,
+    showTicker: true,
+    tickerText: '✅【アメミチ誘導中】大門駅B3出口よりペデストリアンデッキ経由で産業貿易センターへ誘導中。高台運行の都営バス【都06系統】平常運行中',
+    tickerActionText: '安全避難先へ ❯',
     bannerData: {
       badge: '✅ アメミチ・ナビ発動中 (安全避難誘導)',
       msg: '🚶 ガード下完全回避ルートへ誘導中 (安全性100点)',
       advice: 'ガード下を一切くぐらず地上デッキ・高台へ。平常運行中の<strong>都営バス【都06系統】</strong>（停留所まで徒歩2分）への安全な乗換退避が可能です。'
     },
-    showSafeRoute: true
+    showSafeRoute: true,
+    showAchievements: true
   }
 ];
 
@@ -2172,6 +2494,7 @@ function closeScenarioPlayer() {
   scenarioPanel.classList.add('hidden');
   scenarioToggleBtn.classList.remove('playing');
   clearScenarioRoute();
+  updateEmergencyTicker(false);
 }
 
 function toggleScenarioPlayback() {
@@ -2205,11 +2528,12 @@ function stopScenarioPlayback() {
   pauseScenarioPlayback();
   scenarioCurrentStep = 0;
   goToScenarioStep(0);
+  updateEmergencyTicker(false);
 }
 
 function scheduleNextScenarioStep() {
   if (!scenarioPlaying) return;
-  const delay = scenarioSpeed === 2 ? 2200 : 4800;
+  const delay = scenarioSpeed === 2 ? 2600 : 5400;
   scenarioTimer = setTimeout(() => {
     if (!scenarioPlaying) return;
     if (scenarioCurrentStep < SCENARIO_STEPS.length - 1) {
@@ -2255,6 +2579,27 @@ function goToScenarioStep(idx) {
     applyTransitScenario('suspend');
   }
 
+  // Emergency News Ticker Control (Issue #31)
+  if (step.showTicker) {
+    let actionFn = null;
+    if (idx === 1) {
+      actionFn = () => {
+        map.flyTo({ center: [139.7582, 35.6542], zoom: 17.5, pitch: 70, bearing: 35, duration: 1200 });
+      };
+    } else if (idx === 2) {
+      actionFn = () => {
+        map.flyTo({ center: [139.7554, 35.6558], zoom: 17.2, pitch: 60, bearing: -30, duration: 1200 });
+      };
+    } else if (idx === 3) {
+      actionFn = () => {
+        map.flyTo({ center: [139.7606, 35.6555], zoom: 17.2, pitch: 62, bearing: -45, duration: 1200 });
+      };
+    }
+    updateEmergencyTicker(true, step.tickerText, step.tickerActionText, actionFn);
+  } else {
+    updateEmergencyTicker(false);
+  }
+
   // Storm Banner control
   if (step.showBanner) {
     stormBanner.classList.remove('hidden');
@@ -2270,7 +2615,7 @@ function goToScenarioStep(idx) {
     stormBanner.classList.add('hidden');
   }
 
-  // Safe Route Layer
+  // Safe Route Layer & Achievements (Issue #31)
   const routeSource = map.getSource('scenario-safe-route-source');
   if (routeSource) {
     if (step.showSafeRoute) {
@@ -2278,18 +2623,20 @@ function goToScenarioStep(idx) {
         type: 'FeatureCollection',
         features: [SCENARIO_SAFE_ROUTE]
       });
+      showRouteAchievementBadges(true);
     } else {
       routeSource.setData({
         type: 'FeatureCollection',
         features: []
       });
+      showRouteAchievementBadges(false);
     }
   }
 
-  // Camera animation
+  // Cinematic Camera Animation (Issue #31)
   map.flyTo({
     ...step.camera,
-    duration: 1800,
+    duration: step.flyDuration || 2200,
     essential: true
   });
 }
@@ -2302,6 +2649,7 @@ function clearScenarioRoute() {
       features: []
     });
   }
+  showRouteAchievementBadges(false);
 }
 
 // Launch
