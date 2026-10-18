@@ -2106,3 +2106,553 @@ body {
   box-shadow: 0 4px 20px rgba(239, 68, 68, 0.6);
 }
 
+/* ==========================================
+   Dramatic Visual Clarity Styles (Issue #31)
+   ========================================== */
+
+/* 1. Emergency Breaking News Ticker */
+.emergency-ticker {
+  position: absolute;
+  top: 86px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1040px;
+  z-index: 95;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(90deg, rgba(35, 10, 15, 0.95), rgba(20, 5, 10, 0.92));
+  border: 1px solid rgba(239, 68, 68, 0.55);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(239, 68, 68, 0.35);
+  animation: slideDownTicker 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s ease;
+}
+
+@keyframes slideDownTicker {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.ticker-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  padding: 4px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+}
+
+.ticker-dot {
+  width: 7px;
+  height: 7px;
+  background: #fff;
+  border-radius: 50%;
+  animation: pulseDot 1s infinite alternate;
+}
+
+@keyframes pulseDot {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+.ticker-content-track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fecaca;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.ticker-action-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.ticker-action-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+/* 2. Dramatic 3D Callout Billboards (Map Markers) */
+.dramatic-callout-marker {
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+}
+
+.dramatic-callout-marker:hover {
+  z-index: 50 !important;
+}
+
+.dramatic-callout-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: floatCalloutCard 3s ease-in-out infinite;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  margin-bottom: 6px;
+}
+
+.dramatic-callout-marker:hover .dramatic-callout-wrapper {
+  transform: translateY(-4px) scale(1.04);
+}
+
+@keyframes floatCalloutCard {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.callout-card {
+  padding: 10px 14px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 210px;
+  max-width: 270px;
+  position: relative;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Pointer Arrow */
+.callout-pointer {
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  margin-top: -1px;
+}
+
+/* Ping Ring Effect */
+.callout-ping-ring {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Callout Danger Style (大門駅 A1出口等) */
+.dramatic-callout-marker.callout-danger .callout-card {
+  background: linear-gradient(135deg, rgba(38, 7, 12, 0.95), rgba(60, 10, 18, 0.97));
+  border: 1.5px solid #ef4444;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 22px rgba(239, 68, 68, 0.5);
+}
+
+.dramatic-callout-marker.callout-danger .callout-pointer {
+  border-top: 10px solid #ef4444;
+}
+
+.dramatic-callout-marker.callout-danger .callout-ping-ring {
+  background: #ef4444;
+  box-shadow: 0 0 16px 6px rgba(239, 68, 68, 0.7);
+  animation: dangerPing 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes dangerPing {
+  0% { transform: translateX(-50%) scale(0.8); opacity: 1; }
+  100% { transform: translateX(-50%) scale(3.2); opacity: 0; }
+}
+
+/* Callout Safe Style (大門駅 B3出口等) */
+.dramatic-callout-marker.callout-safe .callout-card {
+  background: linear-gradient(135deg, rgba(6, 38, 25, 0.95), rgba(10, 50, 35, 0.97));
+  border: 1.5px solid #10b981;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 24px rgba(16, 185, 129, 0.5);
+}
+
+.dramatic-callout-marker.callout-safe .callout-pointer {
+  border-top: 10px solid #10b981;
+}
+
+.dramatic-callout-marker.callout-safe .callout-ping-ring {
+  background: #10b981;
+  box-shadow: 0 0 16px 6px rgba(16, 185, 129, 0.7);
+  animation: safePing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes safePing {
+  0% { transform: translateX(-50%) scale(0.8); opacity: 1; }
+  100% { transform: translateX(-50%) scale(3.2); opacity: 0; }
+}
+
+/* Callout Shelter Style (一時滞在施設) */
+.dramatic-callout-marker.callout-shelter .callout-card {
+  background: linear-gradient(135deg, rgba(8, 25, 48, 0.95), rgba(12, 35, 65, 0.97));
+  border: 1.5px solid #38bdf8;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 22px rgba(56, 189, 248, 0.5);
+}
+
+.dramatic-callout-marker.callout-shelter .callout-pointer {
+  border-top: 10px solid #38bdf8;
+}
+
+.dramatic-callout-marker.callout-shelter .callout-ping-ring {
+  background: #38bdf8;
+  box-shadow: 0 0 16px 6px rgba(56, 189, 248, 0.7);
+  animation: safePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Callout Inner Elements */
+.callout-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.callout-tag {
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dramatic-callout-marker.callout-danger .callout-tag {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.dramatic-callout-marker.callout-safe .callout-tag {
+  background: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.dramatic-callout-marker.callout-shelter .callout-tag {
+  background: rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+
+.callout-status-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dramatic-callout-marker.callout-danger .callout-status-pill {
+  color: #f87171;
+}
+
+.dramatic-callout-marker.callout-safe .callout-status-pill {
+  color: #34d399;
+}
+
+.dramatic-callout-marker.callout-shelter .callout-status-pill {
+  color: #38bdf8;
+}
+
+.callout-title {
+  font-size: 0.94rem;
+  font-weight: 900;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.25;
+}
+
+.callout-subtitle {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  line-height: 1.35;
+}
+
+.dramatic-callout-marker.callout-safe .callout-subtitle {
+  color: #a7f3d0;
+}
+
+.dramatic-callout-marker.callout-danger .callout-subtitle {
+  color: #fecaca;
+}
+
+/* 3. Underpass Depth & Restriction Billboard (3D標識) */
+.underpass-billboard-marker {
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+}
+
+.underpass-billboard-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 175px;
+  max-width: 220px;
+  border-radius: 10px;
+  padding: 8px 12px;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.25s ease;
+  margin-bottom: 6px;
+}
+
+.underpass-billboard-marker:hover .underpass-billboard-wrapper {
+  transform: translateY(-3px) scale(1.03);
+  z-index: 45 !important;
+}
+
+.billboard-pointer {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(15, 23, 42, 0.95);
+  margin-top: -1px;
+}
+
+.billboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+}
+
+.billboard-name {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.billboard-cat {
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.billboard-depth-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+}
+
+.billboard-depth-label {
+  font-size: 0.68rem;
+  color: #94a3b8;
+}
+
+.billboard-depth-val {
+  font-size: 1.05rem;
+  font-weight: 900;
+  font-family: 'Inter', monospace;
+  letter-spacing: -0.02em;
+}
+
+/* Depth Color Classes */
+.underpass-billboard-marker.state-safe .billboard-depth-val {
+  color: #34d399;
+}
+.underpass-billboard-marker.state-warning .billboard-depth-val {
+  color: #fbbf24;
+}
+.underpass-billboard-marker.state-danger .billboard-depth-val {
+  color: #f87171;
+}
+.underpass-billboard-marker.state-blocked .billboard-depth-val {
+  color: #ff3366;
+  text-shadow: 0 0 10px rgba(255, 51, 102, 0.8);
+}
+
+/* Depth Bar Gauge */
+.billboard-gauge-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.billboard-gauge-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+}
+
+.underpass-billboard-marker.state-safe .billboard-gauge-bar {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+.underpass-billboard-marker.state-warning .billboard-gauge-bar {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+.underpass-billboard-marker.state-danger .billboard-gauge-bar {
+  background: linear-gradient(90deg, #ea580c, #f87171);
+}
+.underpass-billboard-marker.state-blocked .billboard-gauge-bar {
+  background: linear-gradient(90deg, #dc2626, #ff0055);
+}
+
+.billboard-status-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.2;
+  width: 100%;
+}
+
+.underpass-billboard-marker.state-safe .billboard-status-badge {
+  color: #34d399;
+}
+.underpass-billboard-marker.state-warning .billboard-status-badge {
+  color: #fbbf24;
+}
+.underpass-billboard-marker.state-danger .billboard-status-badge {
+  color: #f87171;
+}
+.underpass-billboard-marker.state-blocked .billboard-status-badge {
+  color: #ff3366;
+}
+
+/* 4. Route Achievement Badges (アメミチ安全実績バッジ) */
+.route-achievement-marker {
+  pointer-events: none;
+  z-index: 15;
+}
+
+.route-achievement-badge {
+  position: relative;
+  background: rgba(10, 30, 22, 0.95);
+  border: 1.5px solid #10b981;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(16, 185, 129, 0.5);
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: badgeFadeIn 0.4s ease-out;
+}
+
+@keyframes badgeFadeIn {
+  from { opacity: 0; transform: translateY(6px) scale(0.92); }
+  to { opacity: 1; transform: translateY(0px) scale(1); }
+}
+
+.achievement-icon {
+  font-size: 1.1rem;
+}
+
+.achievement-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.achievement-title {
+  font-size: 0.74rem;
+  font-weight: 900;
+  color: #6ee7b7;
+  white-space: nowrap;
+}
+
+.achievement-desc {
+  font-size: 0.64rem;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .emergency-ticker {
+    top: 68px;
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .ticker-badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+  .ticker-text {
+    font-size: 0.72rem;
+  }
+  .ticker-action-btn {
+    display: none;
+  }
+  .dramatic-callout .callout-card {
+    min-width: 170px;
+    max-width: 210px;
+    padding: 8px 10px;
+  }
+  .callout-title {
+    font-size: 0.82rem;
+  }
+  .callout-subtitle {
+    font-size: 0.68rem;
+  }
+  .underpass-billboard {
+    min-width: 140px;
+    padding: 6px 10px;
+  }
+}
+
+

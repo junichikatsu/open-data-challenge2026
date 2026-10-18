@@ -110,6 +110,20 @@
     <main id="map-container">
       <div id="map"></div>
 
+      <!-- Emergency News Ticker (災害速報テロップバー) -->
+      <div id="emergency-ticker" class="emergency-ticker glass-panel hidden">
+        <div class="ticker-badge">
+          <span class="ticker-dot"></span>
+          <span class="ticker-badge-text">緊急速報 BREAKING</span>
+        </div>
+        <div class="ticker-content-track">
+          <div class="ticker-text" id="ticker-text">
+            【緊急速報】17:15 都営地下鉄・JR全線 運転見合わせ／浜松町ガード下 冠水危険度MAX／大門駅A1出口を避け「B3出口（デッキ直結）」へ迂回してください
+          </div>
+        </div>
+        <button id="btn-ticker-action" class="ticker-action-btn">避難ナビ起動 ❯</button>
+      </div>
+
       <!-- Live Storm Status Banner (豪雨時のみ表示) -->
       <div id="storm-alert-banner" class="storm-banner glass-panel hidden">
         <div class="storm-badge pulse">警戒レベル4 (避難指示)</div>
