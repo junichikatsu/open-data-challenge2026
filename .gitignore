@@ -9,11 +9,17 @@ Thumbs.db
 *.zip
 data/raw/odpt/
 data/raw/plateau/
-20_案3plus/data/raw/odpt/
-20_案3plus/data/raw/plateau/
+docs/20_案3plus/data/raw/odpt/
+docs/20_案3plus/data/raw/plateau/
 
 # Web App build & dependencies
 node_modules/
 dist/
 .vite/
 scratch/
+
+# 秘密情報（ODPT チャレンジ用トークン・enebular の鍵・LINE チャネル情報など）
+.env
+.env.*
+!.env.example
+!.env.deploy.example

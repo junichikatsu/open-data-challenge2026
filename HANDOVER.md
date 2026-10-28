@@ -38,14 +38,14 @@
 | **#8** | `feature/issue-7-amemichi-maker` | 平時モード「アメミチづくり」（地図クリックによるルート自作描画＋幾何最短距離計算による100点満点安全度採点＋S/A/B/Cランク診断モーダル＋豪雨耐水テスト） |
 | **#10** | `feature/issue-9-mitekita-reporting` | 平時モード「見てきた」（現地設備3値アンケート報告機能）＋豪雨時危険防止フェイルセーフ＋管理者ダッシュボード即時同期 |
 | **#12** | `feature/issue-11-scenario-player` | 豪雨時モード「17:15 シナリオ再生エンジン」（16:50降雨開始 → 17:10急変 → 17:15地下鉄全線見合わせ発令 → 17:20アメミチ安全推奨ライン自動描画＆都06バス・高台誘導）＋倍速切替・シネマティックカメラワーク |
-| **#14** | `feature/issue-13-tokyo-159-underpasses` | 東京都全域159箇所アンダーパス網羅データ（`public/data/tokyo_underpass_159.geojson`）＋エリアセレクタ＋管理者ダッシュボード検索・絞り込みフィルター |
+| **#14** | `feature/issue-13-tokyo-159-underpasses` | 東京都全域159箇所アンダーパス網羅データ（`apps/amemichi-3d/public/data/tokyo_underpass_159.geojson`）＋エリアセレクタ＋管理者ダッシュボード検索・絞り込みフィルター |
 | **#16** | `feature/issue-15-gh-pages-and-readme` | GitHub Pages 自動デプロイCI/CD（`.github/workflows/deploy.yml`）＋Viteベースパス最適化＋審査員向け受賞仕様README.mdブラッシュアップ |
 | **#18** | `feature/issue-17-odpt-status-board` | ODPT リアルタイム運行情報ステータス盤＆豪雨運休シミュレータ（都営地下鉄4路線＋都営バス＋JR）＋模擬運休注入＋本番API連携設定＋避難ナビ双方向連動 |
 | **#20** | `feature/issue-19-pathways-and-shelters` | 駅出入口（GTFS-Pathways）および一時滞在施設の3Dマーカー拡充（大門・浜松町・三田・田町・汐留18件）＋冠水危険/安全出口動的ハイライト＋ヘッダートグル |
 | **#22** | `feature/issue-21-mobile-responsive-optimization` | スマートフォン表示（レスポンシブ）とボトムシートUIドロワーの全面最適化（390px幅でのヘッダー2列多段配置、下部ボトムシートスライドアップ＆ハンドルタップ収納、親指操作特化UI） |
 | **#24** | `feature/issue-23-ogp-and-pwa-assets` | SNSシェアOGP画像（1200x675・高品質軽量JPG）・Twitter Cards・ファビコン（SVG/PNG）・PWA Web App Manifest（`manifest.json`）の整備とメタタグ最適化 |
-| **#26** | `feature/issue-25-pitch-materials` | 審査応募書類ドラフト（`20_案3plus/pitch/01_コンテスト応募書類ドラフト.md`）および審査用1分デモ動画絵コンテ・タイムライン構成案（`02_1分デモ動画_絵コンテ構成案.md`）の策定 |
-| **#28** | `feature/issue-27-demo-video-mp4` | 審査応募用 1分デモ動画（Full HD 1080p, H.264/AAC, 60.0秒, 2.6MB）の自動レンダリング・配置（`20_案3plus/pitch/amemichi_demo_1min.mp4`） |
+| **#26** | `feature/issue-25-pitch-materials` | 審査応募書類ドラフト（`docs/20_案3plus/pitch/01_コンテスト応募書類ドラフト.md`）および審査用1分デモ動画絵コンテ・タイムライン構成案（`02_1分デモ動画_絵コンテ構成案.md`）の策定 |
+| **#28** | `feature/issue-27-demo-video-mp4` | 審査応募用 1分デモ動画（Full HD 1080p, H.264/AAC, 60.0秒, 2.6MB）の自動レンダリング・配置（`docs/20_案3plus/pitch/amemichi_demo_1min.mp4`） |
 
 ---
 
@@ -68,11 +68,11 @@
    - 幅768px（特に390px以下）のスマホでは、ヘッダーを「モードタブ3列等分割」＋「クイックツール2列Wrap」に多段化することで、17:15再生・運行情報・出口トグル等の重要アクションが画面外へ溢れず即時操作可能になる。
    - スポット詳細（アンダーパス・出入口・施設）はPCの右サイドバーから画面下部の「ボトムシート（最大高60vh、角丸18px）」へ切り替え、上部ドラッグハンドル（`#drawer-toggle`）タップでのスライド収納を実装することで、3Dマップの視界と片手操作性を両立。
 8. **OGP・Twitter Cards・PWAアセット設計**:
-   - `public/` ディレクトリ配下に `ogp.jpg`（1200x675・約370KB）、`favicon.svg`、`apple-touch-icon.png`、`manifest.json` を配置することで、Viteビルド時に自動で `dist/` ルートに展開される。
+   - `apps/amemichi-3d/public/` ディレクトリ配下に `ogp.jpg`（1200x675・約370KB）、`favicon.svg`、`apple-touch-icon.png`、`manifest.json` を配置することで、Viteビルド時に自動で `dist/` ルートに展開される。
    - GitHub Pages の絶対URL（`https://junichikatsu.github.io/open-data-challenge2026/ogp.jpg`）を `og:image` および `twitter:image` に明記することで、X/Facebook等のクローラーが高速キャッシュ・カード展開可能。
 9. **審査応募書類・デモ動画の提出ポイント**:
    - 応募書類には流用元リポジトリ（イマノウチ/ヨリミチ）との関係性と、本コンテストのためにゼロから新規開発した範囲を明確に記載すること（審査の公平性担保）。
-   - 1分デモ動画（`20_案3plus/pitch/amemichi_demo_1min.mp4`）は Full HD 1080p（60秒ジャスト）でナレーション・テロップ付きで完成しており、YouTube（限定公開等）にそのままアップロード可能。
+   - 1分デモ動画（`docs/20_案3plus/pitch/amemichi_demo_1min.mp4`）は Full HD 1080p（60秒ジャスト）でナレーション・テロップ付きで完成しており、YouTube（限定公開等）にそのままアップロード可能。
 
 ---
 
@@ -87,7 +87,8 @@ cd open-data-challenge2026
 git checkout develop
 git pull origin develop
 
-# 3. 依存パッケージのインストール
+# 3. 依存パッケージのインストール（アプリごとにフォルダが分かれている）
+cd apps/amemichi-3d
 npm install
 
 # 4. ローカル開発サーバー起動
@@ -100,9 +101,9 @@ npm run dev
 ## 6. 次の推奨ステップ（コンテスト応募手続きの実行）
 
 1. **YouTubeへの動画アップロード（限定公開等）**:
-   - `20_案3plus/pitch/amemichi_demo_1min.mp4` をYouTubeにアップロードし、共有リンクを取得。
+   - `docs/20_案3plus/pitch/amemichi_demo_1min.mp4` をYouTubeにアップロードし、共有リンクを取得。
 2. **コンテスト応募フォームへの申請提出**:
-   - `20_案3plus/pitch/01_コンテスト応募書類ドラフト.md` のテキストおよびYouTubeリンクを用いて、公共交通オープンデータチャレンジ2026公式応募フォームよりエントリー。
+   - `docs/20_案3plus/pitch/01_コンテスト応募書類ドラフト.md` のテキストおよびYouTubeリンクを用いて、公共交通オープンデータチャレンジ2026公式応募フォームよりエントリー。
 
 ---
 

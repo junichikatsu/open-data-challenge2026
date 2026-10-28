@@ -10,7 +10,7 @@
 [![ODPT](https://img.shields.io/badge/ODPT-Challenge_2026-00b4d8?style=for-the-badge)](https://tokyochallenge.odpt.org/)
 
 <p align="center">
-  <img src="public/ogp.jpg" alt="アメミチ 3D 豪雨防災3Dデジタルツインマップ" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);" />
+  <img src="apps/amemichi-3d/public/ogp.jpg" alt="アメミチ 3D 豪雨防災3Dデジタルツインマップ" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);" />
 </p>
 
 ---
@@ -173,7 +173,8 @@ cd open-data-challenge2026
 # 2. develop ブランチの確認
 git checkout develop
 
-# 3. 依存ライブラリのインストール
+# 3. 依存ライブラリのインストール（アプリごとにフォルダが分かれています）
+cd apps/amemichi-3d
 npm install
 
 # 4. ローカル開発サーバーの起動
@@ -188,26 +189,32 @@ npm run build
 
 ## 7. ディレクトリ構成
 
+このリポジトリには複数のアプリが入っています。アプリごとに `package.json` が独立しています。
+
 ```
 .
-├── .github/workflows/deploy.yml   # GitHub Actions 自動デプロイワークフロー
-├── 00_前提資料/                   # コンテスト開催概要・審査分析・優勝提案調査レポート
-├── 10_候補案/                     # 検討初期の比較アーカイブ
-├── 20_案3plus/                    # 企画書、開発計画、データ処理原本・仕様
-├── public/
-│   └── data/                      # 空間結合済みオープンデータ GeoJSON
-│       ├── tokyo_underpass_159.geojson  # 東京都全域159箇所アンダーパス
-│       ├── minato_underpass_5.geojson   # 港区重点5箇所詳細
-│       ├── station_facilities.geojson   # 駅出入口・一時滞在施設
-│       ├── toei_bus_routes.geojson      # 都営バス主要系統 shapes
-│       └── minato_landmarks_3d.geojson  # PLATEAU 3D建築物
-├── src/
-│   ├── main.js                    # アプリケーションロジック（地図、シナリオ、採点）
-│   └── style.css                  # UIスタイルシート（ダークグラスモーフィズムデザイン）
-├── index.html                     # メインHTML
+├── .github/workflows/
+│   └── deploy-amemichi-3d.yml     # アメミチ 3D を GitHub Pages へ自動デプロイ
+├── apps/
+│   ├── amemichi-3d/               # アメミチ 3D（本ドキュメントのアプリ。Vite）
+│   │   ├── public/data/           # 空間結合済みオープンデータ GeoJSON
+│   │   │   ├── tokyo_underpass_159.geojson  # 東京都全域159箇所アンダーパス
+│   │   │   ├── minato_underpass_5.geojson   # 港区重点5箇所詳細
+│   │   │   ├── station_facilities.geojson   # 駅出入口・一時滞在施設
+│   │   │   ├── toei_bus_routes.geojson      # 都営バス主要系統 shapes
+│   │   │   └── minato_landmarks_3d.geojson  # PLATEAU 3D建築物
+│   │   ├── scripts/               # データ生成スクリプト
+│   │   ├── src/                   # main.js（地図・シナリオ・採点）/ style.css
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   └── vite.config.js         # GitHub Pages 相対パス対応
+│   └── keio-liner/                # ライナー車窓（京王ライナー乗車中アプリ。enebular / LINE ミニアプリ）
+│                                  #   → apps/keio-liner/README.md
+├── docs/
+│   ├── 00_前提資料/               # コンテスト開催概要・審査分析・優勝提案調査レポート
+│   ├── 10_候補案/                 # 検討初期の比較アーカイブ
+│   └── 20_案3plus/                # 企画書、開発計画、データ処理原本・仕様、応募資料（pitch/）
 ├── HANDOVER.md                    # 開発引き継ぎ書・蓄積ノウハウ
-├── package.json                   # パッケージ設定
-├── vite.config.js                 # Vite ビルド設定（GitHub Pages 相対パス対応）
 └── README.md                      # 本ドキュメント（審査員向け仕様）
 ```
 
