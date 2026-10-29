@@ -8,7 +8,7 @@
 
 /**
  * @typedef {{ station: string, name: string, lat: number, lon: number, arr?: number, dep?: number, stop: boolean, est: boolean, km: number }} PathPoint
- * @typedef {{ id: string, name: string, nameEn: string, category: string, lat: number, lon: number, wikipedia: string }} Spot
+ * @typedef {{ id: string, name: string, nameEn: string, category: string, lat: number, lon: number, wikipedia: string, lengthKm?: number }} Spot
  * @typedef {{ lat: number, lon: number, km: number, index: number, atStation: boolean, heading: [number, number] }} Position
  */
 
@@ -125,6 +125,11 @@ export function nextStop(path, pos) {
     if (p.stop && !p.est) return p
   }
   return undefined
+}
+
+/** km が地下区間に入っているか @param {[number, number][] | undefined} tunnels @param {number} km */
+export function inTunnel(tunnels, km) {
+  return (tunnels ?? []).some(([a, b]) => km >= a && km <= b)
 }
 
 export { arriveAt, leaveAt }

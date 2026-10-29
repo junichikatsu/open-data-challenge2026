@@ -650,3 +650,81 @@ select {
 .stop:not(:first-child):not(:last-child) .stop-name {
   display: none;
 }
+
+/* ---- 席のおすすめ ---- */
+.eyebrow-muted {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.seat h3 {
+  margin: 0.1rem 0 0.15rem;
+  font-size: 1.05rem;
+}
+
+.seat-rows {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.seat-row {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.4rem;
+}
+
+.seat-row-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-top: 0.15rem;
+}
+
+.seat-highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.seat-highlights li {
+  display: inline-flex;
+  gap: 0.3rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.82rem;
+}
+
+/* ---- すれ違い ---- */
+.passing {
+  margin-top: 0.8rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+}
+
+.passing-count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.passing-label {
+  font-size: 0.85rem;
+  margin-right: 0.3rem;
+}
+
+#ps-done {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* 地下区間の脇のスポット（見えない） */
+.spot.under {
+  opacity: 0.55;
+}

@@ -34,6 +34,25 @@ const DIRECTIONS = ['Inbound', 'Outbound']
 const CALENDARS = ['Weekday', 'SaturdayHoliday', 'Specific.Keio.SaturdayHolidayOnRaceDay']
 const MAX_PER_RESPONSE = 1000
 
+/**
+ * 地下を走る駅間（車窓から外が見えない）。ODPT に地上・地下の区別が無いので、ここで持つ。
+ *   whole: 駅間のほぼ全部が地下
+ *   half:  片方の駅が地下で、途中で地上に出る（地下の駅の側の半分を地下とみなす。値は地下の駅）
+ * 新宿〜笹塚は笹塚の手前まで地下。調布付近（国領・布田・調布）は 2012 年に地下化
+ */
+const TUNNELS = {
+  whole: [
+    ['新宿', '笹塚'],
+    ['国領', '布田'],
+    ['布田', '調布'],
+  ],
+  half: [
+    ['柴崎', '国領', '国領'],
+    ['調布', '西調布', '調布'],
+    ['調布', '京王多摩川', '調布'],
+  ],
+}
+
 function readToken() {
   if (process.env.ODPT_CHALLENGE_TOKEN) return process.env.ODPT_CHALLENGE_TOKEN.trim()
   const envFile = join(root, '.env')
@@ -116,7 +135,8 @@ async function main() {
   const stationDict = {}
   for (const s of stations) {
     stationDict[s['owl:sameAs']] = {
-      name: s['odpt:stationTitle']?.ja ?? s['dc:title'],
+      // ODPT の駅名には互換漢字が混ざる（笹塚の「塚」が U+FA10）。照合で食い違わないよう正規化する
+      name: (s['odpt:stationTitle']?.ja ?? s['dc:title']).normalize('NFKC'),
       nameEn: s['odpt:stationTitle']?.en ?? '',
       code: s['odpt:stationCode'] ?? '',
       lat: s['geo:lat'],
@@ -227,6 +247,30 @@ async function main() {
       }
     })
 
+    // ---- 地下区間（km の範囲） ----
+    /** @type {[number, number][]} */
+    const tunnels = []
+    const same = (/** @type {string[]} */ pair, /** @type {string} */ x, /** @type {string} */ y) =>
+      (pair[0] === x && pair[1] === y) || (pair[0] === y && pair[1] === x)
+    for (let i = 1; i < points.length; i++) {
+      const a = points[i - 1]
+      const b = points[i]
+      if (TUNNELS.whole.some((p) => same(p, a.name, b.name))) tunnels.push([a.km, b.km])
+      const h = TUNNELS.half.find((p) => same(p, a.name, b.name))
+      if (h) {
+        const mid = round1((a.km + b.km) / 2)
+        tunnels.push(h[2] === a.name ? [a.km, mid] : [mid, b.km])
+      }
+    }
+    // 隣り合う範囲をつなげる
+    /** @type {[number, number][]} */
+    const merged = []
+    for (const r of tunnels) {
+      const last = merged[merged.length - 1]
+      if (last && Math.abs(last[1] - r[0]) < 0.01) last[1] = r[1]
+      else merged.push([r[0], r[1]])
+    }
+
     // ---- 追い抜き ----
     const linerTime = new Map(points.map((p) => [p.name, p]))
     const first = chain[0]
@@ -277,6 +321,50 @@ async function main() {
     }
     overtakes.sort((p, q) => p.t - q.t)
 
+    // ---- すれ違い ----
+    // 反対方向の列車について、駅ごとに「相手の時刻 − ライナーの時刻」を取り、
+    // 隣り合う駅で符号が変わったら、その間ですれ違っている。0 になる位置を線形に按分して km と時刻を出す
+    const kmOf = new Map(points.map((p) => [p.name, p.km]))
+    /** @type {any[]} */
+    const passings = []
+    for (const seg of chain) {
+      const segNames = new Set(segmentStations(seg).map((s) => stationDict[s].name))
+      const opposite = timetables.filter(
+        (x) =>
+          x['odpt:railway'] === seg['odpt:railway'] &&
+          x['odpt:railDirection'] !== seg['odpt:railDirection'] &&
+          x['odpt:calendar'] === seg['odpt:calendar'],
+      )
+      for (const x of opposite) {
+        const xs = x['odpt:trainTimetableObject']
+          .map((/** @type {any} */ e) => {
+            const name = stationDict[stationOf(e)]?.name
+            const t = toMin(e['odpt:departureTime'] ?? e['odpt:arrivalTime'])
+            const l = linerTime.get(name)
+            const lt = l ? (l.dep ?? l.arr) : undefined
+            return { name, t, f: t !== undefined && lt !== undefined ? t - lt : undefined }
+          })
+          .filter((/** @type {any} */ e) => e.name && segNames.has(e.name) && e.f !== undefined)
+        for (let k = 1; k < xs.length; k++) {
+          const a = xs[k - 1]
+          const b = xs[k]
+          if (a.f === 0 || Math.sign(a.f) === Math.sign(b.f)) continue
+          const g = a.f / (a.f - b.f)
+          const kmA = kmOf.get(a.name) ?? 0
+          const kmB = kmOf.get(b.name) ?? 0
+          passings.push({
+            km: round1(kmA + (kmB - kmA) * g),
+            t: round1(a.t + (b.t - a.t) * g),
+            trainType: typeDict[x['odpt:trainType']] ?? short(x['odpt:trainType']),
+            trainNumber: x['odpt:trainNumber'],
+            destination: stationDict[x['odpt:destinationStation']?.[0]]?.name ?? '',
+          })
+          break
+        }
+      }
+    }
+    passings.sort((p, q) => p.t - q.t)
+
     const firstDep = points.find((p) => p.dep !== undefined)?.dep
     trips.push({
       id,
@@ -289,6 +377,8 @@ async function main() {
       arrival: points[points.length - 1].arr,
       path: points,
       overtakes,
+      passings,
+      tunnels: merged,
     })
   }
   trips.sort((a, b) => a.calendar.localeCompare(b.calendar) || a.departure - b.departure)
@@ -311,6 +401,8 @@ async function main() {
   console.log(`[liner] ${trips.length} 便を出力: ${JSON.stringify(counts)}`)
   const ot = trips.map((t) => t.overtakes.length)
   console.log(`[liner] 追い抜き: 平均 ${(ot.reduce((a, b) => a + b, 0) / ot.length).toFixed(1)} 本 / 最大 ${Math.max(...ot)} 本`)
+  const ps = trips.map((t) => t.passings.length)
+  console.log(`[liner] すれ違い: 平均 ${(ps.reduce((a, b) => a + b, 0) / ps.length).toFixed(1)} 本 / 最大 ${Math.max(...ps)} 本`)
   console.log(`[liner] ${outFile}`)
 }
 

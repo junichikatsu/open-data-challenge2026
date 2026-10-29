@@ -13,6 +13,8 @@ export interface Spot {
   lat: number
   lon: number
   wikipedia: string
+  /** 川だけ: 沿線の範囲に入っている長さ（km）。大きい川を優先して案内するのに使う */
+  lengthKm?: number
 }
 
 interface SpotsFile {

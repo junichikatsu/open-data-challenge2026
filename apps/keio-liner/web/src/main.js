@@ -9,15 +9,17 @@ import { api, ApiError } from './api.js'
 import { initAuth, isLoggedIn, login, relogin, token, userLabel } from './auth.js'
 import { calendarOf, createClock, hhmm } from './clock.js'
 import { byId, el, formatTime, replaceChildren } from './dom.js'
-import { kmFromGps, nextStop, positionAt, projectSpot, timeAtKm } from './geo.js'
+import { inTunnel, kmFromGps, nextStop, positionAt, projectSpot, timeAtKm } from './geo.js'
+import { isRiverCrossing, recommendSeat } from './seat.js'
 
 /**
  * @typedef {import('./geo.js').PathPoint} PathPoint
  * @typedef {import('./geo.js').Spot} Spot
  * @typedef {{ station: string, t: number, trainType: string, trainNumber: string, destination: string }} Overtake
- * @typedef {{ id: string, calendar: string, trainNumber: string, direction: string, origin: string, destination: string, departure: number, arrival: number, overtakeCount: number }} TripSummary
- * @typedef {TripSummary & { path: PathPoint[], overtakes: Overtake[] }} Trip
- * @typedef {{ spot: Spot, km: number, offsetM: number, side: 'left' | 'right' }} SpotOnRoute
+ * @typedef {{ id: string, calendar: string, trainNumber: string, direction: string, origin: string, destination: string, departure: number, arrival: number, overtakeCount: number, passingCount: number }} TripSummary
+ * @typedef {{ km: number, t: number, trainType: string, trainNumber: string, destination: string }} Passing
+ * @typedef {TripSummary & { path: PathPoint[], overtakes: Overtake[], passings: Passing[], tunnels: [number, number][] }} Trip
+ * @typedef {{ spot: Spot, km: number, offsetM: number, side: 'left' | 'right', under: boolean }} SpotOnRoute
  * @typedef {{ spotId: string, name: string, category: string, lat: number, lon: number, savedAt: number, tripLabel?: string, nearStation?: string }} Favorite
  */
 
@@ -174,7 +176,7 @@ async function selectCalendar(calendar) {
       { attrs: { label: /** @type {string} */ (label) } },
       state.trips
         .filter((t) => t.direction === dir)
-        .map((t) => el('option', { text: `${tripLabel(t)}（追い抜き ${t.overtakeCount} 本）`, attrs: { value: t.id } })),
+        .map((t) => el('option', { text: `${tripLabel(t)}（追い抜き ${t.overtakeCount}・すれ違い ${t.passingCount}）`, attrs: { value: t.id } })),
     ),
   )
   replaceChildren(select, groups)
@@ -201,12 +203,17 @@ async function selectTrip(id) {
   state.trip = res.trip
   const path = res.trip.path
   state.route = state.spots
-    .map((spot) => ({ spot, ...projectSpot(path, spot) }))
+    .map((spot) => {
+      const p = projectSpot(path, spot)
+      // 地下区間の脇にあるスポットは車窓から見えない（ガイドには出すが、通知と席のおすすめには使わない）
+      return { spot, ...p, under: inTunnel(res.trip.tunnels, p.km) }
+    })
     .filter((s) => s.offsetM <= GUIDE_OFFSET_M && s.km > 0.2 && s.km < path[path.length - 1].km - 0.1)
     .sort((a, b) => a.km - b.km)
   state.live = null
   state.lastT = null
   renderStops()
+  renderSeat()
   tick()
   void pollLive()
 }
@@ -239,6 +246,7 @@ function tick() {
 
   renderStatus(trip, t, pos)
   renderOvertakes(trip, t)
+  renderPassings(trip, t)
   renderGuide(pos)
   if (!jumped) notify(trip, t, pos)
 }
@@ -266,7 +274,8 @@ function renderStatus(trip, t, pos) {
   } else {
     const a = /** @type {PathPoint} */ (path[pos.index])
     const b = path[pos.index + 1]
-    eyebrow.textContent = clock.demo ? `デモ再生 ×${clock.speed}` : pos.atStation && a.stop ? '停車中' : '走行中'
+    const state_ = pos.atStation && a.stop ? '停車中' : inTunnel(trip.tunnels, pos.km) ? '地下を走行中' : '走行中'
+    eyebrow.textContent = clock.demo ? `デモ再生 ×${clock.speed}・${state_}` : state_
     where.textContent = pos.atStation ? `${a.name}${a.stop ? '' : ' を通過'}` : `${a.name} → ${b?.name ?? ''}`
     const ns = nextStop(path, pos)
     next.textContent = ns ? `次は ${ns.name}（${hhmm(/** @type {number} */ (ns.arr ?? ns.dep))} 着予定）` : ''
@@ -329,13 +338,13 @@ function renderGuide(pos) {
     ahead.map((s) => {
       const dKm = s.km - pos.km
       const when = dKm <= 0.15 ? 'いま' : `${dKm.toFixed(1)}km 先`
-      return el('li', { class: 'spot' }, [
+      return el('li', { class: s.under ? 'spot under' : 'spot' }, [
         el('span', { class: 'spot-icon', text: catIcon(s.spot.category) }),
         el('div', { class: 'spot-body' }, [
           el('strong', { text: s.spot.name }),
           el('span', {
             class: 'spot-meta',
-            text: `${s.side === 'left' ? '左手' : '右手'}・線路から ${roundM(s.offsetM)}・${catName(s.spot.category)}`,
+            text: `${whereText(s)}・${catName(s.spot.category)}`,
           }),
         ]),
         el('span', { class: 'spot-when', text: when }),
@@ -343,6 +352,56 @@ function renderGuide(pos) {
       ])
     }),
   )
+}
+
+/** スポットの見え方。川は左右ではなく「渡る」 @param {SpotOnRoute} s */
+function whereText(s) {
+  if (s.under) return `${s.side === 'left' ? '左手' : '右手'}・地下区間のため見えません`
+  if (isRiverCrossing(s)) return '鉄橋で渡ります'
+  return `${s.side === 'left' ? '左手' : '右手'}・線路から ${roundM(s.offsetM)}`
+}
+
+/** 席の左右おすすめ（便を選んだときに 1 回） */
+function renderSeat() {
+  const a = recommendSeat(state.route.filter((s) => !s.under))
+  const head = byId('seat-side')
+  const sub = byId('seat-detail')
+  if (a.side === null) {
+    head.textContent = 'この便の沿線には案内できるスポットが少なめです'
+    sub.textContent = ''
+  } else {
+    head.textContent =
+      a.side === 'either' ? '左右どちらの窓側にも見どころがあります' : `進行方向 ${a.side === 'right' ? '右側' : '左側'}の窓側がおすすめ`
+    sub.textContent = `見どころの点数 左 ${a.left} / 右 ${a.right}${a.rivers.length ? `・${a.rivers.slice(0, 3).join('・')}を渡ります` : ''}`
+  }
+  /** @param {string} label @param {import('./geo.js').Spot[]} spots */
+  const row = (label, spots) =>
+    el('div', { class: 'seat-row' }, [
+      el('span', { class: 'seat-row-label', text: label }),
+      el(
+        'ul',
+        { class: 'seat-highlights' },
+        spots.length
+          ? spots.map((sp) => el('li', {}, [el('span', { text: catIcon(sp.category) }), el('span', { text: sp.name })]))
+          : [el('li', { class: 'muted', text: '目立つものは少なめ' })],
+      ),
+    ])
+  replaceChildren(byId('seat-highlights'), [row('左側', a.highlights.left), row('右側', a.highlights.right)])
+}
+
+/** すれ違い。数が多いので通知はせず、数と直前にすれ違った列車だけ出す @param {Trip} trip @param {number} t */
+function renderPassings(trip, t) {
+  const done = trip.passings.filter((p) => p.t <= t)
+  byId('ps-done').textContent = String(done.length)
+  byId('ps-total').textContent = String(trip.passings.length)
+  const last = done[done.length - 1]
+  const next = trip.passings.find((p) => p.t > t)
+  byId('ps-last').textContent =
+    t < trip.departure
+      ? `この便は反対方向の列車と ${trip.passings.length} 本すれ違う予定です`
+      : last
+        ? `直前: ${last.trainType}（${last.destination}行）${next && t < trip.arrival ? `・次は約 ${Math.max(1, Math.round(next.t - t))} 分後` : ''}`
+        : 'まだすれ違っていません'
 }
 
 /** @param {number} m */
@@ -368,14 +427,15 @@ function notify(trip, t, pos) {
   const due = state.route.filter(
     (s) => !state.notifiedSpots.has(s.spot.id) && s.offsetM <= NOTIFY_OFFSET_M && pos.km >= s.km - NOTIFY_BEFORE_KM,
   )
-  if (due.length === 0) return
   for (const s of due) state.notifiedSpots.add(s.spot.id)
-  const s = /** @type {SpotOnRoute} */ (due.reduce((a, b) => (b.offsetM < a.offsetM ? b : a)))
+  const visible = due.filter((s) => !s.under)
+  if (visible.length === 0) return
+  const s = /** @type {SpotOnRoute} */ (visible.reduce((a, b) => (b.offsetM < a.offsetM ? b : a)))
   state.lastSpotToastKm = pos.km
   toast({
     icon: catIcon(s.spot.category),
     title: s.spot.name,
-    body: `${s.side === 'left' ? '左手' : '右手'} ${roundM(s.offsetM)}・${catName(s.spot.category)}`,
+    body: `${whereText(s)}・${catName(s.spot.category)}`,
     action: state.favorites.has(s.spot.id) ? undefined : { label: '♡ 保存', run: () => void saveFavorite(s) },
   })
 }

@@ -49,6 +49,13 @@
           </div>
         </div>
 
+        <div class="card seat">
+          <p class="eyebrow-muted">席のおすすめ</p>
+          <h3 id="seat-side"></h3>
+          <p id="seat-detail" class="muted"></p>
+          <div id="seat-highlights" class="seat-rows"></div>
+        </div>
+
         <div class="card status">
           <p id="status-eyebrow" class="eyebrow"></p>
           <h2 id="status-where" class="where"></h2>
@@ -64,12 +71,16 @@
         <div class="card overtake">
           <div class="overtake-head">
             <div>
-              <h3>追い抜きカウンター</h3>
-              <p class="muted">時刻表から、この便が抜く列車を数えます</p>
+              <h3>追い抜き・すれ違いカウンター</h3>
+              <p class="muted">時刻表から、この便が抜く列車とすれ違う列車を数えます</p>
             </div>
             <p class="counter" aria-live="polite"><span id="ot-done">0</span><span class="of">/<span id="ot-total">0</span>本</span></p>
           </div>
           <ol id="ot-list" class="ot-list"></ol>
+          <div class="passing">
+            <p class="passing-count"><span class="passing-label">すれ違い</span><span id="ps-done">0</span><span class="of">/<span id="ps-total">0</span>本</span></p>
+            <p id="ps-last" class="muted"></p>
+          </div>
         </div>
 
         <div class="card guide">

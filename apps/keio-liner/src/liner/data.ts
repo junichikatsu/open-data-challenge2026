@@ -29,6 +29,15 @@ export interface Overtake {
   destination: string
 }
 
+/** 反対方向の列車とのすれ違い。km は始発からの距離、t はその時刻（いずれも時刻表からの推定） */
+export interface Passing {
+  km: number
+  t: number
+  trainType: string
+  trainNumber: string
+  destination: string
+}
+
 export interface Trip {
   id: string
   calendar: string
@@ -40,6 +49,9 @@ export interface Trip {
   arrival: number
   path: PathPoint[]
   overtakes: Overtake[]
+  passings: Passing[]
+  /** 地下区間（始発からの km の範囲）。車窓から外が見えない */
+  tunnels: [number, number][]
 }
 
 export interface LinerData {
@@ -62,11 +74,11 @@ export function getLinerData(): LinerData {
   throw new AppError('INTERNAL', 503, 'LINER_DATA_NOT_BUILT')
 }
 
-export type TripSummary = Omit<Trip, 'path' | 'overtakes'> & { overtakeCount: number }
+export type TripSummary = Omit<Trip, 'path' | 'overtakes' | 'passings' | 'tunnels'> & { overtakeCount: number; passingCount: number }
 
 export function summarize(t: Trip): TripSummary {
-  const { path: _path, overtakes, ...rest } = t
-  return { ...rest, overtakeCount: overtakes.length }
+  const { path: _path, overtakes, passings, tunnels: _tunnels, ...rest } = t
+  return { ...rest, overtakeCount: overtakes.length, passingCount: passings.length }
 }
 
 /** ODPT の駅 ID → 駅名（列車ロケーションの fromStation / toStation を名前にする） */

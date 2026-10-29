@@ -24,6 +24,11 @@ export const linerFixture: LinerData = {
         { station: 'odpt.Station:Keio.Keio.Hachimanyama', name: '八幡山', lat: 35.669, lon: 139.61, arr: 1089, dep: 1089, stop: false, est: true, km: 8.4 },
       ],
       overtakes: [{ station: '八幡山', t: 1089, trainType: '各駅停車', trainNumber: '1801', destination: '調布' }],
+      passings: [
+        { km: 1.2, t: 1082, trainType: '特急', trainNumber: '1750', destination: '新宿' },
+        { km: 6.0, t: 1087, trainType: '各駅停車', trainNumber: '1802', destination: '新宿' },
+      ],
+      tunnels: [[0, 3.3]],
     },
     {
       id: 'SaturdayHoliday-7003',
@@ -36,6 +41,8 @@ export const linerFixture: LinerData = {
       arrival: 1059,
       path: [],
       overtakes: [],
+      passings: [],
+      tunnels: [],
     },
   ],
 }

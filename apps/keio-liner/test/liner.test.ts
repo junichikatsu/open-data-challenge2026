@@ -24,8 +24,9 @@ describe('便データ', () => {
     expect(res.status).toBe(200)
     const { trips } = (await res.json()) as { trips: Record<string, unknown>[] }
     expect(trips).toHaveLength(1)
-    expect(trips[0]).toMatchObject({ id: 'Weekday-7003', overtakeCount: 1 })
+    expect(trips[0]).toMatchObject({ id: 'Weekday-7003', overtakeCount: 1, passingCount: 2 })
     expect(trips[0]).not.toHaveProperty('path')
+    expect(trips[0]).not.toHaveProperty('passings')
   })
 
   it('1 便の詳細と、無い便は 404', async () => {
