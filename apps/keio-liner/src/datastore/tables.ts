@@ -11,6 +11,8 @@ import { DataStoreConfigError } from './errors'
 export const TABLES = {
   /** お気に入りスポット。1 ユーザー × 1 スポット = 1 アイテム。一覧は query 1 回 */
   favorites: { env: 'DS_TABLE_FAVORITES', mainKey: 'userId', subKey: 'spotId', subKeyType: 'string' },
+  /** 乗車記録の累計とバッジ。1 ユーザー = 1 アイテム（kind = 'summary'） */
+  stats: { env: 'DS_TABLE_STATS', mainKey: 'userId', subKey: 'kind', subKeyType: 'string' },
 } as const
 
 export type TableName = keyof typeof TABLES

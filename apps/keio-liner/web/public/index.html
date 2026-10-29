@@ -26,6 +26,7 @@
         </div>
         <nav class="tabs" role="tablist">
           <button type="button" role="tab" data-tab="ride" aria-selected="true">乗車中</button>
+          <button type="button" role="tab" data-tab="records" aria-selected="false">記録</button>
           <button type="button" role="tab" data-tab="favs" aria-selected="false">
             お気に入り <span id="fav-count" class="badge"></span>
           </button>
@@ -87,6 +88,26 @@
           <h3>車窓ガイド</h3>
           <p class="muted">この先 4km・線路から 1.2km 以内のスポット</p>
           <ul id="guide-list" class="spot-list"></ul>
+        </div>
+      </section>
+
+      <section id="view-records" class="view" hidden>
+        <div class="card">
+          <h3>乗車記録</h3>
+          <p class="muted">乗車中にアプリを開いておくと、到着時に自動で記録されます（デモ再生は記録されません）</p>
+          <div id="records-login" class="login" hidden></div>
+          <div id="records-summary" class="stats"></div>
+        </div>
+        <div class="card">
+          <div class="overtake-head">
+            <h3>バッジ</h3>
+            <span id="badge-count" class="muted"></span>
+          </div>
+          <ul id="badge-grid" class="badge-grid"></ul>
+        </div>
+        <div class="card">
+          <h3>最近の乗車</h3>
+          <ul id="ride-list" class="spot-list"></ul>
         </div>
       </section>
 

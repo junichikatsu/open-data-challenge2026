@@ -728,3 +728,80 @@ select {
 .spot.under {
   opacity: 0.55;
 }
+
+/* ---- 乗車記録 ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.stat {
+  display: grid;
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.badge-grid {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: 0.5rem;
+}
+
+.badge-item {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.1rem;
+  padding: 0.6rem 0.4rem;
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+.badge-item.earned {
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--fg);
+}
+
+.badge-icon {
+  font-size: 1.6rem;
+}
+
+.badge-item strong {
+  font-size: 0.82rem;
+}
+
+.badge-desc {
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.ride {
+  display: grid;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.ride:first-child {
+  border-top: 0;
+}

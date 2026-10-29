@@ -65,3 +65,10 @@ export function calendarOf(d) {
   const dow = base.getDay()
   return dow === 0 || dow === 6 || HOLIDAYS.has(key) ? 'SaturdayHoliday' : 'Weekday'
 }
+
+/** 運行日（深夜 0〜4 時は前日）。乗車記録の「どの日に乗ったか」に使う @param {Date} d */
+export function serviceDateOf(d) {
+  const base = new Date(d)
+  if (base.getHours() < 4) base.setDate(base.getDate() - 1)
+  return `${base.getFullYear()}-${String(base.getMonth() + 1).padStart(2, '0')}-${String(base.getDate()).padStart(2, '0')}`
+}

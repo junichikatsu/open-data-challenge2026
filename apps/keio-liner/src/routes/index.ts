@@ -3,6 +3,7 @@ import { requireUser } from '../middleware/auth'
 import { favoriteRoutes } from './favorites'
 import { healthHandler } from './health'
 import { linerRoutes } from './liner'
+import { recordRoutes } from './records'
 import { staticRoutes } from './static-routes'
 
 /**
@@ -23,6 +24,7 @@ export function createRoutes(): Hono {
 
   routes.use('/v1/me/*', requireUser())
   routes.route('/v1/me/favorites', favoriteRoutes())
+  routes.route('/v1/me', recordRoutes())
 
   return routes
 }

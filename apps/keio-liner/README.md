@@ -5,6 +5,9 @@
 - **追い抜きカウンター** — 時刻表から、この便が追い抜く列車（各停・急行など）を数え、抜いた瞬間に知らせる
 - **車窓ガイド** — この先 4km・線路から 1.2km 以内のスポットを、左手／右手と距離つきで並べる
 - **スポット通知** — 近づいたスポットを画面に通知。♡ で保存して「お気に入り」タブで見返せる（LINE ログイン）
+- **席の左右おすすめ** — 座席指定を選ぶ前に、左右それぞれの見どころと渡る川を出す（地下区間のスポットは数えない）
+- **すれ違いカウンター** — 反対方向の列車とのすれ違いを時刻表から数える（1 便あたり平均 22.5 本）
+- **乗車記録とバッジ** — 走行時間の半分以上アプリを開いていた便を、到着時に自動で記録。累計とバッジ 13 種（LINE ログイン）
 
 enebular クラウド実行環境（ZIP / Node.js 22.x）で動くバックエンド API と、同じ ZIP から同一オリジンで
 配信されるフロントエンド。雛形は `enebular-app` スキル（`.claude/skills/enebular-app`）。
@@ -63,7 +66,7 @@ npm run dev        # http://localhost:8787
 - `MOCK_MODE=true`（既定）では LINE ログインを模擬し（端末ごとの仮ユーザー）、列車ロケーションも取りに行かない
 - データストアはローカルで代替できないので、インメモリ実装に切り替わる。**永続化されない**（再起動で消える）
 - 京王ライナーは朝と夕方以降しか走らない。昼間は「デモ再生 ×20」で動きを見る
-- 紹介用のリンク: `?trip=Weekday-7003&demo=12` で、その便の発車 12 分後からデモ再生が始まる
+- 紹介用のリンク: `?trip=Weekday-7003&demo=12` で、その便の発車 12 分後からデモ再生が始まる。`?tab=records` / `?tab=favs` でそのタブを開く
 
 ```bash
 npm run typecheck && npm test
@@ -88,10 +91,13 @@ npm run build       # keio-liner-function.zip ができる（liner.json が無�
 | テーブル | メインキー | サブキー | 中身 |
 | :--- | :--- | :--- | :--- |
 | favorites（`DS_TABLE_FAVORITES`） | `userId`（文字列） | `spotId`（文字列） | スポット名・種類・位置・保存時刻・どの便のどの駅付近で保存したか |
+| stats（`DS_TABLE_STATS`） | `userId`（文字列） | `kind`（文字列。`summary` 固定） | 乗車回数・累計の追い抜き/すれ違い/見どころ・方面・バッジ・直近 20 回の乗車 |
 
 - 1 ユーザー × 1 スポット = 1 アイテム。同じスポットの保存は上書き
 - 一覧は query 1 回、保存は put 1 回、削除は get + delete の 2 回（月次アクセス数の上限に効く）
 - スポットの名前と位置は画面から受け取らず、サーバのスポット一覧から入れる
+- stats は 1 ユーザー 1 アイテム。乗車の記録は get + put の 2 回、表示は get の 1 回。集計は書き込み時に済ませる
+- 追い抜き・すれ違いの本数は画面から受け取らず、サーバが便データから数える。記録できるのは今日か昨日の運行日だけ、同じ日の同じ便は 1 回
 
 ## API
 
@@ -106,13 +112,16 @@ npm run build       # keio-liner-function.zip ができる（liner.json が無�
 | GET | `/v1/me/favorites` | 必要 | 自分のお気に入り |
 | PUT | `/v1/me/favorites/:spotId` | 必要 | 保存 |
 | DELETE | `/v1/me/favorites/:spotId` | 必要 | 削除 |
+| GET | `/v1/me/stats` | 必要 | 乗車記録の累計・バッジ・直近の乗車 |
+| POST | `/v1/me/rides` | 必要 | 乗車を 1 回記録（`tripId`・`date`・`spotsSeen`） |
 
 ## enebular へのデプロイ
 
 初回だけコンソールでの作業がある。
 
 1. コンソールでプロジェクトを作る → `ENEBULAR_PROJECT_ID`
-2. データストアに favorites テーブルを作る（メインキー `userId` 文字列 / サブキー `spotId` 文字列）→ テーブル ID
+2. データストアに favorites テーブル（メインキー `userId` 文字列 / サブキー `spotId` 文字列）と
+   stats テーブル（メインキー `userId` 文字列 / サブキー `kind` 文字列）を作る → テーブル ID
 3. `cp .env.deploy.example .env.deploy` して 1・2 の値とアクセスキー、`FN_ODPT_CHALLENGE_TOKEN`・`FN_LINE_CHANNEL_ID`・`FN_LIFF_ID` を入れる
 4. `npm run data:liner` で便データを作っておく（ZIP に埋め込まれる）
 5. `npm run enebular:init` — ZIP を作ってファイルアセットを登録し、`ENEBULAR_FILE_ASSET_ID` を書き戻す

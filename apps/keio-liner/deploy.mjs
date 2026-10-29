@@ -31,7 +31,7 @@ const EXAMPLE_FILE = join(root, '.env.deploy.example')
  * ★ 関数側で必須の環境変数。テーブルや外部サービスを足したらここにも足す。
  *   ここは事前チェックで、最終的な判定は /v1/health の configOk（src/config.ts）が持つ。
  */
-const REQUIRED_FN = ['DS_TABLE_FAVORITES', 'ODPT_CHALLENGE_TOKEN', 'LINE_CHANNEL_ID', 'LIFF_ID']
+const REQUIRED_FN = ['DS_TABLE_FAVORITES', 'DS_TABLE_STATS', 'ODPT_CHALLENGE_TOKEN', 'LINE_CHANNEL_ID', 'LIFF_ID']
 
 const [, , command = 'help', ...rest] = process.argv
 const flags = new Set(rest.filter((a) => a.startsWith('--')))

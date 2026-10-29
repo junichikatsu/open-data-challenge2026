@@ -7,7 +7,7 @@
  */
 import { api, ApiError } from './api.js'
 import { initAuth, isLoggedIn, login, relogin, token, userLabel } from './auth.js'
-import { calendarOf, createClock, hhmm } from './clock.js'
+import { calendarOf, createClock, hhmm, serviceDateOf } from './clock.js'
 import { byId, el, formatTime, replaceChildren } from './dom.js'
 import { inTunnel, kmFromGps, nextStop, positionAt, projectSpot, timeAtKm } from './geo.js'
 import { isRiverCrossing, recommendSeat } from './seat.js'
@@ -87,6 +87,12 @@ const state = {
   lastT: /** @type {number | null} */ (null),
   /** 最後にスポットを通知した位置（km） */
   lastSpotToastKm: /** @type {number | null} */ (null),
+  /** @type {{ tripId: string, date: string, minutes: Set<number>, spots: Set<string> } | null} 実時間で見ていた乗車（デモは含めない） */
+  observed: null,
+  /** @type {Set<string>} 記録済み（tripId@date）。同じ乗車を何度も送らない */
+  recorded: new Set(),
+  loginHintShown: false,
+  statsLoaded: false,
 }
 
 // ---- 共通 -------------------------------------------------------------------
@@ -249,6 +255,7 @@ function tick() {
   renderPassings(trip, t)
   renderGuide(pos)
   if (!jumped) notify(trip, t, pos)
+  observe(trip, t)
 }
 
 /**
@@ -270,7 +277,9 @@ function renderStatus(trip, t, pos) {
   } else if (t >= trip.arrival) {
     eyebrow.textContent = '到着'
     where.textContent = `${trip.destination}に着きました`
-    next.textContent = `追い抜いた列車 ${trip.overtakes.length} 本。おつかれさまでした`
+    next.textContent = clock.demo
+      ? `追い抜き ${trip.overtakes.length} 本・すれ違い ${trip.passings.length} 本（デモ再生は乗車記録に入りません）`
+      : `追い抜き ${trip.overtakes.length} 本・すれ違い ${trip.passings.length} 本。おつかれさまでした`
   } else {
     const a = /** @type {PathPoint} */ (path[pos.index])
     const b = path[pos.index + 1]
@@ -428,6 +437,9 @@ function notify(trip, t, pos) {
     (s) => !state.notifiedSpots.has(s.spot.id) && s.offsetM <= NOTIFY_OFFSET_M && pos.km >= s.km - NOTIFY_BEFORE_KM,
   )
   for (const s of due) state.notifiedSpots.add(s.spot.id)
+  // 乗車記録の「見どころの数」。実時間で通り過ぎた、見える（地下でない）スポットだけ数える
+  const o = state.observed
+  if (!clock.demo && o?.tripId === trip.id) for (const s of due) if (!s.under) o.spots.add(s.spot.id)
   const visible = due.filter((s) => !s.under)
   if (visible.length === 0) return
   const s = /** @type {SpotOnRoute} */ (visible.reduce((a, b) => (b.offsetM < a.offsetM ? b : a)))
@@ -628,21 +640,145 @@ function renderFavorites() {
   )
 }
 
+// ---- 乗車記録 --------------------------------------------------------------
+
+/** この割合以上の時間アプリで見ていた便だけを「乗った」とみなす */
+const OBSERVED_RATIO = 0.5
+
+/** 実時間で走行中の便を見ている間、分ごとに印を付け、到着したら記録する @param {Trip} trip @param {number} t */
+function observe(trip, t) {
+  if (clock.demo) return
+  const date = serviceDateOf(new Date())
+  if (t >= trip.departure && t <= trip.arrival) {
+    if (state.observed?.tripId !== trip.id || state.observed.date !== date) {
+      state.observed = { tripId: trip.id, date, minutes: new Set(), spots: new Set() }
+    }
+    state.observed.minutes.add(Math.floor(t))
+    return
+  }
+  const o = state.observed
+  if (t > trip.arrival && o?.tripId === trip.id && !state.recorded.has(`${o.tripId}@${o.date}`)) {
+    if (o.minutes.size >= (trip.arrival - trip.departure) * OBSERVED_RATIO) void recordRide(trip, o)
+  }
+}
+
+/** @param {Trip} trip @param {{ tripId: string, date: string, spots: Set<string> }} o */
+async function recordRide(trip, o) {
+  const key = `${o.tripId}@${o.date}`
+  state.recorded.add(key)
+  if (!isLoggedIn()) {
+    if (!state.loginHintShown) {
+      state.loginHintShown = true
+      toast({ icon: '🎫', title: 'LINE でログインすると乗車を記録できます', action: { label: 'ログイン', run: () => login() } })
+    }
+    return
+  }
+  try {
+    const res = await api('/v1/me/rides', {
+      body: { tripId: trip.id, date: o.date, spotsSeen: Math.min(o.spots.size, 300) },
+      ...authHeaders(),
+    })
+    if (!res.duplicate) {
+      toast({
+        icon: '🎫',
+        title: `乗車を記録しました（${res.stats.rides} 回目）`,
+        body: `累計 追い抜き ${res.stats.overtakes} 本・すれ違い ${res.stats.passings} 本`,
+      })
+    }
+    for (const b of res.newBadges) toast({ icon: b.icon, title: `バッジ獲得「${b.label}」`, body: b.description })
+    renderRecords(res.stats, res.badges)
+  } catch (err) {
+    state.recorded.delete(key)
+    showError(err)
+  }
+}
+
+async function loadRecords() {
+  if (!isLoggedIn()) {
+    renderRecords(null, [])
+    return
+  }
+  const res = await api('/v1/me/stats', authHeaders())
+  state.statsLoaded = true
+  renderRecords(res.stats, res.badges)
+}
+
+/**
+ * @param {any} stats
+ * @param {{ id: string, label: string, description: string, icon: string, earned: boolean }[]} badges
+ */
+function renderRecords(stats, badges) {
+  const gate = byId('records-login')
+  if (!isLoggedIn()) {
+    replaceChildren(gate, [
+      el('p', { text: '乗車記録とバッジを残すには LINE でログインしてください。' }),
+      el('button', { class: 'primary', text: 'LINE でログイン', attrs: { type: 'button' }, on: { click: () => login() } }),
+    ])
+    gate.hidden = false
+    return
+  }
+  gate.hidden = true
+  /** @param {string} label @param {number} value @param {string} unit */
+  const stat = (label, value, unit) =>
+    el('div', { class: 'stat' }, [
+      el('span', { class: 'stat-value', text: String(value) }),
+      el('span', { class: 'stat-label', text: `${label}（${unit}）` }),
+    ])
+  replaceChildren(byId('records-summary'), [
+    stat('乗車', stats?.rides ?? 0, '回'),
+    stat('追い抜き', stats?.overtakes ?? 0, '本'),
+    stat('すれ違い', stats?.passings ?? 0, '本'),
+    stat('見どころ', stats?.spotsSeen ?? 0, 'か所'),
+  ])
+  const earned = badges.filter((b) => b.earned).length
+  byId('badge-count').textContent = `${earned} / ${badges.length}`
+  replaceChildren(
+    byId('badge-grid'),
+    badges.map((b) =>
+      el('li', { class: b.earned ? 'badge-item earned' : 'badge-item', attrs: { title: b.description } }, [
+        el('span', { class: 'badge-icon', text: b.earned ? b.icon : '🔒' }),
+        el('strong', { text: b.label }),
+        el('span', { class: 'badge-desc', text: b.description }),
+      ]),
+    ),
+  )
+  /** @type {{ label: string, date: string, overtakes: number, passings: number }[]} */
+  const recent = stats?.recent ?? []
+  replaceChildren(
+    byId('ride-list'),
+    recent.length
+      ? recent.map((r) =>
+          el('li', { class: 'ride' }, [
+            el('strong', { text: r.label }),
+            el('span', { class: 'spot-meta', text: `${r.date}・追い抜き ${r.overtakes} 本・すれ違い ${r.passings} 本` }),
+          ]),
+        )
+      : [
+          el('li', { class: 'empty' }, [
+            el('strong', { text: 'まだ記録がありません' }),
+            el('span', { text: '京王ライナーの乗車中にアプリを開いておくと、到着時に自動で記録されます' }),
+          ]),
+        ],
+  )
+}
+
 // ---- タブ ----------------------------------------------------------------------
 
-/** @param {'ride' | 'favs'} tab */
+/** @param {'ride' | 'records' | 'favs'} tab */
 function showTab(tab) {
   for (const b of document.querySelectorAll('[data-tab]')) b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === tab))
   byId('view-ride').hidden = tab !== 'ride'
   byId('view-favs').hidden = tab !== 'favs'
+  byId('view-records').hidden = tab !== 'records'
   if (tab === 'favs' && !state.favoritesLoaded) void loadFavorites().catch(showError)
+  if (tab === 'records' && !state.statsLoaded) void loadRecords().catch(showError)
 }
 
 // ---- 起動 ----------------------------------------------------------------------
 
 async function main() {
   for (const b of document.querySelectorAll('[data-tab]')) {
-    b.addEventListener('click', () => showTab(/** @type {'ride'|'favs'} */ (b.getAttribute('data-tab'))))
+    b.addEventListener('click', () => showTab(/** @type {'ride'|'records'|'favs'} */ (b.getAttribute('data-tab'))))
   }
   byId('trip-select').addEventListener('change', (e) => void selectTrip(/** @type {HTMLSelectElement} */ (e.target).value).catch(showError))
   byId('demo-btn').addEventListener('click', toggleDemo)
@@ -675,6 +811,9 @@ async function main() {
   }
   renderFavorites()
   if (isLoggedIn()) void loadFavorites().catch(() => {})
+  // ?tab=records / ?tab=favs で、そのタブを開いた状態で始める（LINE のリッチメニューなどからのリンク用）
+  const tab = params.get('tab')
+  if (tab === 'records' || tab === 'favs') showTab(tab)
 
   setInterval(tick, 1000)
   setInterval(() => void pollLive(), LIVE_POLL_MS)
