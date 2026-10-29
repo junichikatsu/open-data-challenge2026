@@ -28,7 +28,7 @@ const zipPath = join(here, `${pkg.name}-function.zip`)
 const MAX_ZIP_BYTES = 250 * 1024 * 1024
 
 // ★ src/static.ts の STATIC_ASSET_NAMES と一致させる（test/app.test.ts が食い違いを検出する）
-const STATIC_ASSETS = ['index.html', 'styles.css', 'app.js']
+const STATIC_ASSETS = ['index.html', 'howto.html', 'styles.css', 'app.js']
 const CONTENT_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',

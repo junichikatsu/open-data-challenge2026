@@ -101,6 +101,17 @@ select {
   opacity: 0.75;
 }
 
+.howto-link {
+  margin-left: auto;
+  color: inherit;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.howto-link + .clock {
+  margin-left: 0.6rem;
+}
+
 .clock {
   margin-left: auto;
   font-variant-numeric: tabular-nums;
@@ -804,4 +815,68 @@ select {
 
 .ride:first-child {
   border-top: 0;
+}
+
+/* ---- 使い方ページ（howto.html） ---- */
+.howto-top {
+  padding-bottom: 0.75rem;
+}
+
+.howto {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.8rem;
+}
+
+.howto h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.howto p + p,
+.howto ul + p,
+.howto ol + p {
+  margin-top: 0.5rem;
+}
+
+.howto ul,
+.howto ol {
+  margin: 0.3rem 0 0;
+  padding-left: 1.3rem;
+}
+
+.howto li + li {
+  margin-top: 0.3rem;
+}
+
+.howto a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.howto-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.howto .link-button {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  background: var(--accent-soft);
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.howto .link-button.solid {
+  background: var(--accent);
+  color: #1b1405;
+  font-weight: 600;
+}
+
+.credits a {
+  color: inherit;
 }

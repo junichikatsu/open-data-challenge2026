@@ -67,8 +67,8 @@ describe('静的配信（pitfalls 1 / 3）', () => {
 })
 
 describe('静的ファイル一覧', () => {
-  it('index.html / styles.css / app.js が登録されている', () => {
+  it('index.html / howto.html / styles.css / app.js が登録されている', () => {
     // src/static.ts・build.mjs・routes/static-routes.ts の 3 箇所がそろっているかの目印
-    expect([...STATIC_ASSET_NAMES]).toEqual(expect.arrayContaining(['index.html', 'styles.css', 'app.js']))
+    expect([...STATIC_ASSET_NAMES]).toEqual(expect.arrayContaining(['index.html', 'howto.html', 'styles.css', 'app.js']))
   })
 })

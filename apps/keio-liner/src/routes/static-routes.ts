@@ -18,6 +18,7 @@ export function staticRoutes(): Hono {
     return sendAsset(c, 'index.html')
   })
   r.get('/index.html', guard, (c) => sendAsset(c, 'index.html'))
+  r.get('/howto.html', guard, (c) => sendAsset(c, 'howto.html'))
 
   // CSS / JS には掛けない（HTML から辿るため）
   r.get('/styles.css', (c) => sendAsset(c, 'styles.css'))

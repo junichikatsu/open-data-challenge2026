@@ -20,7 +20,7 @@ export const ASSET_VERSION_PLACEHOLDER = '__ASSET_VERSION__'
  * ZIP に同梱する静的ファイル。1 つでも欠けたらビルドを失敗させる。
  * ★ 画面を増やしたら、ここと build.mjs の STATIC_ASSETS と routes/static-routes.ts の 3 箇所に足す。
  */
-export const STATIC_ASSET_NAMES = ['index.html', 'styles.css', 'app.js'] as const
+export const STATIC_ASSET_NAMES = ['index.html', 'howto.html', 'styles.css', 'app.js'] as const
 
 export const CONTENT_TYPES: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
