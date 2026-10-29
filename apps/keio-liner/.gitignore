@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+!.env.example
+!.env.deploy.example
+
+# 生成物
+web/public/app.js
+build/
+*.zip
+coverage/
+
+# ODPT チャレンジ提供データ（取得した生データと、そこからの生成物）。リポジトリに入れない
+data/raw/
+data/generated/

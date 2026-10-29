@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f1b33" />
+    <title>ライナー車窓</title>
+    <!--
+      ★ ?v=__ASSET_VERSION__ を外さないこと。
+      実行環境の前段キャッシュが .css / .js を max-age=14400 に上書きするため、
+      no-cache は効かない。URL を変えるしかない（pitfalls 1）。
+      相対パスで書くこと（先頭 / を付けるとトリガーのパスの外に出る）。
+    -->
+    <link rel="stylesheet" href="styles.css?v=__ASSET_VERSION__" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <h1>ライナー車窓</h1>
+            <p class="brand-sub">京王ライナーの乗車時間を楽しむ</p>
+          </div>
+          <a class="howto-link" href="howto.html">使い方</a>
+          <span id="status-clock" class="clock" aria-label="現在時刻"></span>
+        </div>
+        <nav class="tabs" role="tablist">
+          <button type="button" role="tab" data-tab="ride" aria-selected="true">乗車中</button>
+          <button type="button" role="tab" data-tab="records" aria-selected="false">記録</button>
+          <button type="button" role="tab" data-tab="favs" aria-selected="false">
+            お気に入り <span id="fav-count" class="badge"></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="app">
+      <p id="error" class="error" role="alert" hidden></p>
+
+      <section id="view-ride" class="view">
+        <div class="card picker">
+          <div id="calendar-chips" class="chips" role="group" aria-label="ダイヤ"></div>
+          <label class="field">
+            <span class="field-label">乗っている便</span>
+            <select id="trip-select"></select>
+          </label>
+          <div class="picker-row">
+            <button id="demo-btn" type="button" class="ghost" aria-pressed="false"></button>
+            <label class="toggle"><input id="gps-toggle" type="checkbox" /> GPS で補正</label>
+          </div>
+        </div>
+
+        <div class="card seat">
+          <p class="eyebrow-muted">席のおすすめ</p>
+          <h3 id="seat-side"></h3>
+          <p id="seat-detail" class="muted"></p>
+          <div id="seat-highlights" class="seat-rows"></div>
+        </div>
+
+        <div class="card status">
+          <p id="status-eyebrow" class="eyebrow"></p>
+          <h2 id="status-where" class="where"></h2>
+          <div class="progress" aria-hidden="true">
+            <div class="track"><div id="progress-fill" class="fill"></div></div>
+            <span id="progress-train" class="train">🚃</span>
+            <div id="progress-stops" class="stops"></div>
+          </div>
+          <p id="status-next" class="next"></p>
+          <p id="status-live" class="live"></p>
+        </div>
+
+        <div class="card overtake">
+          <div class="overtake-head">
+            <div>
+              <h3>追い抜き・すれ違いカウンター</h3>
+              <p class="muted">時刻表から、この便が抜く列車とすれ違う列車を数えます</p>
+            </div>
+            <p class="counter" aria-live="polite"><span id="ot-done">0</span><span class="of">/<span id="ot-total">0</span>本</span></p>
+          </div>
+          <ol id="ot-list" class="ot-list"></ol>
+          <div class="passing">
+            <p class="passing-count"><span class="passing-label">すれ違い</span><span id="ps-done">0</span><span class="of">/<span id="ps-total">0</span>本</span></p>
+            <p id="ps-last" class="muted"></p>
+          </div>
+        </div>
+
+        <div class="card guide">
+          <h3>車窓ガイド</h3>
+          <p class="muted">この先 4km・線路から 1.2km 以内のスポット</p>
+          <ul id="guide-list" class="spot-list"></ul>
+        </div>
+      </section>
+
+      <section id="view-records" class="view" hidden>
+        <div class="card">
+          <h3>乗車記録</h3>
+          <p class="muted">乗車中にアプリを開いておくと、到着時に自動で記録されます（デモ再生は記録されません）</p>
+          <div id="records-login" class="login" hidden></div>
+          <div id="records-summary" class="stats"></div>
+        </div>
+        <div class="card">
+          <div class="overtake-head">
+            <h3>バッジ</h3>
+            <span id="badge-count" class="muted"></span>
+          </div>
+          <ul id="badge-grid" class="badge-grid"></ul>
+        </div>
+        <div class="card">
+          <h3>最近の乗車</h3>
+          <ul id="ride-list" class="spot-list"></ul>
+        </div>
+      </section>
+
+      <section id="view-favs" class="view" hidden>
+        <div class="card">
+          <h3>お気に入り</h3>
+          <p class="muted"><span id="user"></span></p>
+          <div id="favs-login" class="login" hidden></div>
+          <ul id="fav-list" class="spot-list"></ul>
+        </div>
+      </section>
+
+      <footer class="credits">
+        <p>列車データ: <span id="attr-odpt"></span></p>
+        <p>スポット: <span id="attr-osm"></span></p>
+        <p>京王電鉄の公式アプリではありません。表示は時刻表からの推定を含みます。</p>
+        <p><a href="howto.html">使い方</a></p>
+      </footer>
+    </main>
+
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+
+    <script src="app.js?v=__ASSET_VERSION__"></script>
+  </body>
+</html>
