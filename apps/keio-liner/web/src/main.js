@@ -293,7 +293,8 @@ function renderStatus(trip, t, pos) {
   const pct = Math.max(0, Math.min(100, (pos.km / total) * 100))
   byId('progress-fill').style.width = `${pct}%`
   byId('progress-train').style.left = `${pct}%`
-  byId('status-clock').textContent = hhmm(clock.now())
+  // 時計は秒を切り捨てる（hhmm は四捨五入なので、そのままだと 30 秒過ぎで次の分になる）
+  byId('status-clock').textContent = hhmm(Math.floor(clock.now()))
 }
 
 /** 進捗バーの駅の目印（停車駅だけ名前を出す） */
